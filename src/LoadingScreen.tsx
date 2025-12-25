@@ -13,33 +13,36 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
       ${started ? "opacity-0" : "opacity-100"}`}
     >
       {/* Replaced Text with Logo for stability */}
-      <div className="relative w-full max-w-2xl px-8 mb-8">
+      <div className="relative w-full max-w-2xl px-8 mb-12">
         <img 
             src="/logo.png" 
             alt="SADECE OFKELI" 
-            className="w-full object-contain drop-shadow-[0_0_15px_rgba(0,168,255,0.5)]"
+            className="w-full object-contain grayscale opacity-80"
         />
         {/* Simple Progress Overlay on Logo (Optional or just keep bar below) */}
       </div>
       
       {/* Progress Bar Container */}
-      <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+      <div className="w-64 h-1 bg-mono-800 overflow-hidden relative">
         <div 
-          className="h-full bg-nitro-blue shadow-[0_0_15px_#00a8ff]" 
+          className="h-full bg-red-600 transition-all duration-300 ease-out" 
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <div className="mt-4 text-xs font-bold text-nitro-blue animate-pulse">
-        {progress < 100 ? `SYSTEM INITIALIZING... ${Math.round(progress)}%` : "SYSTEM READY"}
+      <div className="mt-4 text-xs font-mono font-bold text-mono-400 tracking-widest uppercase flex items-center gap-2">
+         <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+         {progress < 100 ? `SYSTEM INITIALIZING... ${Math.round(progress)}%` : "SYSTEM READY"}
       </div>
 
       {progress === 100 && (
           <button 
-            className="mt-8 px-8 py-2 bg-transparent border-2 border-nitro-blue text-white font-bold tracking-widest hover:bg-nitro-blue hover:text-black transition-all cursor-pointer pointer-events-auto duration-500"
+            className="mt-12 px-10 py-3 bg-transparent border border-red-600 text-red-500 font-mono text-sm tracking-[0.25em] 
+            hover:bg-red-600 hover:text-black hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] 
+            transition-all duration-500 cursor-pointer pointer-events-auto uppercase"
             onClick={onStarted}
           >
-            START ENGINE
+            [ Start Engine ]
           </button>
       )}
     </div>

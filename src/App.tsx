@@ -81,7 +81,7 @@ export default function App() {
         </div>
 
         {/* === PART 2: STATIC CONTENT === */}
-        <div className="relative z-20 w-full bg-[#050505] text-mono-0 font-sans border-t border-mono-800">
+        <div className="relative z-20 w-full bg-mono-800 text-mono-0 font-sans border-t border-mono-800">
           <div className="fixed inset-0 z-0 pointer-events-none opacity-40" 
               style={{ backgroundImage: 'radial-gradient(#27272a 1px, transparent 1px)', backgroundSize: '16px 16px' }}>
           </div> 

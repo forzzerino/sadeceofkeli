@@ -51,7 +51,7 @@ body {
   }
 
   .bento-card {
-    @apply bg-mono-900 border border-mono-700 p-8 hover:border-mono-600 hover:shadow-2xl transition-all duration-300 relative overflow-hidden;
+    @apply bg-mono-900 border border-mono-700 p-8 hover:border-mono-600 relative overflow-hidden;
   }
 
   .bento-card::before {
