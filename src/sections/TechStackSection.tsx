@@ -60,7 +60,7 @@ export function TechStackSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-transparent section-padding overflow-hidden"
+      className="relative w-full section-padding overflow-hidden"
     >
 
       <div className="relative z-10">

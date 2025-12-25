@@ -84,7 +84,7 @@ export function TechSpecsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* CARD 1: LANE TRACKING */}
-          <div ref={addToRefs} className="bg-mono-800 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-red-600/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
+          <div ref={addToRefs} className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-red-600/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
             <div className="absolute top-0 right-0 w-24 h-1 bg-red-600"></div>
             
             <div className="w-full">
@@ -111,20 +111,20 @@ export function TechSpecsSection() {
             <div className="space-y-3 font-mono text-xs text-mono-500 w-full">
               <p className="uppercase tracking-widest mb-1">Eğitim Verisi Dağılımı</p>
               <div className="w-full h-2 bg-mono-700 flex">
-                <div className="h-full bg-mono-400" style={{ width: '60%' }}></div>
                 <div className="h-full bg-red-600" style={{ width: '21%' }}></div>
+                <div className="h-full bg-mono-500" style={{ width: '60%' }}></div>
                 <div className="h-full bg-red-800" style={{ width: '19%' }}></div>
               </div>
               <div className="flex justify-between">
-                <span>İleri (%60)</span>
                 <span className="text-red-500">Sol (%21)</span>
+                <span>İleri (%60)</span>
                 <span className="text-red-700">Sağ (%19)</span>
               </div>
             </div>
           </div>
 
           {/* CARD 2: OBJECT DETECTION */}
-          <div ref={addToRefs} className="bg-mono-800 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-blue-500/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
+          <div ref={addToRefs} className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-blue-500/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
              <div className="absolute top-0 right-0 w-24 h-1 bg-blue-500"></div>
 
              <div className="w-full">
@@ -138,13 +138,13 @@ export function TechSpecsSection() {
               <div className="flex items-baseline gap-2 mb-6 border-b border-mono-700 pb-6">
                 <span className="stat-number text-7xl font-black tracking-tighter text-mono-0" data-target="94.5">0%</span>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-blue-500">ACC</span>
+                  <span className="text-2xl font-bold text-blue-500">ACCURACY</span>
                   <span className="text-xs text-mono-500 font-mono uppercase">Doğruluk Oranı</span>
                 </div>
               </div>
 
               <p className="text-mono-400 mb-6 leading-relaxed">
-                Bölge Öneri Ağı (RPN) kullanan Faster R-CNN mimarisi. Görüntüyü tarar, ışıkları tespit eder ve <strong className="text-mono-0">Kırmızı/Yeşil/Sarı/Kapalı</strong> olarak sınıflandırır.
+                Bölge Öneri Ağı (RPN) kullanan Faster R-CNN mimarisi. Görüntüyü tarar, ışıkları tespit eder ve <strong className="text-mono-0"><span className="text-red-500">Kırmızı</span> / <span className="text-green-500">Yeşil</span> / <span className="text-yellow-500">Sarı</span> / <span className="text-gray-200">Kapalı</span></strong> olarak sınıflandırır.
               </p>
             </div>
 

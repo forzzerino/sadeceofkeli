@@ -51,11 +51,11 @@ body {
   }
 
   .bento-card {
-    @apply bg-mono-800 border border-mono-700 p-8 hover:border-mono-600 hover:shadow-2xl hover:shadow-mono-900/50 transition-all duration-300 relative overflow-hidden;
+    @apply bg-mono-900 border border-mono-700 p-8 hover:border-mono-600 hover:shadow-2xl transition-all duration-300 relative overflow-hidden;
   }
 
   .bento-card::before {
-    @apply absolute inset-0 opacity-0 hover:opacity-5 bg-mono-0 transition-opacity duration-300 pointer-events-none;
+    @apply absolute inset-0 opacity-0 bg-mono-0 transition-opacity duration-300 pointer-events-none;
     content: '';
   }
 

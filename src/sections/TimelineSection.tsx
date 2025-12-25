@@ -75,14 +75,14 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
       ref={nodeRef}
       className="flex-shrink-0 w-[24rem] md:w-[28rem] scroll-snap-align-start group"
     >
-      <div className="h-full bg-mono-800 border border-mono-700 rounded-3xl p-8 hover:border-mono-600 shadow-xl transition-all duration-300">
+      <div className="h-full bg-mono-900 border border-mono-700 rounded-3xl p-8 hover:border-mono-600 shadow-xl transition-all duration-300">
         
         {/* Header: Phase & Duration */}
         <div className="flex justify-between items-start mb-6">
           <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
             Aşama {index + 1}
           </div>
-          <div className="text-xs font-mono text-mono-400 uppercase tracking-wider">
+          <div className="text-sm font-bold font-mono text-red-500 uppercase">
             {duration}
           </div>
         </div>
@@ -99,7 +99,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
               key={idx}
               className="flex items-start gap-4 font-mono text-small text-mono-300"
             >
-              <div className="mt-0.5 rounded-full p-1 bg-accent-cyan/10 text-accent-cyan">
+              <div className="mt-0.5 rounded-full p-1 bg-red-500 text-white">
                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                  </svg>
@@ -191,7 +191,9 @@ export function TimelineSection() {
       </div>
 
        {/* Fade gradient on right */}
-       <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-mono-900 to-transparent pointer-events-none z-20" />
+       <div className="absolute top-96 h-96  right-0 bottom-0 w-36 bg-gradient-to-l from-[#050505] to-transparent pointer-events-none z-20" />
+       {/* Fade gradient on left */}
+       <div className="absolute top-96 h-96 left-0 bottom-0 w-36 bg-gradient-to-r from-[#050505] to-transparent pointer-events-none z-20" />
     </section>
   );
 }

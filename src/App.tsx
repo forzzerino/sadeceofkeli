@@ -49,7 +49,7 @@ export default function App() {
       <ReactLenis root>
         
         {/* === PART 1: THE 3D TUNNEL (500vh) === */}
-        <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black">
+        <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black z-40">
           
           {/* THE STICKY VIEWPORT (100vh) 
               This stays pinned to the top of the viewport while we scroll through the 500vh tunnel.
@@ -81,13 +81,11 @@ export default function App() {
         </div>
 
         {/* === PART 2: STATIC CONTENT === */}
-        <div className="relative z-20 w-full bg-mono-900 text-mono-0 font-sans border-t border-mono-800">
-          
-          <div className="fixed inset-0 z-0 pointer-events-none opacity-30" 
+        <div className="relative z-20 w-full bg-[#050505] text-mono-0 font-sans border-t border-mono-800">
+          <div className="fixed inset-0 z-0 pointer-events-none opacity-40" 
               style={{ backgroundImage: 'radial-gradient(#27272a 1px, transparent 1px)', backgroundSize: '16px 16px' }}>
           </div> 
-          
-          <div className="relative z-10 bg-mono-900 shadow-2xl">
+          <div className="relative z-10 shadow-2xl">
             {start && (
               <>
                 <TechStackSection />
