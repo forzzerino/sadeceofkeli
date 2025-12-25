@@ -15,11 +15,26 @@ import { TechSpecsSection } from './sections/TechSpecsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function App() {
+  const [start, setStart] = useState(false);
+
+  // Ticker integration for Lenis + GSAP
   useEffect(() => {
-    ScrollTrigger.refresh();
+    // Force a refresh after a delay to ensure 500vh is registered
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  const [start, setStart] = useState(false);
+  useEffect(() => {
+     if (start) {
+        // Double check when loading finishes
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 500);
+     }
+  }, [start]);
 
   // useLayoutEffect(() => {
   //   window.scrollTo(0, 0);
@@ -73,10 +88,14 @@ export default function App() {
           </div> 
           
           <div className="relative z-10 bg-mono-900 shadow-2xl">
-            <TechStackSection />
-            <TechSpecsSection />
-            <TimelineSection />
-            <FooterSection /> 
+            {start && (
+              <>
+                <TechStackSection />
+                <TechSpecsSection />
+                <TimelineSection />
+                <FooterSection />
+              </>
+            )} 
           </div>
         </div>
 
