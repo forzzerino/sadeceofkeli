@@ -48,7 +48,7 @@ export default function App() {
       <LoadingScreen started={start} onStarted={() => setStart(true)} />
       <ReactLenis root>
         
-        {/* === PART 1: THE 3D TUNNEL (500vh) === */}
+        {/* === PART 1: THE 3D TUNNEL (550vh) === */}
         <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black z-40">
           
           {/* THE STICKY VIEWPORT (100vh) 
@@ -88,7 +88,7 @@ export default function App() {
           <div className="relative z-10 shadow-2xl">
             {start && (
               <>
-                <TechStackSection />
+                {/* TechStackSection moved to Overlay (Exploded View) */}
                 <TechSpecsSection />
                 <TimelineSection />
                 <FooterSection />

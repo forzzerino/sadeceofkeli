@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Intro from "./components/Intro";
 import Chassis from "./components/Chassis";
 import Electronics from "./components/Electronics";
+import { TechExplodedSection } from "./sections/TechExplodedSection";
 
 export default function Overlay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,10 +19,8 @@ export default function Overlay() {
       <Intro />
       <Chassis />
       <Electronics />
-
-      {/* Final Clean View Section */}
-      <section className=" section-panel h-screen w-full flex items-center justify-center pointer-events-none ">
-      </section>
+      {/* Final Exploded View Section */}
+      <TechExplodedSection />
     </div>
   );
 }
