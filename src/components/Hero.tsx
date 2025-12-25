@@ -19,10 +19,7 @@ const Hero = () => {
       </div>
 
        {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-80">
-          <div className="h-16 w-0.5 bg-gradient-to-b from-transparent via-red-600 to-transparent animate-pulse"></div>
-          <span className="font-mono text-xs text-mono-400 tracking-[0.3em] mt-4 uppercase">DEVAM ET</span>
-      </div>
+      
      
     </section>
   );

@@ -7,56 +7,64 @@ gsap.registerPlugin(ScrollTrigger);
 const techItems = [
   { 
     id: 'raspberry', 
-    label: 'RASPBERRY', 
+    title: 'BEYİN',
+    details: 'Raspberry Pi 4',
     image: '/tech/raspberry-pi.png',
     position: { top: '15%', left: '50%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: 0, y: 100 }
   },
   { 
     id: 'arduino', 
-    label: 'ARDUINO NANO', 
+    title: 'KONTROL',
+    details: 'Arduino Nano',
     image: '/tech/arduino-nano.png',
-    position: { top: '25%', left: '85%', transform: 'translate(-50%, -50%)' }, 
+    position: { top: '25%', left: '75%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: -100, y: 50 }
   },
   { 
     id: 'motor-driver', 
-    label: 'MOTOR SÜRÜCÜ', 
+    title: 'SÜRÜCÜ',
+    details: 'L298N Sürücü',
     image: '/tech/motor-driver.png',
-    position: { top: '25%', left: '15%', transform: 'translate(-50%, -50%)' },
+    position: { top: '25%', left: '25%', transform: 'translate(-50%, -50%)' },
     origin: { x: 100, y: 50 }
   },
   { 
     id: 'camera', 
-    label: 'KAMERA', 
+    title: 'GÖRÜNTÜ',
+    details: 'Kamera Girişi',
     image: '/tech/kamera.png',
-    position: { top: '50%', left: '10%', transform: 'translate(-50%, -50%)' }, 
+    position: { top: '50%', left: '15%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: 150, y: 0 }
   },
   { 
     id: 'dc-motor', 
-    label: 'DC MOTOR', 
+    title: 'MOTOR',
+    details: 'Fırçalı DC Motor',
     image: '/tech/dc-motor.png',
-    position: { top: '50%', left: '90%', transform: 'translate(-50%, -50%)' },
+    position: { top: '50%', left: '85%', transform: 'translate(-50%, -50%)' },
     origin: { x: -150, y: 0 }
   },
   { 
     id: 'servo', 
-    label: 'SERVO MOTOR', 
+    title: 'YÖNLENDİRME',
+    details: 'Servo Motor',
     image: '/tech/servo-motor.png',
-    position: { top: '75%', left: '15%', transform: 'translate(-50%, -50%)' }, 
+    position: { top: '75%', left: '25%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: 100, y: -100 }
   },
   { 
     id: 'lipo', 
-    label: 'LİPO PİL', 
+    title: 'GÜÇ',
+    details: '11.1V LiPo Batarya',
     image: '/tech/lipo-battery.png',
-    position: { top: '75%', left: '85%', transform: 'translate(-50%, -50%)' }, 
+    position: { top: '75%', left: '75%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: -100, y: -100 }
   },
   { 
     id: 'sensor', 
-    label: 'SENSÖR', 
+    title: 'SENSÖR',
+    details: 'HC-SR04',
     image: '/tech/sensor.png',
     position: { top: '88%', left: '50%', transform: 'translate(-50%, -50%)' }, 
     origin: { x: 0, y: -100 }
@@ -69,40 +77,43 @@ export function TechExplodedSection() {
   useLayoutEffect(() => {
     if (!containerRef.current) return;
 
-    // SCROLL ANIMATION DISABLED FOR DEBUGGING - STATIC VIEW
-    /* 
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray('.tech-item') as HTMLElement[];
-      const lines = gsap.utils.toArray('.tech-line') as HTMLElement[];
+      // Robustly find elements
+      const tunnel = document.getElementById('scroll-tunnel') || document.body; // Fallback to body if tunnel isn't ready
+      const items = containerRef.current?.querySelectorAll('.tech-item');
 
-      // Initial State
-      gsap.set(items, { autoAlpha: 0, scale: 0.5 });
-      gsap.set(lines, { autoAlpha: 0, scaleX: 0 });
+      if (!items || items.length === 0) {
+        return;
+      }
 
+      // Create a timeline synced with the main scroll tunnel
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: tunnel, 
           start: "top top",
-          end: "bottom bottom", 
+          end: "bottom bottom",
           scrub: 1,
         }
       });
-
-      // Animate items exploding outwards
-      items.forEach((item, i) => {
-          const dataOrig = techItems[i].origin;
-          tl.fromTo(item, 
-            { x: -dataOrig.x * 0.5, y: -dataOrig.y * 0.5, autoAlpha: 0, scale: 0.5 },
-            { x: 0, y: 0, autoAlpha: 1, scale: 1, duration: 1, ease: "back.out(1.7)" },
-            0 
-          );
-      });
       
-      tl.to(lines, { autoAlpha: 1, scaleX: 1, duration: 0.5 }, 0.5);
+      // Initial Scale (Opacity is 0 via CSS class)
+      gsap.set(items, { scale: 0.8 });
+
+      // Animate In: EXTRA LATE (0.96) - Triggers at the absolute end of the scroll
+      tl.to(items, { 
+        autoAlpha: 1, 
+        scale: 1, 
+        duration: 0.1, 
+        stagger: 0.02,
+        ease: "power2.out"
+      }, 0.96);
+
+      // Force recalculation to ensure start/end points are correct after load
+      ScrollTrigger.refresh();
+
     }, containerRef);
 
     return () => ctx.revert();
-    */
   }, []);
 
   return (
@@ -114,45 +125,40 @@ export function TechExplodedSection() {
       {/* Sticky Container removed - purely static 100vh frame */}
       <div className="relative w-full h-full overflow-hidden">
           <div className="w-full h-full relative">
-            
             {techItems.map((item) => (
                 <div 
                 key={item.id}
-                className="tech-item absolute flex flex-col items-center gap-2 group pointer-events-auto cursor-pointer"
+                className="tech-item absolute flex items-stretch gap-4 group pointer-events-auto opacity-0"
                 style={item.position}
                 >
-                {/* Image Container */}
-                <div className="w-24 h-24 md:w-32 md:h-32 relative">
-                    {/* Tech Image */}
-                    <div className="absolute inset-0 bg-black/50 border border-mono-700 rounded-xl backdrop-blur-sm p-4 overflow-hidden group-hover:border-red-600 transition-colors duration-300">
-                        <img 
-                            src={item.image} 
-                            alt={item.label}
-                            className="w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]"
-                        />
-                    </div>
+                {/* Rectangular Card Container */}
+                <div className="relative flex flex-col justify-center bg-black/90 border border-mono-700 rounded-xl backdrop-blur-md overflow-hidden group-hover:border-red-600 transition-colors duration-300 w-[280px] md:w-[320px] p-5">
                     
-                    {/* Connection Line Indicator */}
-                    <div 
-                        className="tech-line absolute w-24 h-px bg-red-600 top-1/2 left-1/2 -z-10 origin-left"
-                        style={{ 
-                            transform: `rotate(${Math.atan2(-item.origin.y, -item.origin.x)}rad) translate(50%, 0)`
-                        }}
-                    />
-                </div>
+                    {/* Background Image */}
+                    <div className="absolute inset-0 z-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                         <img 
+                            src={item.image} 
+                            alt={item.details}
+                            className="w-full h-full grayscale object-contain relative left-16 scale-[230%] 
+                            group-hover:grayscale-0 transition-all duration-300"
+                        />
+                         
+                    </div>
 
-                {/* Label */}
-                <span className="font-mono font-bold text-sm md:text-base text-mono-100 tracking-wider bg-black/80 px-3 py-1 rounded border border-mono-800">
-                    {item.label}
-                </span>
+                    {/* Content */}
+                    <div className="relative z-10 flex flex-col gap-2">
+                        <div>
+                            {/* Title */}
+                            <h4 className="font-mono font-bold text-red-500 text-sm tracking-widest mb-1">{item.title}</h4>
+                            {/* Component Name */}
+                            <h3 className="font-sans font-bold text-white text-lg md:text-xl leading-tight">{item.details}</h3>
+                        </div>
+                    </div>
                 </div>
-            ))}
-            
-            {/* Central Label */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[pulse_2s_infinite]">
-                <div className="w-4 h-4 bg-red-600 rounded-full shadow-[0_0_20px_rgba(220,38,38,1)]"></div>
-                <div className="w-48 h-px bg-gradient-to-r from-transparent via-red-600 to-transparent absolute top-1/2 left-1/2 -translate-x-1/2"></div>
             </div>
+            ))}
+           
+            
           </div>
       </div>
     </section>

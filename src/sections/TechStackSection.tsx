@@ -51,13 +51,13 @@ function TechCard({ title, description, specs, className = '', image }: TechCard
       )}
 
       <div className="relative z-10">
-        <h3 className="text-h2 font-bold text-mono-0 mb-2">{title}</h3>
+        <h3 className="text-h2 font-bold text-mono-0 ">{title}</h3>
         <p className="text-body text-mono-300 mb-6">{description}</p>
       </div>
       <div className="space-y-2 relative z-10">
         {specs.map((spec, idx) => (
-          <div key={idx} className="flex items-start gap-2">
-            <span className="text-red-600 mt-1">›</span>
+          <div key={idx} className="flex items-start align-middle">
+            <span className="text-red-600 pr-1">›</span>
             <span className="font-mono text-small text-mono-400">{spec}</span>
           </div>
         ))}
@@ -78,7 +78,7 @@ export function TechStackSection() {
       <div className="relative z-10">
         <div className="section-header-container">
           <h2 className="section-title-large">Teknoloji <span className="text-red-600">Yığını</span></h2>
-          <p className="section-subtitle-large">Donanım & Yazılım Altyapısı</p>
+          <p className="section-subtitle-large">Donanım Altyapısı</p>
         </div>
 
         {/* Bento Grid */}
@@ -108,7 +108,7 @@ export function TechStackSection() {
           {/* Servo Motor - small - Replaces Camera */}
           <TechCard
             title="Yönlendirme"
-            description="Servo Motor"
+            description="DSS-M15S SERVO"
             image="/tech/servo-motor.png"
             specs={['Yüksek Tork', 'Hassas Açı Kontrolü', 'Metal Dişli']}
             className="lg:col-span-1"
@@ -126,7 +126,7 @@ export function TechStackSection() {
           {/* DC Motor - small - Replaces Connectivity */}
           <TechCard
             title="Motor"
-            description="Fırçalı DC Motor"
+            description="FJGB37-3530"
             image="/tech/dc-motor.png"
             specs={['Yüksek RPM', 'Güçlü Çekiş', 'Dayanıklı Yapı']}
             className="lg:col-span-1"
@@ -135,7 +135,7 @@ export function TechStackSection() {
            {/* Motor Driver - small - Resized to 1x1 */}
            <TechCard
             title="Sürücü"
-            description="L298N Sürücü"
+            description="L298N"
             image="/tech/motor-driver.png"
             specs={['Çift H-Köprüsü', '2A Akım Kapasitesi', 'PWM Kontrol']}
             className="lg:col-span-1"
@@ -144,9 +144,9 @@ export function TechStackSection() {
            {/* Camera - small - Resized to 1x1 */}
            <TechCard
             title="Görüntü"
-            description="Kamera Girişi"
+            description="OV5647 5MP"
             image="/tech/kamera.png"
-            specs={['1080p Video', 'Gerçek Zamanlı Akış', 'OV5647 Sensör']}
+            specs={['1080p Video', 'Gerçek Zamanlı Akış', ' Sensör']}
             className="lg:col-span-1"
           />
 

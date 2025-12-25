@@ -88,7 +88,7 @@ export default function App() {
           <div className="relative z-10 shadow-2xl">
             {start && (
               <>
-                {/* TechStackSection moved to Overlay (Exploded View) */}
+                <TechStackSection />
                 <TechSpecsSection />
                 <TimelineSection />
                 <FooterSection />
