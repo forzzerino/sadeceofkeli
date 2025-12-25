@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef } from "react";
-import Hero from "./sections/Hero";
-import Intro from "./sections/Intro";
-import Chassis from "./sections/Chassis";
-import Electronics from "./sections/Electronics";
+import Hero from "./components/Hero";
+import Intro from "./components/Intro";
+import Chassis from "./components/Chassis";
+import Electronics from "./components/Electronics";
 
 export default function Overlay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export default function Overlay() {
       <Electronics />
 
       {/* Final Clean View Section */}
-      <section className=" section-panel h-screen w-full flex items-center justify-center pointer-events-none">
+      <section className=" section-panel h-screen w-full flex items-center justify-center pointer-events-none ">
       </section>
     </div>
   );

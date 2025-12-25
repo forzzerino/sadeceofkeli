@@ -71,7 +71,7 @@ const Experience: React.FC = () => {
     });
 
     // 1. Initial Camera Setup (Hero State)
-    camera.position.set(-2.5,1, 7); 
+    camera.position.set(-4, 1.5, 9); 
     camera.lookAt(camTarget.current.x, camTarget.current.y, camTarget.current.z);
 
     // 2. Kill old ScrollTriggers
@@ -81,7 +81,7 @@ const Experience: React.FC = () => {
     const tl = gsap.timeline({
       defaults: { ease: "power2.inOut" },
       scrollTrigger: {
-        trigger: "body",
+        trigger: "#scroll-tunnel", 
         start: "top top",
         end: "bottom bottom",
         scrub: 1,
@@ -106,9 +106,9 @@ const Experience: React.FC = () => {
       duration: 2
     }, 0)
     .to(camera.position, { // Formerly S3 Camera
-      x: -5,     
-      y: 3,
-      z: 4,     
+      x: -7,     
+      y: 4,
+      z: 6,     
       duration: 2
     }, 0)
     .to(camTarget.current, { // Formerly S3 Target
@@ -121,9 +121,9 @@ const Experience: React.FC = () => {
 
     // PHASE 2: Section 1 -> Section 2 (GOVDE - Solid / Side Angle)
     .to(camera.position, {
-      x: -6,      
-      y: 2,
-      z: 7,      
+      x: -9,      
+      y: 3,
+      z: 9,      
       duration: 2
     }, 2)
     .to(modelRef.current.rotation, {
@@ -141,9 +141,9 @@ const Experience: React.FC = () => {
 
     // PHASE 3: Section 2 -> Section 3 (ELEKTRIKSEL - X-Ray)
     .to(camera.position, { // Formerly S1 Camera
-      x: -3,
-      y: 5,     
-      z: 5,    
+      x: -5,
+      y: 7,     
+      z: 7,    
       duration: 2
     }, 4)
     .to(modelRef.current.rotation, {
@@ -166,7 +166,7 @@ const Experience: React.FC = () => {
     // PHASE 4: End Section (Centered Top View)
     .to(camera.position, {
       x: 0,
-      y: 18, 
+      y: 24, 
       z: 0.1, // Slight offset to prevent Gimbal Lock
       duration: 2
     }, 6)

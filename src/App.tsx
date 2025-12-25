@@ -1,11 +1,24 @@
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
 import Experience from './Experience';
 import Overlay from './Overlay';
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { LoadingScreen } from './LoadingScreen';
 import { useState } from 'react';
+import { TechStackSection } from './sections/TechStackSection';
+import { TimelineSection } from './sections/TimelineSection';
+import { FooterSection } from './sections/FooterSection';
+import { TechSpecsSection } from './sections/TechSpecsSection';
 
+
+gsap.registerPlugin(ScrollTrigger);
 export default function App() {
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, []);
+
   const [start, setStart] = useState(false);
 
   // useLayoutEffect(() => {
@@ -18,30 +31,55 @@ export default function App() {
   return (
     <>
       <LoadingScreen started={start} onStarted={() => setStart(true)} />
-      
       <ReactLenis root>
-        <div className={`bg-black text-white min-h-screen w-full transition-opacity duration-1000 ${start ? "opacity-100" : "opacity-0"}`}>
-          {/* 
-             Canvas is FIXED in the background. 
-             It stays put while the Overlay scrolls over it.
-          */}
-          <div className="fixed top-0 left-0 h-screen w-full z-0">
-            <Canvas 
-              shadows 
-              className="bg-black" 
-              camera={{ fov: 14 }} 
-              gl={{ antialias: false, stencil: false, depth: true }}
-            >
-               <Experience />
-            </Canvas>
-          </div>
+        
+        {/* === PART 1: THE 3D TUNNEL (500vh) === */}
+        <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black">
           
-          {/* 
-             Overlay is RELATIVE and flows naturally.
-             Using "z-10" to sit on top of the fixed Canvas.
+          {/* THE STICKY VIEWPORT (100vh) 
+              This stays pinned to the top of the viewport while we scroll through the 500vh tunnel.
           */}
-          <Overlay />
+          <div className="sticky top-0 h-screen w-full overflow-hidden">
+             
+             {/* 3D SCENE */}
+             <div className="absolute inset-0 z-0">
+                <Canvas 
+                  shadows 
+                  className="bg-black" 
+                  camera={{ fov: 12 }} 
+                  gl={{ antialias: false, stencil: false, depth: true }}
+                >
+                  <Experience />
+                </Canvas>
+             </div>
+          </div>
+
+           {/* TEXT OVERLAY 
+               MOVED OUTSIDE STICKY: Now it sits absolutely in the tall tunnel.
+               As the tunnel moves up (scroll), this text layer moves with it,
+               creating the scroll effect over the pinned canvas.
+           */}
+           <div className="absolute top-0 left-0 w-full z-10 pointer-events-none">
+              <Overlay />
+           </div>
+
         </div>
+
+        {/* === PART 2: STATIC CONTENT === */}
+        <div className="relative z-20 w-full bg-mono-900 text-mono-0 font-sans border-t border-mono-800">
+          
+          <div className="fixed inset-0 z-0 pointer-events-none opacity-30" 
+              style={{ backgroundImage: 'radial-gradient(#27272a 1px, transparent 1px)', backgroundSize: '16px 16px' }}>
+          </div> 
+          
+          <div className="relative z-10 bg-mono-900 shadow-2xl">
+            <TechStackSection />
+            <TechSpecsSection />
+            <TimelineSection />
+            <FooterSection /> 
+          </div>
+        </div>
+
       </ReactLenis>
     </>
   );
