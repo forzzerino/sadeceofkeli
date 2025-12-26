@@ -88,14 +88,15 @@ export function AIPerformanceSection() {
             <div className="absolute top-0 right-0 w-24 h-1 bg-red-600"></div>
             
             <div className="w-full">
-              <h3 className="text-3xl font-bold uppercase italic mb-1 text-mono-0">
+              <h3 className="text-3xl font-bold uppercase  mb-1 text-mono-0">
                 Şerit Takibi
               </h3>
               <p className="text-sm font-mono text-red-500 mb-6 tracking-wider">
                 REGRESSION CNN // NVIDIA MODEL
               </p>
 
-              <div className="flex items-baseline gap-2 mb-6 border-b border-mono-700 pb-6">
+             <div className="flex md:flex-row flex-col justify-between mb-4">
+               <div className="flex items-center gap-4">
                 <span className="stat-number text-7xl font-black tracking-tighter text-mono-0" data-target="0.05">0</span>
                 <div className="flex flex-col">
                   <span className="text-2xl font-bold text-red-600">MAE</span>
@@ -103,22 +104,42 @@ export function AIPerformanceSection() {
                 </div>
               </div>
 
-              <p className="text-mono-400 mb-6 leading-relaxed">
-                Klasik sınıflandırma yerine, direksiyon açısı için sürekli değer üreten <strong className="text-mono-0">Uçtan Uca Regresyon</strong> mimarisi. Model, ELU aktivasyonu ile 5 Evrişim ve 4 Dense katmanından oluşur.
-              </p>
-            </div>
+              <div className="flex flex-row gap-4  items-center md:mt-0 mt-4">
+                 {/* Chart */}
+                <div className="relative shrink-0 mx-auto md:mx-0">
+                   <DonutChart 
+                     data={[
+                       { value: 60, color: "#EF4444", label: "İleri" },
+                       { value: 21, color: "#B91C1C", label: "Sol" },
+                       { value: 19, color: "#7F1D1D", label: "Sağ" },
+                     ]} 
+                   />
+                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                     <span className="text-xl font-bold text-mono-0">5780</span>
+                     <span className="text-xs font-mono text-mono-500">Veri</span>
+                     
+                   </div>
+                   
+                 </div>
 
-            <div className="space-y-3 font-mono text-xs text-mono-500 w-full">
-              <p className="uppercase tracking-widest mb-1">Eğitim Verisi Dağılımı</p>
-              <div className="w-full h-2 bg-mono-700 flex">
-                <div className="h-full bg-red-600" style={{ width: '21%' }}></div>
-                <div className="h-full bg-mono-500" style={{ width: '60%' }}></div>
-                <div className="h-full bg-red-800" style={{ width: '19%' }}></div>
+                 {/* Legend */}
+                 <div className="flex flex-col justify-center gap-4 w-full ml-2 lg:ml-8">
+                   <LegendItem color="#EF4444" label="İleri" value="60%" />
+                   <LegendItem color="#B91C1C" label="Sol" value="21%" />
+                   <LegendItem color="#7F1D1D" label="Sağ" value="19%" />
+                 </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-red-500">Sol (%21)</span>
-                <span>İleri (%60)</span>
-                <span className="text-red-700">Sağ (%19)</span>
+             </div>
+
+              <div className="space-y-4 text-mono-400 border-t border-mono-700 pt-4 text-sm leading-relaxed">
+                  <p>
+                    <strong className="text-mono-0 block mb-1">DATASET:</strong>
+                    Aracın kamerasından toplanan <strong>5.780</strong> görsel. Modelin dönüşleri ezberlememesi için %60 İleri, %40 Dönüş olarak dengelenmiştir.
+                  </p>
+                  <p>
+                    <strong className="text-mono-0 block mb-1">MİMARİ:</strong>
+                    Sınıflandırma yerine sürekli açı değeri üreten <strong>Regresyon CNN</strong>. NVIDIA mimarisi temel alınmış, ELU aktivasyonu ve MSE kaybı ile optimize edilmiştir.
+                  </p>
               </div>
             </div>
           </div>
@@ -128,52 +149,65 @@ export function AIPerformanceSection() {
              <div className="absolute top-0 right-0 w-24 h-1 bg-blue-500"></div>
 
              <div className="w-full">
-              <h3 className="text-3xl font-bold uppercase italic mb-1 text-mono-0">
+              <h3 className="text-3xl font-bold uppercase  mb-1 text-mono-0">
                 Trafik Lambası
               </h3>
               <p className="text-sm font-mono text-blue-500 mb-6 tracking-wider">
                 FASTER R-CNN // CLASSIFICATION
               </p>
 
-              <div className="flex items-baseline gap-2 mb-6 border-b border-mono-700 pb-6">
+             <div className="flex md:flex-row flex-col justify-between mb-4">
+               <div className="flex items-center gap-4 ">
                 <span className="stat-number text-7xl font-black tracking-tighter text-mono-0" data-target="94.5">0%</span>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-blue-500">ACCURACY</span>
+                  <span className="text-2xl font-bold text-blue-500">ACC</span>
                   <span className="text-xs text-mono-500 font-mono uppercase">Doğruluk Oranı</span>
+                </div>
+                </div>
+
+              <div className="flex flex-row gap-4 items-center md:mt-0 mt-4">
+                  {/* Chart */}
+                 <div className="relative shrink-0 mx-auto md:mx-0">
+                  <DonutChart 
+                    data={[
+                      { value: 51.5, color: "#3B82F6", label: "Kırmızı" },
+                      { value: 45.1, color: "#10B981", label: "Yeşil" },
+                      { value: 3.3, color: "#F59E0B", label: "Sarı" },
+                    ]} 
+                  />
+                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                     <span className="text-xl font-bold text-mono-0">R-CNN</span>
+                   </div>
+                </div>
+
+                {/* Legend */}
+                 <div className="flex flex-col justify-center gap-4 w-full ml-2 lg:ml-8">
+                  <LegendItem color="#3B82F6" label="Kırmızı" value="51.5%" />
+                  <LegendItem color="#10B981" label="Yeşil" value="45.1%" />
+                  <LegendItem color="#F59E0B" label="Sarı" value="3.3%" />
                 </div>
               </div>
 
-              <p className="text-mono-400 mb-6 leading-relaxed">
-                Bölge Öneri Ağı (RPN) kullanan Faster R-CNN mimarisi. Görüntüyü tarar, ışıkları tespit eder ve <strong className="text-mono-0"><span className="text-red-500">Kırmızı</span> / <span className="text-green-500">Yeşil</span> / <span className="text-yellow-500">Sarı</span> / <span className="text-gray-200">Kapalı</span></strong> olarak sınıflandırır.
-              </p>
-            </div>
-
-            <ul className="grid grid-cols-2 gap-4 font-mono text-xs text-mono-300 w-full">
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                8380+ Görsel Veri
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                RPN Mekanizması
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                SGD Optimizatör
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                0.003 MSE Kayıp
-              </li>
-            </ul>
+              </div>
+              <div className="space-y-4 text-mono-400 border-t border-mono-700 pt-4 text-sm leading-relaxed">
+                  <p>
+                    <strong className="text-mono-0 block mb-1">DATASET:</strong>
+                    Kaggle kaynaklı nesne tespiti verisi. Her ışık (Kırmızı, Yeşil, Sarı) için bounding-box koordinatları ile etiketlenmiştir.
+                  </p>
+                   <p>
+                    <strong className="text-mono-0 block mb-1">MİMARİ:</strong>
+                    <strong>Faster R-CNN</strong> kullanılmıştır. RPN (Region Proposal Network) ile aday bölgeler taranır ve SGD optimizatörü ile sınıflandırılır.
+                  </p>
+              </div>
           </div>
+        </div>
 
         </div>
 
         {/* MIMARI GÖRSEL ALANI */}
         <div className="max-w-7xl mx-auto mt-16 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between mb-6">
-                <h4 className="text-3xl font-bold uppercase italic text-mono-0">Sistem Akış Şeması</h4>
+                <h4 className="text-3xl font-bold uppercase  text-mono-0">Sistem Akış Şeması</h4>
                 <span className="text-xs font-mono text-mono-500 bg-mono-800 px-2 py-1 border border-mono-700">
                     DIAGRAM_V1.0.SVG
                 </span>
@@ -188,4 +222,39 @@ export function AIPerformanceSection() {
     </section>
   );
 };
+
+
+// Donut Chart Component
+function DonutChart({ data }: { data: { value: number; color: string; label: string }[] }) {
+    let currentAngle = 0;
+    const gradientParts = data.map((item) => {
+        const start = currentAngle;
+        const end = currentAngle + item.value;
+        currentAngle = end;
+        return `${item.color} ${start}% ${end}%`;
+    });
+    const gradientString = `conic-gradient(${gradientParts.join(", ")})`;
+
+    return (
+        <div 
+            className="w-32 h-32 rounded-full relative"
+            style={{ background: gradientString }}
+        >
+            <div className="absolute inset-6 bg-mono-900 rounded-full" />
+        </div>
+    );
+}
+
+// Legend Item Component
+function LegendItem({ color, label, value }: { color: string; label: string; value: string }) {
+    return (
+        <div className="flex items-center justify-between w-full text-xs">
+            <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: color }} />
+                <span className="text-mono-400">{label}</span>
+            </div>
+            <span className="font-bold ml-2 text-mono-200 font-mono">{value}</span>
+        </div>
+    )
+}
 

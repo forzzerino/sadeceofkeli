@@ -12,9 +12,9 @@ const Hero = () => {
         className="w-full max-w-4xl object-contain drop-shadow-2xl opacity-90"
       />
       
-      <div className="mt-8 border-l-4 border-red-600  pl-6">
-        <p className="font-mono font-bold text-xl md:text-3xl text-mono-0 uppercase">
-           YAVAŞ ASFALT CANAVARI
+      <div className="mt-8 border-l-4 border-red-600 pl-6">
+        <p className="font-mono font-bold md:text-2xl text-mono-200 uppercase">
+           ÇOK DA HIZLI OLMAYAN ASFALT CANAVARI
         </p>
       </div>
 

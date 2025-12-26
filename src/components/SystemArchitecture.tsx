@@ -83,45 +83,45 @@ const SystemArchitecture: React.FC = () => {
                 {/* SOL SÜTUN (ŞERİT TAKİBİ - BLUE) */}
                 <div className="flex flex-col items-center ">
                     <div className="mb-4 w-full">
-                        <Node title="Şerit Takibi" subtitle="Network A" type="process-blue" />
+                        <Node title="Şerit Takibi" subtitle="Network A" type="process-red" />
                     </div>
                     
                     {/* İç İşlemler (Daha küçük, liste gibi) */}
                     <div className="flex flex-col  w-full max-w-[200px] opacity-80">
                         <ConnectorVertical height="h-4" />
-                        <Node title="Özellik Çıkarımı" type="process-blue" subtitle="Conv Layers" />
+                        <Node title="Özellik Çıkarımı" type="process-red" subtitle="Conv Layers" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Düzenlileştirme" type="process-blue" subtitle="Normalization" />
+                        <Node title="Düzenlileştirme" type="process-red" subtitle="Normalization" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="ReLU Aktivasyon" type="process-blue" subtitle="Non-Linearity" />
+                        <Node title="ReLU Aktivasyon" type="process-red" subtitle="Non-Linearity" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Çıktı: Regresyon" type="process-blue" subtitle="Continuous Val" />
+                        <Node title="Çıktı: Regresyon" type="process-red" subtitle="Continuous Val" />
                     </div>
 
                     <ConnectorVertical height="h-8" />
-                    <Node title="Direksiyon Açısı" subtitle="Target Angle" type="process-blue" icon="⛐" />
+                    <Node title="Direksiyon Açısı" subtitle="Target Angle" type="process-red" icon="⛐" />
                 </div>
 
                 {/* SAĞ SÜTUN (TRAFİK LAMBASI - RED) */}
                 <div className="flex flex-col items-center ">
                     <div className="mb-4 w-full">
-                        <Node title="Trafik Lambası" subtitle="Network B" type="process-red" />
+                        <Node title="Trafik Lambası" subtitle="Network B" type="process-blue" />
                     </div>
 
                      {/* İç İşlemler */}
                      <div className="flex flex-col  w-full max-w-[200px] opacity-80">
                         <ConnectorVertical height="h-4" />
-                        <Node title="Özellik Haritası" type="process-red" subtitle="Feature Map" />
+                        <Node title="Özellik Haritası" type="process-blue" subtitle="Feature Map" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Aday Nesne Tespiti" type="process-red" subtitle="RPN" />
+                        <Node title="Aday Nesne Tespiti" type="process-blue" subtitle="RPN" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Hizalama" type="process-red" subtitle="RoI Align" />
+                        <Node title="Hizalama" type="process-blue" subtitle="RoI Align" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Sınıflandırma" type="process-red" subtitle="Softmax" />
+                        <Node title="Sınıflandırma" type="process-blue" subtitle="Softmax" />
                     </div>
 
                     <ConnectorVertical height="h-8" />
-                    <Node title="Lamba Durumu" subtitle="Class ID" type="process-red" icon="🚦" />
+                    <Node title="Lamba Durumu" subtitle="Class ID" type="process-blue" icon="🚦" />
                 </div>
 
             </div>

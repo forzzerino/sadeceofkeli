@@ -9,7 +9,7 @@ const Intro: React.FC = () => {
       highlight="01" 
       color="red" 
       id="sec1"
-      stats="[SYS: AUTONOMOUS] [HP: 0.26] [SPEED: 2.2 kmh] [TORK: 35 kg/cm]"
+      stats="[SYS: SEMI-AUTONOM] [HP: 0.26] [SPEED: 2.2 kmh] [TORK: 35 kg/cm]"
     >
       Elektrikli araçlar ve otonom sistemler, modern ulaşımın geleceğidir.<br/><br/>
       Bu proje, elektrikli ve otonom sistemlerin temellerini 1/10 ölçekli bir araç üzerinde uygulamayı amaçlamaktadır.
