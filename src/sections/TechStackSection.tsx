@@ -37,7 +37,7 @@ function TechCard({ title, description, specs, className = '', image }: TechCard
   return (
     <div
       ref={cardRef}
-      className={`bento-card flex flex-col justify-between group ${className}`}
+      className={`bento-card flex flex-col justify-between group ${className} group`}
     >
       {/* Background Image if present */}
       {image && (
@@ -45,7 +45,7 @@ function TechCard({ title, description, specs, className = '', image }: TechCard
           <img 
             src={image} 
             alt="" 
-            className="w-full h-full object-right object-contain "
+            className="w-full h-full relative -right-20 object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 "
           />
         </div>
       )}
@@ -102,7 +102,7 @@ export function TechStackSection() {
             description="Arduino Nano"
             image="/tech/arduino-nano.png"
             specs={['Motor Stabilitesi', 'Gerçek Zamanlı Kontrol', 'Düşük Gecikme']}
-            className="lg:col-span-1"
+            className="lg:col-span-1 "
           />
 
           {/* Servo Motor - small - Replaces Camera */}
@@ -129,7 +129,7 @@ export function TechStackSection() {
             description="FJGB37-3530"
             image="/tech/dc-motor.png"
             specs={['Yüksek RPM', 'Güçlü Çekiş', 'Dayanıklı Yapı']}
-            className="lg:col-span-1"
+            className="lg:col-span-1 min-h-[300px]"
           />
 
            {/* Motor Driver - small - Resized to 1x1 */}
@@ -161,6 +161,7 @@ export function TechStackSection() {
 
         </div>
       </div>
+      
     </section>
   );
 }

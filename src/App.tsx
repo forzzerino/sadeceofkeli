@@ -10,7 +10,8 @@ import { useState } from 'react';
 import { TechStackSection } from './sections/TechStackSection';
 import { TimelineSection } from './sections/TimelineSection';
 import { FooterSection } from './sections/FooterSection';
-import { TechSpecsSection } from './sections/TechSpecsSection';
+import { AIPerformanceSection } from './sections/AI-PerformanceSection';
+import { TeamSection } from './sections/TeamSection';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,10 +51,7 @@ export default function App() {
         
         {/* === PART 1: THE 3D TUNNEL (550vh) === */}
         <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black z-40">
-          
-          {/* THE STICKY VIEWPORT (100vh) 
-              This stays pinned to the top of the viewport while we scroll through the 500vh tunnel.
-          */}
+        
           <div className="sticky top-0 h-screen w-full overflow-hidden">
              
              {/* 3D SCENE */}
@@ -69,11 +67,7 @@ export default function App() {
              </div>
           </div>
 
-           {/* TEXT OVERLAY 
-               MOVED OUTSIDE STICKY: Now it sits absolutely in the tall tunnel.
-               As the tunnel moves up (scroll), this text layer moves with it,
-               creating the scroll effect over the pinned canvas.
-           */}
+           
            <div className="absolute top-0 left-0 w-full z-10 pointer-events-none">
               <Overlay />
            </div>
@@ -81,7 +75,7 @@ export default function App() {
         </div>
 
         {/* === PART 2: STATIC CONTENT === */}
-        <div className="relative z-20 w-full bg-mono-800 text-mono-0 font-sans border-t border-mono-800">
+        <div className="relative z-20 w-full bg-mono-900 text-mono-0 font-sans border-t border-mono-800">
           <div className="fixed inset-0 z-0 pointer-events-none opacity-40" 
               style={{ backgroundImage: 'radial-gradient(#27272a 1px, transparent 1px)', backgroundSize: '16px 16px' }}>
           </div> 
@@ -89,8 +83,9 @@ export default function App() {
             {start && (
               <>
                 <TechStackSection />
-                <TechSpecsSection />
-                <TimelineSection />
+                <AIPerformanceSection />
+                {/* <TimelineSection /> */}
+                <TeamSection />
                 <FooterSection />
               </>
             )} 

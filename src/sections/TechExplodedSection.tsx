@@ -96,8 +96,46 @@ export function TechExplodedSection() {
         }
       });
       
-      // Initial Scale (Opacity is 0 via CSS class)
+      // Initial Scale
       gsap.set(items, { scale: 0.8 });
+
+      // Camera Path Setup
+      const path = containerRef.current?.querySelector('#camera-path') as SVGPathElement;
+      if (path) {
+        const length = path.getTotalLength();
+        gsap.set(path, { 
+          strokeDasharray: length, 
+          strokeDashoffset: length,
+          // Opacity is handled by CSS/Parent now to avoid conflict
+        });
+        
+        // Independent time-based trigger for the drawing
+        // Optimized for smoothness - removed opacity transitions
+        ScrollTrigger.create({
+          trigger: tunnel,
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+             // If we are past the point where cards appear (0.96)
+             if (self.progress > 0.95) {
+                gsap.to(path, {
+                  strokeDashoffset: 0,
+                  duration: 1.5, // Slightly longer for better visual flow
+                  delay: 0.2, // Reduced delay for responsiveness
+                  ease: "power2.inOut", // Smoother ease
+                  overwrite: 'auto'
+                });
+             } else {
+                // Reset if we scroll back up
+                gsap.to(path, {
+                  strokeDashoffset: length,
+                  duration: 0.5,
+                  overwrite: 'auto'
+                });
+             }
+          }
+        });
+      }
 
       // Animate In: EXTRA LATE (0.96) - Triggers at the absolute end of the scroll
       tl.to(items, { 
@@ -142,7 +180,7 @@ export function TechExplodedSection() {
                             className="w-full h-full grayscale object-contain relative left-16 scale-[230%] 
                             group-hover:grayscale-0 transition-all duration-300"
                         />
-                         
+                         {/* Removed inner SVG */}
                     </div>
 
                     {/* Content */}
@@ -155,10 +193,31 @@ export function TechExplodedSection() {
                         </div>
                     </div>
                 </div>
+                
+                {/* SVG Line - Positioned outside, between box and center (car) */}
+                {item.id === 'camera' && (
+                   <svg 
+                     viewBox="-3 3 8 4" 
+                     className="absolute left-full top-1/2 -translate-y-1/2 w-64 h-64 z-0 pointer-events-none -ml-8"
+                     preserveAspectRatio="xMidYMid meet"
+                     style={{ shapeRendering: "geometricPrecision" }} // Critical for smooth lines
+                   >
+                     <path 
+                       id="camera-path"
+                       d="M -2 5 C -1 5 2 6 1 7 S -2 6 3 6 C 4 6 5 6 6 6" 
+                       fill="none" 
+                       stroke="#ef4444" 
+                       strokeWidth="0.15"
+                       strokeLinecap="round"
+                       className="will-change-[stroke-dashoffset]" // Hint browser for performance
+                     />
+                   </svg>
+                 )}
             </div>
             ))}
            
-            
+             {/* SMOOTH TRANSITION GRADIENT */}
+             <div className="absolute bottom-0 left-0 w-full h-64 -z-10 bg-gradient-to-b from-transparent via-black/20 to-mono-900 pointer-events-none"></div>
           </div>
       </div>
     </section>

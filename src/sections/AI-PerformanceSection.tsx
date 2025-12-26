@@ -6,7 +6,7 @@ import SystemArchitecture from "../components/SystemArchitecture";
 // GSAP Plugin Kaydı
 gsap.registerPlugin(ScrollTrigger);
 
-export function TechSpecsSection() {
+export function AIPerformanceSection() {
   // TypeScript: Ref tiplerini HTML elementlerine göre belirliyoruz
   const containerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export function TechSpecsSection() {
             YAPAY ZEKA & <span className="text-red-600">PERFORMANS</span>
           </h2>
           <p className="section-subtitle-large">
-            System Architecture & Performance Metrics
+            System Yapısı & Performans Metrikleri
           </p>
         </div>
 

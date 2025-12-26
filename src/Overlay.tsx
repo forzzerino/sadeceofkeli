@@ -19,8 +19,7 @@ export default function Overlay() {
       <Intro />
       <Chassis />
       <Electronics />
-      {/* Final Exploded View Section */}
-      <TechExplodedSection />
+      {/* <TechExplodedSection /> */}
     </div>
   );
 }
