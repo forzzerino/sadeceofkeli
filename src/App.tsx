@@ -84,7 +84,7 @@ export default function App() {
               <>
                 <TechStackSection />
                 <AIPerformanceSection />
-                {/* <TimelineSection /> */}
+                <TimelineSection />
                 <TeamSection />
                 <FooterSection />
               </>

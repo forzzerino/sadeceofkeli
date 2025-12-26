@@ -75,7 +75,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
       ref={nodeRef}
       className="flex-shrink-0 w-[24rem] md:w-[28rem] scroll-snap-align-start group"
     >
-      <div className="h-full bg-mono-900 border border-mono-700 rounded-3xl p-8 hover:border-mono-600 shadow-xl transition-all duration-300">
+      <div className="h-full bg-mono-900 border border-mono-700 p-8 hover:border-red-600 shadow-xl transition-all duration-300">
         
         {/* Header: Phase & Duration */}
         <div className="flex justify-between items-start mb-6">
@@ -97,7 +97,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
           {items.map((item, idx) => (
             <li
               key={idx}
-              className="flex items-start gap-4 font-mono text-small text-mono-300"
+              className="flex items-start gap-2 font-mono text-small text-mono-300"
             >
               <div className="mt-0.5 rounded-full p-1 bg-red-500 text-white">
                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
@@ -176,7 +176,7 @@ export function TimelineSection() {
         {/* Track Container */}
         <div 
           ref={trackRef}
-          className="flex gap-16 px-12 pr-24 items-center w-[max-content]"
+          className="flex gap-8 px-12 pr-24 items-center w-[max-content]"
           // Add padding to offset the header/footer visually if needed, 
           // or just rely on flex-centering and gap.
         >

@@ -187,7 +187,7 @@ export function TeamSection() {
                 {/* Collapsed State */}
                 <button
                   onClick={() => toggleExpand(member.id)}
-                  className="w-full flex items-center gap-4 p-4 hover:bg-[#111] transition-colors"
+                  className="w-full flex items-center gap-4 p-4  transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-[#111] flex-shrink-0">
                     <img
@@ -221,20 +221,22 @@ export function TeamSection() {
 
                     {/* Social Buttons */}
                     <div className="flex gap-3">
+                      {member.linkedin && (
                       <a
                         href={member.linkedin}
                         className="flex-1 flex items-center justify-center gap-2 bg-[#0d0d0d] border border-[#333] hover:border-[#FF0000] py-3 transition-colors"
                       >
                         <Linkedin className="w-5 h-5 text-[#888888]" />
                         <span className="text-sm font-mono text-white">LinkedIn</span>
-                      </a>
+                      </a>)}
+                      {member.github && (
                       <a
                         href={member.github}
                         className="flex-1 flex items-center justify-center gap-2 bg-[#0d0d0d] border border-[#333] hover:border-[#FF0000] py-3 transition-colors"
                       >
                         <Github className="w-5 h-5 text-[#888888]" />
                         <span className="text-sm font-mono text-white">GitHub</span>
-                      </a>
+                      </a>)}
                     </div>
                   </div>
                 </div>
