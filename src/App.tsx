@@ -9,9 +9,10 @@ import { LoadingScreen } from './LoadingScreen';
 import { useState } from 'react';
 import { TechStackSection } from './sections/TechStackSection';
 import { TimelineSection } from './sections/TimelineSection';
-import { FooterSection } from './sections/FooterSection';
 import { AIPerformanceSection } from './sections/AI-PerformanceSection';
+import { GanttChartSection } from './sections/GanttChartSection';
 import { TeamSection } from './sections/TeamSection';
+import { FooterSection } from './sections/FooterSection';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -85,6 +86,7 @@ export default function App() {
                 <TechStackSection />
                 <AIPerformanceSection />
                 <TimelineSection />
+                <GanttChartSection />
                 <TeamSection />
                 <FooterSection />
               </>

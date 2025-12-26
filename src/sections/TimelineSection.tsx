@@ -73,7 +73,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
   return (
     <div
       ref={nodeRef}
-      className="flex-shrink-0 w-[24rem] md:w-[28rem] scroll-snap-align-start group"
+      className=" flex-shrink-0 w-[24rem] md:w-[28rem] scroll-snap-align-start group"
     >
       <div className="h-full bg-mono-900 border border-mono-700 p-8 hover:border-red-600 shadow-xl transition-all duration-300">
         
@@ -190,10 +190,12 @@ export function TimelineSection() {
         </div>
       </div>
 
+         
        {/* Fade gradient on right */}
        <div className="absolute top-96 h-96  right-0 bottom-0 w-36 bg-gradient-to-l from-mono-900 to-transparent pointer-events-none z-20" />
        {/* Fade gradient on left */}
        <div className="absolute top-96 h-96 left-0 bottom-0 w-36 bg-gradient-to-r from-mono-900 to-transparent pointer-events-none z-20" />
     </section>
+    
   );
 }
