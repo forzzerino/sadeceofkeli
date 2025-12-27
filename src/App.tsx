@@ -85,11 +85,11 @@ export default function App() {
               <>
                 <TechStackSection />
                 <AIPerformanceSection />
-                {/* <TimelineSection /> */}
+                <TimelineSection />
                 <GanttChartSection />
                 <TeamSection /> 
                 <GallerySection />
-                 <FooterSection /> 
+                <FooterSection /> 
               </>
             )} 
           </div>

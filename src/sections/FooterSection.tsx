@@ -29,7 +29,7 @@ export function FooterSection() {
   }, []);
 
   return (
-    <footer ref={sectionRef} className="relative w-full bg-transparent section-padding border-t border-mono-800">
+    <footer ref={sectionRef} className="relative w-full bg-transparent section-padding">
 
       <div className="relative z-10">
         {/* Main content */}
