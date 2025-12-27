@@ -1,8 +1,4 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
 
 interface GanttTask {
   name: string;
@@ -24,48 +20,9 @@ const tasks: GanttTask[] = [
 ];
 
 export function GanttChartSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-         // Animate bars entering without transforming the container to preserve sticky behavior
-         gsap.fromTo('.gantt-bar', 
-            { scaleX: 0, opacity: 0 },
-            { 
-                scaleX: 1, 
-                opacity: 1, 
-                duration: 1.5, 
-                stagger: 0.1, 
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: chartRef.current,
-                    start: 'top 80%',
-                    toggleActions: 'play none none reverse'
-                }
-            }
-         );
-
-         gsap.fromTo('.gantt-row-anim',
-            { opacity: 0 },
-            {
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.05,
-                scrollTrigger: {
-                    trigger: chartRef.current,
-                    start: 'top 85%',
-                }
-            }
-         );
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
+ 
   return (
-    <section ref={containerRef} className="flex pt-4 pb-8 flex-col section-padding items-center justify-center pointer-events-none">
+    <section className="flex pt-4 pb-8 flex-col section-padding items-center justify-center">
         <div className="w-full">
             {/* Header */}
             <div className="mb-12 border-l-8 border-red-500 pl-6">
@@ -78,8 +35,8 @@ export function GanttChartSection() {
             </div>
 
             {/* Chart Scroll Container */}
-            <div ref={chartRef} className="w-full overflow-x-auto pb-8 custom-scrollbar">
-                <div className="min-w-[900px] w-full bg-mono-900 border border-mono-700  relative overflow-hidden">
+            <div className="w-full overflow-x-auto pb-8 custom-scrollbar">
+                <div className="min-w-[900px] w-full bg-mono-900 border border-mono-700 relative">
                     
                     {/* Background Grid (Stripes + Gaps) */}
                     <div className="absolute inset-0 grid grid-cols-[250px_repeat(8,1fr)] bg-mono-800 gap-[1px] pointer-events-none z-0">
@@ -106,7 +63,7 @@ export function GanttChartSection() {
                         {tasks.map((task, idx) => (
                             <div 
                                 key={idx} 
-                                className="gantt-row-anim grid grid-cols-[250px_repeat(8,1fr)] gap-[1px] items-stretch group relative"
+                                className="grid grid-cols-[250px_repeat(8,1fr)] gap-[1px] items-stretch group relative"
                             >
                                 {/* Sticky Task Label */}
                                 <div className="sticky left-0 bg-mono-900 transition-colors p-3 px-6 flex items-center z-30">
@@ -126,7 +83,7 @@ export function GanttChartSection() {
 
                                     {/* The Actual Bar */}
                                     <div 
-                                        className={`gantt-bar relative z-10 h-8 rounded  ${task.color} hover:brightness-110 transition-all origin-left opacity-0 flex items-center mx-[1px]`}
+                                        className={`relative z-10 h-8 rounded  ${task.color} hover:brightness-110 transition-all origin-left flex items-center mx-[1px]`}
                                         style={{
                                             gridColumnStart: task.start,
                                             gridColumnEnd: `span ${task.duration}`

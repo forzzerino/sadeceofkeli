@@ -13,7 +13,7 @@ import { AIPerformanceSection } from './sections/AI-PerformanceSection';
 import { GanttChartSection } from './sections/GanttChartSection';
 import { TeamSection } from './sections/TeamSection';
 import { FooterSection } from './sections/FooterSection';
-
+import GallerySection from './sections/GallerySection';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function App() {
@@ -85,10 +85,11 @@ export default function App() {
               <>
                 <TechStackSection />
                 <AIPerformanceSection />
-                <TimelineSection />
+                {/* <TimelineSection /> */}
                 <GanttChartSection />
-                <TeamSection />
-                <FooterSection />
+                <TeamSection /> 
+                <GallerySection />
+                 <FooterSection /> 
               </>
             )} 
           </div>
