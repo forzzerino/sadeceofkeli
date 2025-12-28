@@ -81,7 +81,7 @@ body {
   }
 
   .section-title-large {
-    @apply text-6xl md:text-8xl font-bold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-mono-0 to-mono-500;
+    @apply text-6xl md:text-8xl font-bold uppercase tracking-tighter text-transparent bg-clip-text pt-2 bg-gradient-to-r from-mono-0 to-mono-500;
   }
 
   .section-subtitle-large {

@@ -172,9 +172,9 @@ export function TimelineSection() {
       {/* Header - Fixed pos within pinned section */}
       <div className="absolute top-0 left-0 w-full p-12 py-36 z-20 pointer-events-none">
         <div className="section-header-container border-red-600">
-             <h2 className="section-title-large">8 Haftalık <span className="text-red-600">Sprint</span></h2>
+          <h2 className="section-title-large">8 HAFTALIK <span className="text-red-600">SPRİNT</span></h2>
              <p className="section-subtitle-large">
-               Mühendislik & Geliştirme Süreci
+            MÜHENDİSLİK & GELİŞTİRME SÜRECİ
              </p>
         </div>
       </div>

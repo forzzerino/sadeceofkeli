@@ -108,12 +108,12 @@ export function CarPartsSection() {
           {/* Scroll Progress Bar */}
           <div ref={progressBarRef} className="absolute top-0 left-0 h-1 bg-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
 
-          <div className="relative z-10 mx-auto w-full h-full flex flex-col p-8 lg:p-16">
+          <div className="relative z-10 mx-auto w-full h-full flex flex-col section-padding">
 
               {/* Header - Always Visible */}
               <div className="section-header-container mb-8 flex-shrink-0">
             <h2 className="section-title-large">
-                      Mekanik Tasarım &<span className="text-red-600">  Üretim</span>
+                      MEKANİK TASARIM &<span className="text-red-600">  ÜRETİM</span>
             </h2>
                   <div className="flex flex-row gap-8 text-mono-500 font-mono mt-4 justify-between">
                       <span>BAĞLANTI: Metrik Vida + Fiberli Somun</span>

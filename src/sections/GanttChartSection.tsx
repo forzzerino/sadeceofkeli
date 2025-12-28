@@ -30,7 +30,7 @@ export function GanttChartSection() {
                     PROJE <span className="text-red-500">GANTT</span> ÇİZELGESİ
                 </h2>
                 <p className="font-mono text-mono-400 mt-2 uppercase tracking-widest">
-                    8 Haftalık Geliştirme Süreci
+                      8 HAFTALIK GELİŞTİRME SÜRECİ
                 </p>
             </div>
 

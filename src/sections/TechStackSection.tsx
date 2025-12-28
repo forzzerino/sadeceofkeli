@@ -77,7 +77,7 @@ export function TechStackSection() {
 
       <div className="relative z-10">
         <div className="section-header-container">
-          <h2 className="section-title-large">Teknoloji <span className="text-red-600">Yığını</span></h2>
+          <h2 className="section-title-large">TEKNOLOJİ <span className="text-red-600">YIĞINI</span></h2>
           <p className="section-subtitle-large">Donanım Altyapısı</p>
         </div>
 

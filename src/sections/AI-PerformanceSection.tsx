@@ -76,7 +76,7 @@ export function AIPerformanceSection() {
             YAPAY ZEKA & <span className="text-red-600">PERFORMANS</span>
           </h2>
           <p className="section-subtitle-large">
-            System Yapısı & Performans Metrikleri
+            SİSTEM YAPISI & PERFORMANS METRİKLERİ
           </p>
         </div>
 
@@ -207,7 +207,7 @@ export function AIPerformanceSection() {
         {/* MIMARI GÖRSEL ALANI */}
         <div className="max-w-7xl mx-auto mt-16 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between mb-6">
-                <h4 className="text-3xl font-bold uppercase  text-mono-0">Sistem Akış Şeması</h4>
+            <h4 className="text-3xl font-bold uppercase  text-mono-0">SİSTEM AKIŞ ŞEMASI</h4>
                 <span className="text-xs font-mono text-mono-500 bg-mono-800 px-2 py-1 border border-mono-700">
                     DIAGRAM_V1.0.SVG
                 </span>
