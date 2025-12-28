@@ -114,7 +114,7 @@ export function TeamSection() {
       <div className="relative z-10">
         <div className="mx-auto text-center">
             {/* Title */}
-          <div className="team-animate space-y-4 text-left mb-16">
+          <div className="team-animate space-y-4 text-left mb-8">
              <div className="section-header-container mx-auto inline-block text-left w-full">
               <h2 className="section-title-large">MÜHENDİSLİK <span className="text-red-600">EKİBİ</span></h2>
                 <p className="section-subtitle-large">
@@ -181,7 +181,7 @@ export function TeamSection() {
           </div>
 
           {/* Mobile Accordion View */}
-          <div className="md:hidden space-y-2 mb-20 team-animate">
+          <div className="md:hidden space-y-2 mb-8 team-animate">
             {teamMembers.map((member) => (
               <div key={member.id} className="border border-[#333] bg-mono-800 overflow-hidden">
                 {/* Collapsed State */}
@@ -246,24 +246,24 @@ export function TeamSection() {
 
           {/* University & date (Moved from Footer) */}
           <div className="team-animate ">
-            <div className="flex flex-col md:flex-row justify-center gap-6">
+            <div className="flex flex-col md:flex-row justify-center gap-2">
               
               {/* University Box */}
-              <div className="border border-[#333] bg-[#0a0a0a] px-8 py-6 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
+              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
                 <p className="font-mono text-xs text-white uppercase tracking-widest mb-2">
                   KURUM
                 </p>
-                <p className="text-lg font-bold text-white leading-tight">
+                <p className="text-base font-bold text-white leading-tight">
                   Bandırma Onyedi Eylül Üniversitesi
                 </p>
               </div>
 
               {/* Date Box */}
-              <div className="border border-[#333] bg-[#0a0a0a] px-8 py-6 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
+              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
                 <p className="font-mono text-xs text-white uppercase tracking-widest mb-2">
                   PROJE TARİHİ
                 </p>
-                <p className="text-lg font-bold text-white leading-tight">
+                <p className="text-base font-bold text-white leading-tight">
                   Aralık 2025
                 </p>
               </div>

@@ -75,7 +75,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
       ref={nodeRef}
       className=" flex-shrink-0 w-[24rem] md:w-[28rem] scroll-snap-align-start group"
     >
-      <div className="h-full bg-mono-900 border border-mono-700 p-8 hover:border-red-600 shadow-xl transition-all duration-300">
+      <div className="h-full info-box shadow-xl hover:border-red-600">
         
         {/* Header: Phase & Duration */}
         <div className="flex justify-between items-start mb-6">
@@ -88,7 +88,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
         </div>
 
         {/* Title */}
-        <h4 className="text-h3 font-bold text-white mb-8 group-hover:text-accent-cyan transition-colors duration-300">
+        <h4 className="box-title mb-6 group-hover:text-accent-cyan transition-colors duration-300">
           {title}
         </h4>
 
@@ -170,7 +170,7 @@ export function TimelineSection() {
       <div ref={progressBarRef} className="absolute top-0 left-0 h-1 bg-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
 
       {/* Header - Fixed pos within pinned section */}
-      <div className="absolute top-0 left-0 w-full p-12 py-36 z-20 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full p-6 md:p-12 pt-24 md:pt-36 z-20 pointer-events-none">
         <div className="section-header-container border-red-600">
           <h2 className="section-title-large">8 HAFTALIK <span className="text-red-600">SPRİNT</span></h2>
              <p className="section-subtitle-large">

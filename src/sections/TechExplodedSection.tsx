@@ -170,7 +170,7 @@ export function TechExplodedSection() {
                 style={item.position}
                 >
                 {/* Rectangular Card Container */}
-                <div className="relative flex flex-col justify-center bg-black/90 border border-mono-700 rounded-xl backdrop-blur-md overflow-hidden group-hover:border-red-600 transition-colors duration-300 w-[280px] md:w-[320px] p-5">
+                <div className="relative flex flex-col justify-center info-box rounded-xl backdrop-blur-md overflow-hidden group-hover:border-red-600 transition-colors duration-300 w-[280px] md:w-[320px] p-5">
                     
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
@@ -187,9 +187,9 @@ export function TechExplodedSection() {
                     <div className="relative z-10 flex flex-col gap-2">
                         <div>
                             {/* Title */}
-                            <h4 className="font-mono font-bold text-red-500 text-sm tracking-widest mb-1">{item.title}</h4>
+                      <h4 className="box-subtitle !text-red-500 !mb-1">{item.title}</h4>
                             {/* Component Name */}
-                            <h3 className="font-sans font-bold text-white text-lg md:text-xl leading-tight">{item.details}</h3>
+                      <h3 className="box-title !text-lg md:!text-xl leading-tight text-white">{item.details}</h3>
                         </div>
                     </div>
                 </div>

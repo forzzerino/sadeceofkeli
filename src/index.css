@@ -68,7 +68,7 @@ body {
   }
 
   .tech-badge {
-    @apply inline-block px-4 py-2 border border-mono-600 text-mono-0 text-small font-mono;
+    @apply inline-block text-[10px] sm:text-xs md:text-sm font-mono text-mono-400 bg-mono-800 px-2 py-1 border border-mono-700;
   }
 
   .section-title {
@@ -77,14 +77,27 @@ body {
 
   /* New Global Section Header Styles */
   .section-header-container {
-    @apply mb-16 border-l-8 border-red-600 pl-6;
+    @apply mb-8 md:mb-16 border-l-4 md:border-l-8 border-red-600 pl-4 md:pl-6;
   }
 
   .section-title-large {
-    @apply text-6xl md:text-8xl font-bold uppercase tracking-tighter text-transparent bg-clip-text pt-2 bg-gradient-to-r from-mono-0 to-mono-500;
+    @apply text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold uppercase tracking-tighter text-transparent bg-clip-text pt-2 bg-gradient-to-r from-mono-0 to-mono-500 leading-none pb-2;
   }
 
   .section-subtitle-large {
-    @apply text-xl md:text-2xl font-mono text-mono-400 mt-2 uppercase;
+    @apply text-xs sm:text-sm md:text-2xl font-mono text-mono-400 mt-2 uppercase block leading-tight;
+  }
+
+  /* Global Box / Card Styles */
+  .info-box {
+    @apply bg-mono-900 border border-mono-700 p-6 md:p-8 hover:border-mono-600 relative overflow-hidden transition-all duration-300;
+  }
+  
+  .box-title {
+    @apply text-xl md:text-2xl font-bold uppercase mb-1 text-mono-0;
+  }
+
+  .box-subtitle {
+    @apply text-[px] md:text-sm font-mono text-mono-400 mb-4 tracking-wider uppercase;
   }
 }

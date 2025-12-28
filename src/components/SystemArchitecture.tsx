@@ -82,20 +82,20 @@ const SystemArchitecture: React.FC = () => {
                 
                 {/* SOL SÜTUN (ŞERİT TAKİBİ - BLUE) */}
                 <div className="flex flex-col items-center ">
-                    <div className="mb-4 w-full">
+            <div className="md:mb-4 w-full">
                         <Node title="Şerit Takibi" subtitle="Network A" type="process-red" />
                     </div>
                     
                     {/* İç İşlemler (Daha küçük, liste gibi) */}
-                    <div className="flex flex-col  w-full max-w-[200px] opacity-80">
+            <div className="flex flex-col w-full max-w-[200px] opacity-80">
                         <ConnectorVertical height="h-4" />
                         <Node title="Özellik Çıkarımı" type="process-red" subtitle="Conv Layers" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Düzenlileştirme" type="process-red" subtitle="Normalization" />
+              <Node title="Düzenlileştirme" type="process-red" subtitle="Normalization" />
                         <ConnectorVertical height="h-4" />
                         <Node title="ReLU Aktivasyon" type="process-red" subtitle="Non-Linearity" />
                         <ConnectorVertical height="h-4" />
-                        <Node title="Çıktı: Regresyon" type="process-red" subtitle="Continuous Val" />
+              <Node title="Regresyon" type="process-red" subtitle="Continuous Val" />
                     </div>
 
                     <ConnectorVertical height="h-8" />
@@ -104,7 +104,7 @@ const SystemArchitecture: React.FC = () => {
 
                 {/* SAĞ SÜTUN (TRAFİK LAMBASI - RED) */}
                 <div className="flex flex-col items-center ">
-                    <div className="mb-4 w-full">
+            <div className="md:mb-4 w-full">
                         <Node title="Trafik Lambası" subtitle="Network B" type="process-blue" />
                     </div>
 

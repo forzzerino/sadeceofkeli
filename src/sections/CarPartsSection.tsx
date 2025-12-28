@@ -29,21 +29,12 @@ export function CarPartsSection() {
                             progressBarRef.current.style.width = `${self.progress * 100}%`;
                         }
 
-                        // Determine active stage based on progress (6 segments)
-                        // 0-16.6%: Material (Entry)
-                        // 16.6-33.3%: Complete
-                        // 33.3-50%: Body
-                        // 50-66.6%: Rim
-                        // 66.6-83.3%: Tire
-                        // 83.3-100%: Material (Exit)
-
                         const p = self.progress;
-                        if (p < 0.166) setActiveStage('material');
-                        else if (p < 0.333) setActiveStage('complete');
-                        else if (p < 0.5) setActiveStage('body');
-                        else if (p < 0.666) setActiveStage('rim');
-                        else if (p < 0.833) setActiveStage('tire');
-                        else setActiveStage('material');
+                        if (p < 0.2) setActiveStage('material');
+                        else if (p < 0.4) setActiveStage('complete');
+                        else if (p < 0.6) setActiveStage('body');
+                        else if (p < 0.8) setActiveStage('rim');
+                        else setActiveStage('tire');
                     }
                 }
             });
@@ -95,20 +86,20 @@ export function CarPartsSection() {
 
     // Helper for active card highlighting
     const getCardClass = (layer: LayerType) => classNames(
-        "relative bg-mono-900/50 backdrop-blur-sm border p-6 group transition-all duration-500 cursor-pointer hover:opacity-100 hover:border-red-600/50",
+        "info-box backdrop-blur-sm border p-6 group transition-all duration-500 cursor-pointer hover:opacity-100 hover:border-red-600/50 text-[10px] md:text-sm",
         {
             "border-red-600 shadow-[0_0_20px_rgba(220,38,38,0.1)]": activeStage === layer,
-            "border-mono-700 opacity-50": activeStage !== layer
+            "border-mono-700": activeStage !== layer
         }
     );
 
   return (
-      <section ref={containerRef} className="relative w-full h-screen  overflow-hidden border-t border-mono-800">
+      <section ref={containerRef} className="relative w-full h-screen overflow-hidden border-t border-mono-800">
       
           {/* Scroll Progress Bar */}
           <div ref={progressBarRef} className="absolute top-0 left-0 h-1 bg-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
 
-          <div className="relative z-10 mx-auto w-full h-full flex flex-col section-padding">
+          <div className="relative z-10 mx-auto w-full h-full flex flex-col pt-10 md:pt-32 pb-20 px-6 md:px-12">
 
               {/* Header - Always Visible */}
               <div className="section-header-container mb-8 flex-shrink-0">
@@ -116,20 +107,20 @@ export function CarPartsSection() {
                       MEKANİK TASARIM &<span className="text-red-600">  ÜRETİM</span>
             </h2>
                   <div className="flex flex-row gap-8 text-mono-500 font-mono mt-4 justify-between">
-                      <span>BAĞLANTI: Metrik Vida + Fiberli Somun</span>
-                      <span>DURUM: Optimize</span>
+                      <span className="tech-badge">BAĞLANTI: Metrik Vida + Fiberli Somun</span>
+                      <span className="tech-badge">DURUM: Optimize</span>
                   </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full pb-8">
+              <div className="flex flex-col lg:grid lg:grid-cols-12 md:gap-8 h-full pb-8">
 
             {/* LEFT COLUMN: VISUAL LAYERS */}
-                  <div className="lg:col-span-7 relative flex items-center justify-center h-full bg-mono-900">
+                  <div className="lg:col-span-7 relative flex items-center justify-center shrink-0 h-[40vh] md:h-full bg-mono-900 mb-8 md:mb-0">
                 
                 {/* Background decorative frame */}
                       <div className="absolute inset-0 border border-mono-700 pointer-events-none">
-                    <div className="absolute top-0 left-0 p-2 text-mono-500 font-mono">VIEWPORT_01</div>
-                          <div className="absolute bottom-0 right-0 p-2 text-mono-500 font-mono">SCALE: 1:10</div>
+                          <div className="absolute top-0 left-0 tech-badge mx-2 my-2 z-10">VIEWPORT_01: {activeStage}.png</div>
+                          <div className="absolute bottom-0 right-0  tech-badge mx-2 my-2 z-10">SCALE: 1:10</div>
                 </div>
 
                 {/* Layered Image Container */}
@@ -173,78 +164,114 @@ export function CarPartsSection() {
                 </div>
                       {/* Base Wireframe / Grid */}
                       <div
-                          className="absolute inset-0 z-0 pointer-events-none opacity-20"
+                          className="hidden md:visible absolute inset-0 z-0 pointer-events-none opacity-20"
                           style={{
                               backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
-                              backgroundSize: '40px 40px'
+                              backgroundSize: "md:40px md:40px"
+                          }}
+                      />
+
+                      <div
+                          className="md:hidden absolute inset-0 z-0 pointer-events-none opacity-20"
+                          style={{
+                              backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
+                              backgroundSize: "20px 20px"
                           }}
                       />
             </div>
 
             {/* RIGHT COLUMN: DATA MODULES */}
-                  <div className="lg:col-span-5 flex flex-col justify-between gap-4 h-full">
+                  <div className="lg:col-span-5 relative md:flex md:flex-col justify-between gap-4 h-[180px] md:h-full mt-2 md:mt-0">
                 
                 {/* CARD 1: SYSTEM OVERVIEW */}
                       <div
-                          className={getCardClass('complete')}
+                          className={classNames(
+                              getCardClass('complete'),
+                              "absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              {
+                                  "opacity-100 z-10": activeStage === 'complete' || activeStage === 'material',
+                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'complete' && activeStage !== 'material'
+                              }
+                          )}
                           onClick={() => handleCardClick('complete')}
                       >
                     <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
-                                  <div className={classNames("p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
-                                <Layers className="w-5 h-5" />
+                                  <div className={classNames("p-1 md:p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
+                                      <Layers className="w-4 h-4 md:w-5 md:h-5" />
                             </div>
-                            <h3 className="font-display font-bold text-xl text-white tracking-wide">KATMANLI İMALAT</h3>
+                                  <h3 className="box-title text-base md:text-xl text-white tracking-wide">KATMANLI İMALAT</h3>
                         </div>
                     </div>
                     
-                    <p className="text-sm font-mono text-mono-400 leading-relaxed">
+                          <p className="box-subtitle !text-mono-400 !mb-0 leading-relaxed normal-case">
                         Duke Doks platformu referans alınarak optimize edilmiştir. Parçaların mekanik stres analizine göre <span className="text-white">3 farklı filament türü</span> ile hibrit üretim.
                     </p>
-                </div>
+                      </div>
 
                       {/* CARD 2: ABS */}
                       <div
-                          className={classNames(getCardClass('body'), "flex gap-4 items-center")}
+                          className={classNames(
+                              getCardClass('body'),
+                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              {
+                                  "opacity-100 z-10": activeStage === 'body',
+                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'body'
+                              }
+                          )}
                           onClick={() => handleCardClick('body')}
                       >
-                          <div className="flex-shrink-0 w-16 h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-lg font-bold font-display text-white">ABS</span>
-                              <span className="text-[9px] text-mono-400 font-mono">GÖVDE</span>
+                          <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
+                              <span className="text-sm md:text-lg font-bold font-display text-white">ABS</span>
+                              <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">GÖVDE</span>
                           </div>
                           <div>
-                              <h4 className={classNames("font-display font-bold text-lg mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
-                              <p className="text-xs font-mono text-mono-400">Rijit yapı ile elektronik bileşen koruması. Sürüş titreşimlerine karşı yüksek mukavemet.</p>
+                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
+                              <p className="text-[10px] md:text-xs font-mono text-mono-400">Rijit yapı ile elektronik bileşen koruması. Sürüş titreşimlerine karşı yüksek mukavemet.</p>
                           </div>
                       </div>
 
                       {/* CARD 3: PLA-CF */}
                       <div
-                          className={classNames(getCardClass('rim'), "flex gap-4 items-center")}
+                          className={classNames(
+                              getCardClass('rim'),
+                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              {
+                                  "opacity-100 z-10": activeStage === 'rim',
+                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'rim'
+                              }
+                          )}
                           onClick={() => handleCardClick('rim')}
                       >
-                          <div className="flex-shrink-0 w-16 h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-lg font-bold font-display text-white">CF</span>
-                              <span className="text-[9px] text-mono-400 font-mono">JANT</span>
+                          <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
+                              <span className="text-sm md:text-lg font-bold font-display text-white">CF</span>
+                              <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">JANT</span>
                           </div>
                           <div>
-                              <h4 className={classNames("font-display font-bold text-lg mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
-                              <p className="text-xs font-mono text-mono-400">PLA-CF ile yüksek sertlik ve hafiflik. Form bozulmadan maksimum yük taşıma kapasitesi.</p>
+                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
+                              <p className="text-[10px] md:text-xs font-mono text-mono-400">PLA-CF ile yüksek sertlik ve hafiflik. Form bozulmadan maksimum yük taşıma kapasitesi.</p>
                           </div>
                       </div>
 
                       {/* CARD 4: TPU */}
                       <div
-                          className={classNames(getCardClass('tire'), "flex gap-4 items-center")}
+                          className={classNames(
+                              getCardClass('tire'),
+                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              {
+                                  "opacity-100 z-10": activeStage === 'tire',
+                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'tire'
+                              }
+                          )}
                           onClick={() => handleCardClick('tire')}
                       >
-                          <div className="flex-shrink-0 w-16 h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-lg font-bold font-display text-white">TPU</span>
-                              <span className="text-[9px] text-mono-400 font-mono">LASTİK</span>
+                          <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
+                              <span className="text-sm md:text-lg font-bold font-display text-white">TPU</span>
+                              <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">LASTİK</span>
                           </div>
                           <div>
-                              <h4 className={classNames("font-display font-bold text-lg mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
-                              <p className="text-xs font-mono text-mono-400">Süspansiyon yükünü azaltan esnek yapı. Zemin bozukluklarını sönümleyen termoplastik.</p>
+                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
+                              <p className="text-[10px] md:text-xs font-mono text-mono-400">Süspansiyon yükünü azaltan esnek yapı. Zemin bozukluklarını sönümleyen termoplastik.</p>
                           </div>
                       </div>
 

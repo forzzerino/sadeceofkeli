@@ -88,7 +88,7 @@ export function AIPerformanceSection() {
             <div className="absolute top-0 right-0 w-24 h-1 bg-red-600"></div>
             
             <div className="w-full">
-              <h3 className="text-3xl font-bold uppercase  mb-1 text-mono-0">
+              <h3 className="text-xl md:text-3xl font-bold uppercase  mb-1 text-mono-0">
                 Şerit Takibi
               </h3>
               <p className="text-sm font-mono text-red-500 mb-6 tracking-wider">
@@ -97,9 +97,9 @@ export function AIPerformanceSection() {
 
              <div className="flex md:flex-row flex-col justify-between mb-4">
                <div className="flex items-center gap-4">
-                <span className="stat-number text-7xl font-black tracking-tighter text-mono-0" data-target="0.05">0</span>
+                  <span className="stat-number text-5xl md:text-7xl font-black tracking-tighter text-mono-0" data-target="0.05">0</span>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-red-600">MAE</span>
+                    <span className="text-xl md:text-2xl font-bold text-red-600">MAE</span>
                   <span className="text-xs text-mono-500 font-mono uppercase">Ortalama Mutlak Hata</span>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export function AIPerformanceSection() {
              <div className="absolute top-0 right-0 w-24 h-1 bg-blue-500"></div>
 
              <div className="w-full">
-              <h3 className="text-3xl font-bold uppercase  mb-1 text-mono-0">
+              <h3 className="text-xl md:text-3xl font-bold uppercase  mb-1 text-mono-0">
                 Trafik Lambası
               </h3>
               <p className="text-sm font-mono text-blue-500 mb-6 tracking-wider">
@@ -158,9 +158,9 @@ export function AIPerformanceSection() {
 
              <div className="flex md:flex-row flex-col justify-between mb-4">
                <div className="flex items-center gap-4 ">
-                <span className="stat-number text-7xl font-black tracking-tighter text-mono-0" data-target="94.5">0%</span>
+                  <span className="stat-number text-5xl md:text-7xl font-black tracking-tighter text-mono-0" data-target="94.5">0%</span>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-bold text-blue-500">ACC</span>
+                    <span className="text-xl md:text-2xl font-bold text-blue-500">ACC</span>
                   <span className="text-xs text-mono-500 font-mono uppercase">Doğruluk Oranı</span>
                 </div>
                 </div>
@@ -207,8 +207,8 @@ export function AIPerformanceSection() {
         {/* MIMARI GÖRSEL ALANI */}
         <div className="max-w-7xl mx-auto mt-16 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between mb-6">
-            <h4 className="text-3xl font-bold uppercase  text-mono-0">SİSTEM AKIŞ ŞEMASI</h4>
-                <span className="text-xs font-mono text-mono-500 bg-mono-800 px-2 py-1 border border-mono-700">
+            <h4 className="text-xl mb-4 md:mb-0 md:text-3xl font-bold uppercase  text-mono-0">SİSTEM AKIŞ ŞEMASI</h4>
+            <span className="tech-badge">
                     DIAGRAM_V1.0.SVG
                 </span>
             </div>
