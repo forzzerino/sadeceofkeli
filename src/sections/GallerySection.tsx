@@ -6,7 +6,8 @@ import ScrollableGallery from '../components/ScrollableGallery';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function GallerySection() {
-	const containerRef = useRef<HTMLElement>(null);
+	const triggerRef = useRef<HTMLDivElement>(null);
+	const pinRef = useRef<HTMLDivElement>(null);
 	const progressRef = useRef(0);
 	
 	const sampleImages = [
@@ -29,42 +30,44 @@ export default function GallerySection() {
 		{ src: '/gallery/17.JPG', alt: 'Image 17' },
 		{ src: '/gallery/18.JPG', alt: 'Image 18' },
 		{ src: '/gallery/22.jpeg', alt: 'Image 22' },
-        // Duplicating for length if needed, or user can add more
 	];
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
 			ScrollTrigger.create({
-				trigger: containerRef.current,
+				trigger: triggerRef.current,
 				start: 'top top',
-				// Determines how long the scroll lasts. 
-                // e.g. 500% means the user scrolls 5 screens worth of height to get through the gallery
 				end: '+=500%', 
-				pin: true,
-				scrub: 0.5, // Slight smoothing on the value
+				pin: pinRef.current,
+				pinSpacing: true,
+				scrub: 0.5,
 				onUpdate: (self) => {
 					progressRef.current = self.progress;
 				},
 			});
-		}, containerRef);
+		}, triggerRef);
 
 		return () => ctx.revert();
 	}, []);
 
 	return (
-		<section ref={containerRef} className="h-screen w-full relative overflow-hidden">
-			<ScrollableGallery
-				images={sampleImages}
-				scrollProgress={progressRef}
-				zSpacing={7} // Increased spacing for more "travel" feel
-				className="h-full w-full"
-			/>
-			
-			<div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center px-3 mix-blend-exclusion text-white z-10">
-				<h1 className="font-serif italic text-4xl md:text-7xl tracking-tight">
-				Proje Sürecini Keşfet
-				</h1>
-			</div>
-		</section>
+		// Wrapper div acts as the trigger/spacer for the scroll duration
+		<div ref={triggerRef} className="relative w-full">
+			{/* Inner div is what gets pinned */}
+			<section ref={pinRef} className="h-screen w-full relative overflow-hidden border-t border-mono-800">
+				<ScrollableGallery
+					images={sampleImages}
+					scrollProgress={progressRef}
+					zSpacing={7}
+					className="h-full w-full"
+				/>
+
+				<div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center px-3 mix-blend-exclusion text-white z-10">
+					<h1 className="font-serif italic text-4xl md:text-7xl tracking-tight">
+						Proje Sürecini Keşfet
+					</h1>
+				</div>
+			</section>
+		</div>
 	);
 }
