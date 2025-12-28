@@ -113,9 +113,9 @@ export function CarPartsSection() {
               {/* Header - Always Visible */}
               <div className="section-header-container mb-8 flex-shrink-0">
             <h2 className="section-title-large">
-                      Mekanik Tasarım <span className="text-red-600"> & Üretim</span>
+                      Mekanik Tasarım &<span className="text-red-600">  Üretim</span>
             </h2>
-                  <div className="grid grid-cols-2 gap-8 text-mono-500 font-mono mt-4">
+                  <div className="flex flex-row gap-8 text-mono-500 font-mono mt-4 justify-between">
                       <span>BAĞLANTI: Metrik Vida + Fiberli Somun</span>
                       <span>DURUM: Optimize</span>
                   </div>

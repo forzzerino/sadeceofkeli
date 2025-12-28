@@ -6,8 +6,7 @@ import ScrollableGallery from '../components/ScrollableGallery';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function GallerySection() {
-	const triggerRef = useRef<HTMLDivElement>(null);
-	const pinRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLElement>(null);
 	const progressRef = useRef(0);
 	
 	const sampleImages = [
@@ -35,39 +34,34 @@ export default function GallerySection() {
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
 			ScrollTrigger.create({
-				trigger: triggerRef.current,
+				trigger: containerRef.current,
 				start: 'top top',
 				end: '+=500%', 
-				pin: pinRef.current,
-				pinSpacing: true,
+				pin: true,
 				scrub: 0.5,
 				onUpdate: (self) => {
 					progressRef.current = self.progress;
 				},
 			});
-		}, triggerRef);
+		}, containerRef);
 
 		return () => ctx.revert();
 	}, []);
 
 	return (
-		// Wrapper div acts as the trigger/spacer for the scroll duration
-		<div ref={triggerRef} className="relative w-full">
-			{/* Inner div is what gets pinned */}
-			<section ref={pinRef} className="h-screen w-full relative overflow-hidden border-t border-mono-800">
-				<ScrollableGallery
-					images={sampleImages}
-					scrollProgress={progressRef}
-					zSpacing={7}
-					className="h-full w-full"
-				/>
+		<section ref={containerRef} className="h-screen w-full relative overflow-hidden border-t border-mono-800">
+			<ScrollableGallery
+				images={sampleImages}
+				scrollProgress={progressRef}
+				zSpacing={7}
+				className="h-full w-full"
+			/>
 
-				<div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center px-3 mix-blend-exclusion text-white z-10">
-					<h1 className="font-serif italic text-4xl md:text-7xl tracking-tight">
-						Proje Sürecini Keşfet
-					</h1>
-				</div>
-			</section>
-		</div>
+			<div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center px-3 mix-blend-exclusion text-white z-10">
+				<h1 className="font-serif italic text-4xl md:text-7xl tracking-tight">
+					Proje Sürecini Keşfet
+				</h1>
+			</div>
+		</section>
 	);
 }

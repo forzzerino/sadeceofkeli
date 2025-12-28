@@ -116,6 +116,7 @@ function TimelineNode({ title, duration, items, index }: TimelinePhase & { index
 export function TimelineSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -135,6 +136,11 @@ export function TimelineSection() {
           // Significantly increase the scroll distance (3x width) to make it slower/longer
           end: () => `+=${Math.max(3000, trackWidth * 2)}`, 
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (progressBarRef.current) {
+              progressBarRef.current.style.width = `${self.progress * 100}%`;
+            }
+          }
         },
       });
 
@@ -160,7 +166,9 @@ export function TimelineSection() {
       ref={sectionRef}
       className="relative w-full h-screen bg-transparent section-padding overflow-hidden flex flex-col justify-center"
     >
-     
+      {/* Scroll Progress Bar */}
+      <div ref={progressBarRef} className="absolute top-0 left-0 h-1 bg-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
+
       {/* Header - Fixed pos within pinned section */}
       <div className="absolute top-0 left-0 w-full p-12 py-36 z-20 pointer-events-none">
         <div className="section-header-container border-red-600">
@@ -189,8 +197,6 @@ export function TimelineSection() {
           ))}
         </div>
       </div>
-
-          <p>buraya progress  bar ekle</p>
          
        {/* Fade gradient on right */}
        <div className="absolute top-96 h-96  right-0 bottom-0 w-36 bg-gradient-to-l from-mono-900 to-transparent pointer-events-none z-20" />
