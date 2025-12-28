@@ -40,7 +40,7 @@ export function FooterSection() {
           {/* Bottom divider */}
           <div className="border-t border-mono-700 pt-8">
             <p className="font-mono text-xs text-mono-600 uppercase tracking-widest">
-              Sadece Öfkeli • RC Otonom Araç Projesi
+              Sadece Öfkeli • RC Yarı-Otonom Araç Projesi
             </p>
           </div>
         </div>

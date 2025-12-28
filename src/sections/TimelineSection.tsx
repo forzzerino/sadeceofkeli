@@ -190,6 +190,7 @@ export function TimelineSection() {
         </div>
       </div>
 
+          <p>buraya progress  bar ekle</p>
          
        {/* Fade gradient on right */}
        <div className="absolute top-96 h-96  right-0 bottom-0 w-36 bg-gradient-to-l from-mono-900 to-transparent pointer-events-none z-20" />

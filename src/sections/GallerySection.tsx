@@ -20,12 +20,11 @@ export default function GallerySection() {
 		{ src: '/gallery/6.JPG', alt: 'Image 6' },
 		{ src: '/gallery/5.JPG', alt: 'Image 5' },
 		{ src: '/gallery/7.JPG', alt: 'Image 7' },
-		{ src: '/gallery/8.JPG', alt: 'Image 8' },
 		{ src: '/gallery/9.JPG', alt: 'Image 9' },
+		{ src: '/gallery/8.JPG', alt: 'Image 8' },
 		{ src: '/gallery/10.JPG', alt: 'Image 10' },
 		{ src: '/gallery/13.JPG', alt: 'Image 13' },
 		{ src: '/gallery/14.JPG', alt: 'Image 14' },
-		{ src: '/gallery/15.JPG', alt: 'Image 15' },
 		{ src: '/gallery/16.jpeg', alt: 'Image 16' },
 		{ src: '/gallery/17.JPG', alt: 'Image 17' },
 		{ src: '/gallery/18.JPG', alt: 'Image 18' },
@@ -65,10 +64,6 @@ export default function GallerySection() {
 				<h1 className="font-serif italic text-4xl md:text-7xl tracking-tight">
 				Proje Sürecini Keşfet
 				</h1>
-			</div>
-
-			<div className="text-center absolute bottom-10 left-0 right-0 font-mono uppercase text-[11px] font-semibold text-white/50 z-10">
-				<p>Keşfetmek için kaydır</p>
 			</div>
 		</section>
 	);

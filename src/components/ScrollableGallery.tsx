@@ -191,10 +191,10 @@ function GalleryScene({
 		return normalizedImages.map((_, i) => {
 			// Create varied distribution patterns
 			const horizontalAngle = (i * 2.618) % (Math.PI * 2); 
-			const verticalAngle = (i * 1.618 + Math.PI / 3) % (Math.PI * 2);
+			const verticalAngle = (i * 1.425 + Math.PI / 3) % (Math.PI * 2);
 
-			const horizontalRadius = (i % 3) * 1.2;
-			const verticalRadius = ((i + 1) % 4) * 0.8;
+			const horizontalRadius = (i % 3) * 1;
+			const verticalRadius = ((i + 1) % 4) * 0.6;
 
 			const x =
 				(Math.sin(horizontalAngle) * horizontalRadius * MAX_HORIZONTAL_OFFSET) /

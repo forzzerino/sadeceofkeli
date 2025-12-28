@@ -14,6 +14,7 @@ import { GanttChartSection } from './sections/GanttChartSection';
 import { TeamSection } from './sections/TeamSection';
 import { FooterSection } from './sections/FooterSection';
 import GallerySection from './sections/GallerySection';
+import { CarPartsSection } from './sections/CarPartsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function App() {
@@ -84,8 +85,9 @@ export default function App() {
             {start && (
               <>
                 <TechStackSection />
+                <CarPartsSection />
                 <AIPerformanceSection />
-                <TimelineSection />
+                {/* <TimelineSection /> */}
                 <GanttChartSection />
                 <TeamSection /> 
                 <GallerySection />
