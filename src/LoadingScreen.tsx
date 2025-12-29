@@ -18,6 +18,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
             src="/logo.png" 
             alt="SADECE OFKELI" 
             className="w-full object-contain grayscale opacity-80"
+          // @ts-ignore - fetchPriority is standard but React types might lag
+          fetchPriority="high"
         />
         {/* Simple Progress Overlay on Logo (Optional or just keep bar below) */}
       </div>

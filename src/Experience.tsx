@@ -31,12 +31,11 @@ const CAMERA_CONFIG = {
   }
 };
 
-const Experience: React.FC = () => {
-  const { scene } = useGLTF('/araba.glb');
+const Experience: React.FC<{ lowQuality?: boolean }> = ({ lowQuality = false }) => {
+  const { scene } = useGLTF('/araba-opt.glb');
   const { camera } = useThree();
   const modelRef = useRef<Group>(null);
-  
-  // Create a timeline reference to kill it on unmount
+
   // Create a mutable object to track where the camera is looking
   const camTarget = useRef({ x: -0.8, y: 0.5, z: 0 }); 
 
@@ -72,8 +71,6 @@ const Experience: React.FC = () => {
     // --- MATERIAL & MESH SETUP ---
     const bodyParts: Material[] = [];     // For Opacity Control (X-Ray)
     const skeletonParts: Material[] = []; // For Opacity Control (X-Ray)
-
-    // For Animation (Position)
     const electronicsMeshes: Object3D[] = []; 
 
     scene.traverse((child: Object3D) => {
@@ -83,9 +80,10 @@ const Experience: React.FC = () => {
         const p = mesh.parent ? mesh.parent.name.toLowerCase() : "";
         const checkName = n + " " + p; 
 
-        // Use standard shadow properties if not mobile, or simplified
-        mesh.castShadow = device !== 'mobile';
-        mesh.receiveShadow = device !== 'mobile';
+        // Use standard shadow properties if not mobile and not lowQuality
+        const enableShadows = device !== 'mobile' && !lowQuality;
+        mesh.castShadow = enableShadows;
+        mesh.receiveShadow = enableShadows;
 
         // --- CATEGORIZE FOR X-RAY ---
         // 1. External Body (To Hide in S3, opacity -> 0)
@@ -173,17 +171,21 @@ const Experience: React.FC = () => {
         if (timeline.current) timeline.current.kill();
         ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, [camera, scene, device]);
+  }, [camera, scene, device, lowQuality]); // Re-run if quality changes (to update shadows)
 
   const isMobile = device === 'mobile';
 
+  // Configs based on quality
+  const enableReflector = !isMobile && !lowQuality;
+  const enableShadows = !isMobile && !lowQuality;
+
   return (
     <>
-      <group ref={modelRef} dispose={null}>
+      <group ref={modelRef} dispose={null} position={[0, 0.31, 0]}>
         <primitive object={scene} scale={1} />
         
         {/* Accent Red Glow (Internal) */}
-        {!isMobile && (
+        {!isMobile && !lowQuality && (
           <pointLight
             position={[0, 0.5, 0]}
             intensity={10}
@@ -195,15 +197,14 @@ const Experience: React.FC = () => {
       </group>
 
       {/* Lighting Setup */}
-      {/* On mobile, use simpler lighting or lower intensity if needed. 
-          Here we disable shadows on mobile to save performance. */}
+      {/* On mobile/lowQuality, disable heavy shadows */}
       <spotLight
         position={[0, 10, 10]}
         angle={0.5}
         penumbra={1}
         intensity={100}
         color="white"
-        castShadow={!isMobile}
+        castShadow={enableShadows}
       />
 
       <spotLight position={[5, 2, -5]} angle={0.5} penumbra={0.5} intensity={300} color="#00ffff" />
@@ -213,9 +214,9 @@ const Experience: React.FC = () => {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.14, 0]}>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
-          mirror={0}
-          blur={[isMobile ? 0 : 300, isMobile ? 0 : 100]} // Disable blur on mobile for perf
-          resolution={isMobile ? 256 : 1024} // Lower resolution on mobile
+          mirror={enableReflector ? 1 : 0} // Disable mirror effect completely if low quality
+          blur={[isMobile ? 0 : 300, isMobile ? 0 : 100]}
+          resolution={isMobile || lowQuality ? 256 : 1024} // Low resolution on lowQuality
           mixBlur={isMobile ? 0 : 1}
           mixStrength={10}
           roughness={1}
@@ -230,6 +231,6 @@ const Experience: React.FC = () => {
   );
 };
 
-useGLTF.preload('/araba.glb');
+// useGLTF.preload('/araba.glb'); // Removed to defer loading and save initial bandwidth/LCP
 
 export default Experience;

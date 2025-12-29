@@ -33,14 +33,14 @@ export function FooterSection() {
       <div className="border-t border-mono-400 pt-8">
         <div className="font-mono text-[10px] md:text-sm uppercase text-mono-300 tracking-tighter flex flex-row justify-around">
           <div className='px-2 flex flex-col md:flex-row items-start '>
-            <p>Sadece Öfkeli •&nbsp;</p>
-            <p>RC Yarı-Otonom Araç Projesi</p>
+            <p>SADECE ÖFKELİ •&nbsp;</p>
+            <p>RC YARI-OTONOM ARAÇ PROJESİ</p>
           </div>
           <div className='flex flex-col items-end'>
             <a href="https://github.com/forzzerino" target="_blank" rel="noopener noreferrer" >
-              siteyi bu cocuk yaptı: 🙋🏻‍♂️
+              SİTEYİ BU ÇOCUK YAPTI: 🙋🏻‍♂️
             </a>
-            <p className='text-[10px] tracking-widest'>projeyi 8 KİŞİ</p>
+            <p className='text-[10px] tracking-widest'>PROJEYİ 8 KİŞİ</p>
           </div>
         </div>
       </div>

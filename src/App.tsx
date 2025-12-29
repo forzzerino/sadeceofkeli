@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
+import { AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import Experience from './Experience';
 import Overlay from './Overlay';
 import { ReactLenis } from '@studio-freight/react-lenis'
@@ -26,6 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [start, setStart] = useState(false);
+  const [lowQuality, setLowQuality] = useState(false); // Optimization state
   const lenisRef = useRef<any>(null);
 
   // Scroll Lock & Visibility Logic
@@ -94,9 +96,11 @@ export default function App() {
                   className="bg-black"
                   camera={{ fov: 12 }}
                   gl={{ antialias: false, stencil: false, depth: true }}
-                  dpr={[1, 1.5]} // Optimization: Cap DPR
+                  dpr={[1, 1.5]} 
                 >
-                  <Experience />
+                  <PerformanceMonitor onDecline={() => setLowQuality(true)} />
+                  <AdaptiveDpr pixelated />
+                  <Experience lowQuality={lowQuality} />
                 </Canvas>
               </div>
             </div>
