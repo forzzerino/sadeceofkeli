@@ -164,15 +164,7 @@ export function CarPartsSection() {
                 </div>
                       {/* Base Wireframe / Grid */}
                       <div
-                          className="hidden lg:visible absolute inset-0 z-0 pointer-events-none opacity-20"
-                          style={{
-                              backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
-                              backgroundSize: "lg:40px lg:40px"
-                          }}
-                      />
-
-                      <div
-                          className="lg:hidden absolute inset-0 z-0 pointer-events-none opacity-20"
+                          className="absolute inset-0 z-0 pointer-events-none opacity-20"
                           style={{
                               backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
                               backgroundSize: "20px 20px"

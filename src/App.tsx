@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
@@ -14,7 +14,7 @@ import { TeamSection } from './sections/TeamSection';
 import { FooterSection } from './sections/FooterSection';
 import GallerySection from './sections/GallerySection';
 import { CarPartsSection } from './sections/CarPartsSection';
-import { ScrollToTop } from './components/ScrollToTop';
+import { Navigation } from './components/Tabs';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,19 +100,37 @@ export default function App() {
           <div className="relative z-10 shadow-2xl">
             {start && (
               <>
-                <TechStackSection />
-                <CarPartsSection />
-                <AIPerformanceSection />
-                <GanttChartSection />
-                <TeamSection /> 
-                <GallerySection />
-                <FooterSection /> 
+                <div id="tech-stack">
+                  <TechStackSection />
+                </div>
+                <div id="car-parts">
+                  <CarPartsSection />
+                </div>
+
+                <div id="ai-performance">
+                  <AIPerformanceSection />
+                </div>
+                <div id="gantt-chart">
+                  <GanttChartSection />
+                </div>
+                <div id="team">
+                  <TeamSection /> 
+                </div>
+                <div id="gallery">
+                  <GallerySection />
+                </div>
+                <div id="footer">
+                  <FooterSection /> 
+                </div>
+                <div className="absolute inset-x-0 bottom-0 h-[100vh] w-full md:scale-100 z-0 pointer-events-none mix-blend-overlay opacity-80">
+                  <img src="/media/background.png" alt="carbg" className="w-full h-full object-cover object-bottom" />
+                </div>
               </>
             )} 
           </div>
         </div>
 
-        <ScrollToTop />
+        {start && <Navigation />}
       </ReactLenis>
     </>
   );

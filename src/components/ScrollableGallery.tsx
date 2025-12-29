@@ -190,11 +190,11 @@ function GalleryScene({
 	const planesData = useMemo(() => {
 		return normalizedImages.map((_, i) => {
 			// Create varied distribution patterns
-			const horizontalAngle = (i * 2.618) % (Math.PI * 2); 
-			const verticalAngle = (i * 1.425 + Math.PI / 3) % (Math.PI * 2);
+			const horizontalAngle = (i * 2.515) % (Math.PI * 2);
+			const verticalAngle = (i * 1.44 + Math.PI / 3) % (Math.PI * 2);
 
-			const horizontalRadius = (i % 3) * 1;
-			const verticalRadius = ((i + 1) % 4) * 0.6;
+			const horizontalRadius = (i % 3) * 1.3;
+			const verticalRadius = ((i + 1) % 4) * 0.8;
 
 			const x =
 				(Math.sin(horizontalAngle) * horizontalRadius * MAX_HORIZONTAL_OFFSET) /

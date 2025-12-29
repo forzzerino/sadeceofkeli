@@ -28,6 +28,8 @@ export default function GallerySection() {
 		{ src: '/gallery/16.jpeg', alt: 'Image 16' },
 		{ src: '/gallery/17.JPG', alt: 'Image 17' },
 		{ src: '/gallery/18.JPG', alt: 'Image 18' },
+		{ src: '/gallery/20.jpg', alt: 'Image 20' },
+		{ src: '/gallery/21.jpg', alt: 'Image 21' },
 		{ src: '/gallery/22.jpeg', alt: 'Image 22' },
 	];
 

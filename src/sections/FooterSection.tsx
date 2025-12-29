@@ -29,19 +29,18 @@ export function FooterSection() {
   }, []);
 
   return (
-    <footer ref={sectionRef} className="relative w-full bg-transparent section-padding">
-
-      <div className="relative z-10">
-        {/* Main content */}
-        <div className="mx-auto space-y-16 text-center">
-          
-
-
-          {/* Bottom divider */}
-          <div className="border-t border-mono-700 pt-8">
-            <p className="font-mono text-xs text-mono-600 uppercase tracking-widest">
-              Sadece Öfkeli • RC Yarı-Otonom Araç Projesi
-            </p>
+    <footer ref={sectionRef} className="relative w-full bg-transparent section-padding px-0 pb-8">
+      <div className="border-t border-mono-400 pt-8">
+        <div className="font-mono text-[10px] md:text-sm uppercase text-mono-300 tracking-tighter flex flex-row justify-around">
+          <div className='px-2 flex flex-col md:flex-row items-start '>
+            <p>Sadece Öfkeli •&nbsp;</p>
+            <p>RC Yarı-Otonom Araç Projesi</p>
+          </div>
+          <div className='flex flex-col items-end'>
+            <a href="https://github.com/forzzerino" target="_blank" rel="noopener noreferrer" >
+              site made by this guy: 🙋🏻‍♂️
+            </a>
+            <p className='text-[10px] tracking-widest'>project made by 8</p>
           </div>
         </div>
       </div>
