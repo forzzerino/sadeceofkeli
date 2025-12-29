@@ -151,10 +151,10 @@ function GalleryScene({
 	const materials = useMemo(
 		() => Array.from({ length: images.length }, () => {
 			if (isMobile) {
-				// Tint slightly grey to reduce "too bright" glare, and use BasicMaterial
+				// Tint darker (0.5) to reduce glare and match original tone better on unlit material
 				return new THREE.MeshBasicMaterial({
 					transparent: true,
-					color: new THREE.Color(0.85, 0.85, 0.85)
+					color: new THREE.Color(0.5, 0.5, 0.5)
 				});
 			}
 			return createClothMaterial();

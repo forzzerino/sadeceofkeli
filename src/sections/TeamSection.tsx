@@ -249,7 +249,7 @@ export function TeamSection() {
             <div className="flex flex-col md:flex-row justify-center gap-2">
               
               {/* University Box */}
-              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
+              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 md:min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
                 <p className="font-mono text-xs text-white uppercase tracking-widest mb-2">
                   KURUM
                 </p>
@@ -259,7 +259,7 @@ export function TeamSection() {
               </div>
 
               {/* Date Box */}
-              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
+              <div className="border border-[#333] bg-[#0a0a0a] px-6 py-4 md:min-w-[300px] flex flex-col items-center justify-center hover:border-[#444] transition-colors">
                 <p className="font-mono text-xs text-white uppercase tracking-widest mb-2">
                   PROJE TARİHİ
                 </p>
