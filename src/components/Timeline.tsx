@@ -63,7 +63,7 @@ const phases: TimelinePhase[] = [
   },
 ];
 
-function TimelineNode({ title, duration, items, index }: TimelinePhase & { index: number }) {
+function TimelineNode({ title, duration, items }: TimelinePhase & { index: number }) {
   return (
     <div className="w-full group h-full">
       <div className="h-full info-box shadow-xl hover:border-red-600 transition-colors duration-300 p-3 md:p-6">

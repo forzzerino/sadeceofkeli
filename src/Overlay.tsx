@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import Intro from "./components/Intro";
 import Chassis from "./components/Chassis";
 import Electronics from "./components/Electronics";
-import { TechExplodedSection } from "./sections/TechExplodedSection";
+// import { TechExplodedSection } from "./sections/TechExplodedSection";
 
 export default function Overlay() {
   const containerRef = useRef<HTMLDivElement>(null);
