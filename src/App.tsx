@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
@@ -8,31 +8,38 @@ import { ReactLenis } from '@studio-freight/react-lenis'
 import { LoadingScreen } from './LoadingScreen';
 import { useState } from 'react';
 import { TechStackSection } from './sections/TechStackSection';
-import { TimelineSection } from './sections/TimelineSection';
 import { AIPerformanceSection } from './sections/AI-PerformanceSection';
 import { GanttChartSection } from './sections/GanttChartSection';
 import { TeamSection } from './sections/TeamSection';
 import { FooterSection } from './sections/FooterSection';
 import GallerySection from './sections/GallerySection';
 import { CarPartsSection } from './sections/CarPartsSection';
+import { ScrollToTop } from './components/ScrollToTop';
 
 gsap.registerPlugin(ScrollTrigger);
+
 export default function App() {
   const [start, setStart] = useState(false);
+  const lenisRef = useRef<any>(null);
 
-  // Ticker integration for Lenis + GSAP
   useEffect(() => {
-    // Force a refresh after a delay to ensure 500vh is registered
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 1000);
+    // GSAP Ticker Integration for Lenis
+    // This ensures smooth scroll and ScrollTrigger are perfectly synced
+    const update = (time: number) => {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    };
 
-    return () => clearTimeout(timer);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0); // Disable lag smoothing for direct 1:1 sync
+
+    return () => {
+      gsap.ticker.remove(update);
+    };
   }, []);
 
+  // Force refresh for scroll triggers
   useEffect(() => {
-     if (start) {
-        // Double check when loading finishes
+    if (start) {
         setTimeout(() => {
           ScrollTrigger.refresh();
         }, 500);
@@ -49,7 +56,16 @@ export default function App() {
   return (
     <>
       <LoadingScreen started={start} onStarted={() => setStart(true)} />
-      <ReactLenis root>
+      <ReactLenis
+        root
+        ref={lenisRef}
+        autoRaf={false}
+        options={{
+          lerp: 0.05,
+          duration: 1.5,
+          smoothWheel: true
+        }}
+      >
         
         {/* === PART 1: THE 3D TUNNEL (550vh) === */}
         <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black z-40">
@@ -87,7 +103,6 @@ export default function App() {
                 <TechStackSection />
                 <CarPartsSection />
                 <AIPerformanceSection />
-                {/* <TimelineSection /> */}
                 <GanttChartSection />
                 <TeamSection /> 
                 <GallerySection />
@@ -97,6 +112,7 @@ export default function App() {
           </div>
         </div>
 
+        <ScrollToTop />
       </ReactLenis>
     </>
   );

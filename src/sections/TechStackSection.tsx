@@ -1,8 +1,4 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
 
 interface TechCardProps {
   title: string;
@@ -13,30 +9,9 @@ interface TechCardProps {
 }
 
 function TechCard({ title, description, specs, className = '', image }: TechCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!cardRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(cardRef.current, {
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-      });
-    }, cardRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div
-      ref={cardRef}
       className={`info-box flex flex-col justify-between group ${className}`}
     >
       {/* Background Image if present */}
@@ -67,11 +42,9 @@ function TechCard({ title, description, specs, className = '', image }: TechCard
 }
 
 export function TechStackSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
     <section
-      ref={sectionRef}
       className="relative w-full section-padding overflow-hidden"
     >
 
