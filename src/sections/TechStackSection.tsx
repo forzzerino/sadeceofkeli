@@ -45,7 +45,7 @@ function TechCard({ title, description, specs, className = '', image }: TechCard
           <img 
             src={image} 
             alt="" 
-            className="w-full h-full relative -right-20 object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 "
+            className="w-full h-full relative -right-16 md:-right-20 object-contain grayscale group-hover:grayscale-0 scale-110 group-hover:scale-125 transition-all duration-300 "
           />
         </div>
       )}
@@ -82,7 +82,7 @@ export function TechStackSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 md:gap-6 auto-rows-max">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 auto-rows-max">
           {/* Raspberry Pi - Resized to 1x1 */}
           <TechCard
             title="Beyin"

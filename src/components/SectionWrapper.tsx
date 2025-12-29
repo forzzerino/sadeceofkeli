@@ -16,27 +16,27 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({ align, title, highlight
   const textColor = color === 'blue' ? 'text-blue-500' : 'text-red-600';
 
   return (
-    <section id={id} className={`section-panel h-screen w-full flex flex-col justify-center p-10 md:p-24 ${isRight ? 'items-end text-right' : 'items-start text-left'}`}>
+    <section id={id} className={`section-panel h-screen w-full flex flex-col justify-start lg:justify-center pt-16 lg:pt-0 p-6 md:pt-24 ${isRight ? 'items-end text-right' : 'items-start text-left'}`}>
       <div className="max-w-4xl relative">
         
         {/* Modern Header matching TechStackSection style 
             We handle left/right alignment for the border manually here since the global class is fixed to left.
         */}
-        <div className={`mb-12 ${isRight ? 'border-r-8 pr-6' : 'border-l-8 pl-6'} ${borderColor}`}>
+        <div className={`mb-8 lg:mb-12 ${isRight ? 'border-r-4 lg:border-r-8 pr-4 lg:pr-6' : 'border-l-4 lg:border-l-8 pl-4 lg:pl-6'} ${borderColor}`}>
            <h2 className="section-title-large">
             {highlight} <span className={textColor}>{title}</span>
            </h2>
            {stats && (
-             <div className={`mt-6 flex flex-wrap gap-3 ${isRight ? 'justify-end' : 'justify-start'}`}>
+            <div className={`md:mt-6 mt-2 flex flex-wrap gap-3 ${isRight ? 'justify-end' : 'justify-start'}`}>
                {stats.split(']').filter(Boolean).map((stat, idx) => {
                  const cleanStat = stat.replace('[', '').trim();
                  return (
                    <span 
                     key={idx} 
-                    className={`inline-block px-3 py-1 border text-xs font-mono font-bold tracking-wider uppercase
+                     className={`inline-block px-3 py-1 border text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase
                       ${color === 'blue' 
-                        ? 'border-blue-500 text-blue-400 bg-blue-500/10' 
-                        : 'border-red-600 text-red-500 bg-red-600/10'
+                       ? 'border-blue-500 text-blue-400 bg-mono-900/60 md:bg-mono-900/20'
+                       : 'border-red-600 text-red-500 bg-mono-900/60 md:bg-mono-900/20'
                       }`}
                    >
                      {cleanStat}
@@ -48,7 +48,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({ align, title, highlight
         </div>
 
         {/* Clean Body Text */}
-        <div className={`text-xl md:text-2xl text-mono-300 font-sans leading-relaxed max-w-2xl ${isRight ? 'ml-auto' : ''}`}>
+        <div className={`text-sm md:text-xl text-mono-100 p-2  font-sans leading-relaxed max-w-2xl ${isRight ? 'ml-auto' : ''}`} >
           {children}
         </div>
 

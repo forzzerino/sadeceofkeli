@@ -86,7 +86,7 @@ export function CarPartsSection() {
 
     // Helper for active card highlighting
     const getCardClass = (layer: LayerType) => classNames(
-        "info-box backdrop-blur-sm border p-6 group transition-all duration-500 cursor-pointer hover:opacity-100 hover:border-red-600/50 text-[10px] md:text-sm",
+        "info-box backdrop-blur-sm border p-6 group transition-all duration-500 cursor-pointer hover:opacity-100 hover:border-red-600/50 text-[10px] md:text-xs lg:text-sm",
         {
             "border-red-600 shadow-[0_0_20px_rgba(220,38,38,0.1)]": activeStage === layer,
             "border-mono-700": activeStage !== layer
@@ -94,12 +94,12 @@ export function CarPartsSection() {
     );
 
   return (
-      <section ref={containerRef} className="relative w-full h-screen overflow-hidden border-t border-mono-800">
+      <section ref={containerRef} className="relative w-full h-screen overflow-hidden">
       
           {/* Scroll Progress Bar */}
-          <div ref={progressBarRef} className="absolute top-0 left-0 h-1 bg-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
+          <div ref={progressBarRef} className="absolute top-4 left-0 h-1.5 bg-gradient-to-r from-transparent to-red-600 z-50 transition-none will-change-[width]" style={{ width: '0%' }} />
 
-          <div className="relative z-10 mx-auto w-full h-full flex flex-col pt-10 md:pt-32 pb-20 px-6 md:px-12">
+          <div className="relative z-10 mx-auto w-full h-full flex flex-col pt-10 pb-20 px-6 lg:px-12">
 
               {/* Header - Always Visible */}
               <div className="section-header-container mb-8 flex-shrink-0">
@@ -112,10 +112,10 @@ export function CarPartsSection() {
                   </div>
               </div>
 
-              <div className="flex flex-col lg:grid lg:grid-cols-12 md:gap-8 h-full pb-8">
+              <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 h-full pb-8">
 
             {/* LEFT COLUMN: VISUAL LAYERS */}
-                  <div className="lg:col-span-7 relative flex items-center justify-center shrink-0 h-[40vh] md:h-full bg-mono-900 mb-8 md:mb-0">
+                  <div className="lg:col-span-7 relative flex items-center justify-center shrink-0 h-[40vh] lg:h-full bg-mono-900 mb-8 lg:mb-0">
                 
                 {/* Background decorative frame */}
                       <div className="absolute inset-0 border border-mono-700 pointer-events-none">
@@ -164,15 +164,15 @@ export function CarPartsSection() {
                 </div>
                       {/* Base Wireframe / Grid */}
                       <div
-                          className="hidden md:visible absolute inset-0 z-0 pointer-events-none opacity-20"
+                          className="hidden lg:visible absolute inset-0 z-0 pointer-events-none opacity-20"
                           style={{
                               backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
-                              backgroundSize: "md:40px md:40px"
+                              backgroundSize: "lg:40px lg:40px"
                           }}
                       />
 
                       <div
-                          className="md:hidden absolute inset-0 z-0 pointer-events-none opacity-20"
+                          className="lg:hidden absolute inset-0 z-0 pointer-events-none opacity-20"
                           style={{
                               backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
                               backgroundSize: "20px 20px"
@@ -186,25 +186,25 @@ export function CarPartsSection() {
                 {/* CARD 1: SYSTEM OVERVIEW */}
                       <div
                           className={classNames(
-                              getCardClass('complete'),
-                              "absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              getCardClass('complete'), 
+                              "flex flex-col justify-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
-                                  "opacity-100 z-10": activeStage === 'complete' || activeStage === 'material',
-                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'complete' && activeStage !== 'material'
+                                  "opacity-100 z-10": activeStage === 'complete' || activeStage === 'material', 
+                                  "opacity-0 -z-10 lg:opacity-50 lg:z-0 lg:hover:opacity-100": activeStage !== 'complete' && activeStage !== 'material' 
                               }
                           )}
                           onClick={() => handleCardClick('complete')}
                       >
                     <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
-                                  <div className={classNames("p-1 md:p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
-                                      <Layers className="w-4 h-4 md:w-5 md:h-5" />
+                                  <div className={classNames("p-1 lg:p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
+                                      <Layers className="w-4 h-4 lg:w-5 lg:h-5" />
                             </div>
-                                  <h3 className="box-title text-base md:text-xl text-white tracking-wide">KATMANLI İMALAT</h3>
+                                  <h3 className="box-title text-base md:text-xl lg:text-2xl text-white tracking-wide">KATMANLI İMALAT</h3>
                         </div>
                     </div>
                     
-                          <p className="box-subtitle !text-mono-400 !mb-0 leading-relaxed normal-case">
+                          <p className="box-subtitle !text-mono-400 !mb-0 text-[10px] md:text-base leading-relaxed normal-case">
                         Duke Doks platformu referans alınarak optimize edilmiştir. Parçaların mekanik stres analizine göre <span className="text-white">3 farklı filament türü</span> ile hibrit üretim.
                     </p>
                       </div>
@@ -213,7 +213,7 @@ export function CarPartsSection() {
                       <div
                           className={classNames(
                               getCardClass('body'),
-                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
                                   "opacity-100 z-10": activeStage === 'body',
                                   "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'body'
@@ -226,19 +226,19 @@ export function CarPartsSection() {
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">GÖVDE</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
-                              <p className="text-[10px] md:text-xs font-mono text-mono-400">Rijit yapı ile elektronik bileşen koruması. Sürüş titreşimlerine karşı yüksek mukavemet.</p>
+                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
+                              <p className="text-[10px] md:text-base font-mono text-mono-400">Rijit yapı ile elektronik bileşen koruması. Sürüş titreşimlerine karşı yüksek mukavemet.</p>
                           </div>
                       </div>
 
                       {/* CARD 3: PLA-CF */}
                       <div
                           className={classNames(
-                              getCardClass('rim'),
-                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              getCardClass('rim'), 
+                              "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
-                                  "opacity-100 z-10": activeStage === 'rim',
-                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'rim'
+                                  "opacity-100 z-10": activeStage === 'rim', 
+                                  "opacity-0 -z-10 lg:opacity-50 lg:z-0 lg:hover:opacity-100": activeStage !== 'rim' 
                               }
                           )}
                           onClick={() => handleCardClick('rim')}
@@ -248,19 +248,19 @@ export function CarPartsSection() {
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">JANT</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
-                              <p className="text-[10px] md:text-xs font-mono text-mono-400">PLA-CF ile yüksek sertlik ve hafiflik. Form bozulmadan maksimum yük taşıma kapasitesi.</p>
+                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
+                              <p className="text-[10px] md:text-base font-mono text-mono-400">PLA-CF ile yüksek sertlik ve hafiflik. Form bozulmadan maksimum yük taşıma kapasitesi.</p>
                           </div>
                       </div>
 
                       {/* CARD 4: TPU */}
                       <div
                           className={classNames(
-                              getCardClass('tire'),
-                              "flex gap-4 items-center absolute md:relative inset-0 w-full h-auto transition-all duration-300",
+                              getCardClass('tire'), 
+                              "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
-                                  "opacity-100 z-10": activeStage === 'tire',
-                                  "opacity-0 -z-10 md:opacity-50 md:z-0 md:hover:opacity-100": activeStage !== 'tire'
+                                  "opacity-100 z-10": activeStage === 'tire', 
+                                  "opacity-0 -z-10 lg:opacity-50 lg:z-0 lg:hover:opacity-100": activeStage !== 'tire' 
                               }
                           )}
                           onClick={() => handleCardClick('tire')}
@@ -270,8 +270,8 @@ export function CarPartsSection() {
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">LASTİK</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-lg mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
-                              <p className="text-[10px] md:text-xs font-mono text-mono-400">Süspansiyon yükünü azaltan esnek yapı. Zemin bozukluklarını sönümleyen termoplastik.</p>
+                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
+                              <p className="text-[10px] md:text-base font-mono text-mono-400">Süspansiyon yükünü azaltan esnek yapı. Zemin bozukluklarını sönümleyen termoplastik.</p>
                           </div>
                       </div>
 

@@ -1,4 +1,5 @@
-
+import { ArrowRight } from "lucide-react";
+import { Timeline } from '../components/Timeline';
 
 interface GanttTask {
   name: string;
@@ -25,17 +26,21 @@ export function GanttChartSection() {
       <section className=" flex pt-4 pb-8 flex-col section-padding items-center justify-center">
         <div className="w-full">
             {/* Header */}
-              <div className="section-header-container">
+        <div className="section-header-container mb-8">
                   <h2 className="section-title-large">
-                    PROJE <span className="text-red-500">GANTT</span> ÇİZELGESİ
+            GELİŞTİRME <span className="text-red-600">SÜRECİ</span>
                 </h2>
                   <p className="section-subtitle-large">
-                      8 HAFTALIK GELİŞTİRME SÜRECİ
+                      8 HAFTALIK GANTT ÇİZELGESİ
                 </p>
             </div>
 
+
+        {/* Timeline Component - Static Overview */}
+        <Timeline />
+
             {/* Chart Scroll Container */}
-              <div className="w-full overflow-x-auto md:pb-8 custom-scrollbar border border-mono-700">
+              <div className="w-full overflow-x-auto  custom-scrollbar border-2 border-mono-700">
                   <div className="min-w-[600px] md:min-w-[900px] w-full bg-mono-900 border-mono-700 relative">
                     
                     {/* Background Grid (Stripes + Gaps) */}
@@ -59,21 +64,21 @@ export function GanttChartSection() {
                     </div>
 
                     {/* Tasks */}
-                    <div className="relative z-10">
+                      <div className="relative z-10">
                         {tasks.map((task, idx) => (
                             <div 
                                 key={idx} 
-                                className="grid grid-cols-[120px_repeat(8,1fr)] md:grid-cols-[250px_repeat(8,1fr)] gap-[1px] items-stretch group relative"
+                            className="grid grid-cols-[120px_repeat(8,1fr)] md:grid-cols-[250px_repeat(8,1fr)] md:first:mt-1 gap-[1px] items-stretch group relative"
                             >
                                 {/* Sticky Task Label */}
-                                <div className="sticky -left-[1px] md:left-0  bg-mono-900 transition-colors md:p-3 px-1 md:px-6 flex items-center z-30">
+                            <div className="sticky -left-[1px] md:left-0  bg-mono-900 transition-colors md:p-3 px-1 md:px-6 flex items-center z-30">
                                     <div className="font-mono text-[10px] md:text-sm tracking-tighter text-mono-200 font-medium truncate">
                                         {task.name}
                                     </div>
                                 </div>
 
                                 {/* Task Bar Container */}
-                                <div className="col-span-8 grid grid-cols-8 relative z-10 py-1 px-0"> 
+                            <div className="col-span-8 grid grid-cols-8 relative z-10 py-1 first:py-0 px-0"> 
                                     {/* Grid Overlay for Visual Alignment on Top of Bars */}
                                     <div className="absolute inset-0 grid grid-cols-8 pointer-events-none z-20">
                                         {[...Array(8)].map((_, i) => (
@@ -101,28 +106,7 @@ export function GanttChartSection() {
                         ))}
                     </div>
                 </div>
-            </div>
-
-            {/* Legend / Key Stats */}
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                  <div className="p-1 md:p-2 bg-mono-800 border border-mono-800 border-l-4 border-l-orange-400 rounded">
-                      <div className="text-xl font-bold font-mono text-white">3</div>
-                    <div className="text-xs text-mono-400 uppercase">Hafta Mekanik</div>
-                 </div>
-                  <div className="p-1 md:p-2 bg-mono-800 border border-mono-800 border-l-4 border-l-blue-500 rounded">
-                    <div className="text-xl font-bold font-mono text-white">7</div>
-                    <div className="text-xs text-mono-400 uppercase">Hafta Elektronik</div>
-                 </div>
-                  <div className="p-1 md:p-2 bg-mono-800 border border-mono-800 border-l-4 border-l-red-600 rounded">
-                    <div className="text-xl font-bold font-mono text-white">3</div>
-                    <div className="text-xs text-mono-400 uppercase">Hafta Arayüz</div>
-                 </div>
-                  <div className="p-1 md:p-2 bg-mono-800 border border-mono-800 border-l-4 border-l-purple-600 rounded">
-                    <div className="text-xl font-bold font-mono text-white">2</div>
-                    <div className="text-xs text-mono-400 uppercase">Hafta Entegrasyon</div>
-                 </div>
-            </div>
-
+        </div>
         </div>
     </section>
   );

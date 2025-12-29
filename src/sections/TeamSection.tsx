@@ -114,7 +114,7 @@ export function TeamSection() {
       <div className="relative z-10">
         <div className="mx-auto text-center">
             {/* Title */}
-          <div className="team-animate space-y-4 text-left mb-8">
+          <div className="team-animate space-y-4 text-left ">
              <div className="section-header-container mx-auto inline-block text-left w-full">
               <h2 className="section-title-large">MÜHENDİSLİK <span className="text-red-600">EKİBİ</span></h2>
                 <p className="section-subtitle-large">
@@ -124,14 +124,14 @@ export function TeamSection() {
           </div>
 
           {/* Desktop Team Grid (Horizontal Layout) */}
-          <div className="hidden md:grid md:grid-cols-2 gap-5 mb-16 team-animate">
+          <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-5 mb-16 team-animate">
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="group flex flex-row border border-[#333] hover:border-[#FF0000] transition-all duration-300 bg-[#0a0a0a] overflow-hidden h-64"
+                className="group flex flex-row border border-mono-700 hover:border-red-600 transition-all duration-300 bg-mono-800 overflow-hidden min-h-64"
               >
                 {/* Left: Portrait Photo (4:5 Ratio) */}
-                <div className="w-[25%] overflow-hidden bg-[#111] relative">
+                <div className="w-[25%] overflow-hidden bg-mono-700 relative">
                   <div className="w-full h-full">
                      <img
                        src={member.image || "/placeholder.svg"}
@@ -142,7 +142,7 @@ export function TeamSection() {
                 </div>
 
                 {/* Right: Card Content */}
-                <div className="flex-1 p-5 pb-0 flex flex-col justify-start gap-4 text-left">
+                <div className="flex-1 p-5 pb-2 flex flex-col justify-start gap-4 text-left">
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-xl font-bold text-white uppercase tracking-wide leading-tight">{member.name}</h3>
@@ -174,7 +174,7 @@ export function TeamSection() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-[#cccccc] font-mono tracking-tighter leading-relaxed line-clamp-[8]">{member.bio}</p>
+                  <p className="text-sm text-mono-200 font-mono tracking-tighter leading-relaxed">{member.bio}</p>
                 </div>
               </div>
             ))}
