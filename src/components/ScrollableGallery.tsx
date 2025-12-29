@@ -85,20 +85,26 @@ function ImagePlane({
 	texture: THREE.Texture;
 	position: [number, number, number];
 	scale: [number, number, number];
-	material: THREE.ShaderMaterial;
+		material: THREE.Material;
 }) {
 	const meshRef = useRef<THREE.Mesh>(null);
 	const [isHovered, setIsHovered] = useState(false);
 
 	useEffect(() => {
 		if (material && texture) {
-			material.uniforms.map.value = texture;
+			// Handle both ShaderMaterial (uniforms.map) and BasicMaterial (map)
+			if ('uniforms' in material) {
+				(material as THREE.ShaderMaterial).uniforms.map.value = texture;
+			} else {
+				(material as THREE.MeshBasicMaterial).map = texture;
+			}
+			material.needsUpdate = true;
 		}
 	}, [material, texture]);
 
 	useEffect(() => {
-		if (material && material.uniforms) {
-			material.uniforms.isHovered.value = isHovered ? 1.0 : 0.0;
+		if (material && 'uniforms' in material) {
+			(material as THREE.ShaderMaterial).uniforms.isHovered.value = isHovered ? 1.0 : 0.0;
 		}
 	}, [material, isHovered]);
 
@@ -135,9 +141,21 @@ function GalleryScene({
 	);
 
 	const textures = useTexture(normalizedImages.map((img) => img.src));
+
+	// Detect mobile for material optimization
+	const [isMobile, setIsMobile] = useState(false);
+	useEffect(() => {
+		setIsMobile(window.innerWidth < 768);
+	}, []);
+
 	const materials = useMemo(
-		() => Array.from({ length: images.length }, () => createClothMaterial()),
-		[images.length]
+		() => Array.from({ length: images.length }, () => {
+			if (isMobile) {
+				return new THREE.MeshBasicMaterial({ transparent: true });
+			}
+			return createClothMaterial();
+		}),
+		[images.length, isMobile]
 	);
 
     const groupRef = useRef<THREE.Group>(null);
@@ -175,11 +193,11 @@ function GalleryScene({
 	// We can still use velocity for blur if we want, but DISABLE it on mobile.
 
 		materials.forEach((material) => {
-			if (material && material.uniforms) {
+			if (material && 'uniforms' in material) {
 				// Completely disable blur on mobile for perf
 				// On desktop, can set to 0.0 or calculated velocity. 
 				// For now, let's keep it simple and crisp (0.0) or minimal.
-				material.uniforms.blurAmount.value = 0.0; 
+				(material as THREE.ShaderMaterial).uniforms.blurAmount.value = 0.0; 
 			}
 		});
 

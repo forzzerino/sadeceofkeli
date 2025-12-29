@@ -143,7 +143,7 @@ export default function App() {
                     <div id="footer">
                       <FooterSection />
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 h-[60vh] md:h-[100vh] w-full md:scale-100 z-0 pointer-events-none mix-blend-overlay opacity-80">
+                    <div className="absolute inset-x-0 bottom-0 h-[20vh] md:h-[100vh] w-full md:scale-100 z-50 pointer-events-none mix-blend-overlay opacity-80">
                       <img src="/media/background.png" alt="carbg" className="w-full h-full object-cover object-bottom" />
                     </div>
                   </>
