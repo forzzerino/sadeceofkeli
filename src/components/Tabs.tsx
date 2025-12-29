@@ -63,28 +63,51 @@ export function Navigation() {
     // Determine active section based on scroll position using GSAP ScrollTrigger
     const triggers: ScrollTrigger[] = [];
 
-    // Wait for DOM to be fully ready
-    const timer = setTimeout(() => {
+    const initTriggers = () => {
       ScrollTrigger.refresh();
-      
+
+      triggers.forEach(t => t.kill()); // Clear old if any
+      triggers.length = 0;
+
+      let missingCount = 0;
+
       navItems.forEach((item, index) => {
         const element = document.getElementById(item.id);
-        if (!element) return;
+        if (!element) {
+          missingCount++;
+          return;
+        }
 
         triggers.push(
           ScrollTrigger.create({
             trigger: element,
-            start: "top 60%", // Adjusted to be more responsive (40% down from top)
+            start: "top 60%", 
             end: "bottom 60%",
             onEnter: () => setActiveTab(index),
             onEnterBack: () => setActiveTab(index),
+            invalidateOnRefresh: true 
           })
         );
       });
-    }, 100);
 
+      // Retry if some elements are missing (lazy loading)
+      if (missingCount > 0) {
+        setTimeout(initTriggers, 500);
+      }
+    };
+
+    // Initial init
+    const timer = setTimeout(initTriggers, 500);
+
+    // Safety check loop for layout shifts
+    const checkInterval = setInterval(() => {
+      ScrollTrigger.refresh();
+    }, 2000);
+
+    // Cleanup
     return () => {
       clearTimeout(timer);
+      clearInterval(checkInterval);
       triggers.forEach(t => t.kill());
     };
   }, []);
@@ -105,7 +128,7 @@ export function Navigation() {
               activeTabIndex={activeTab}
               onChange={handleTabChange}
               className="bg-black/80 border-mono-700/60 backdrop-blur-md text-mono-200"
-              activeColor="text-red-500 bg-mono-800" // Red accent as per theme
+              activeColor="text-red-500 bg-mono-700/40" // Red accent as per theme
             />
           </motion.div>
         )}

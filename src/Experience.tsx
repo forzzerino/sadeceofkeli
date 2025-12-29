@@ -38,8 +38,6 @@ const Experience: React.FC = () => {
   
   // Create a timeline reference to kill it on unmount
   // Create a mutable object to track where the camera is looking
-  // We start looking at x:3 to place the car (at 0) on the LEFT of the screen.
-  // We start looking at x:3 to place the car (at 0) on the LEFT of the screen.
   const camTarget = useRef({ x: -0.8, y: 0.5, z: 0 }); 
 
   const [device, setDevice] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
@@ -74,8 +72,8 @@ const Experience: React.FC = () => {
     // --- MATERIAL & MESH SETUP ---
     const bodyParts: Material[] = [];     // For Opacity Control (X-Ray)
     const skeletonParts: Material[] = []; // For Opacity Control (X-Ray)
-    
-    // For Animation (Position) - Array kept if needed for potential future use, or explicitly cleared of logic
+
+    // For Animation (Position)
     const electronicsMeshes: Object3D[] = []; 
 
     scene.traverse((child: Object3D) => {
@@ -84,6 +82,10 @@ const Experience: React.FC = () => {
         const n = mesh.name.toLowerCase(); 
         const p = mesh.parent ? mesh.parent.name.toLowerCase() : "";
         const checkName = n + " " + p; 
+
+        // Use standard shadow properties if not mobile, or simplified
+        mesh.castShadow = device !== 'mobile';
+        mesh.receiveShadow = device !== 'mobile';
 
         // --- CATEGORIZE FOR X-RAY ---
         // 1. External Body (To Hide in S3, opacity -> 0)
@@ -114,27 +116,11 @@ const Experience: React.FC = () => {
 
     // 1. Initial Camera Setup (Hero State)
     const config = CAMERA_CONFIG[device];
-    
-    // Immediate set for initial load (optional, but good for responsiveness)
-    // We don't want to snap abruptly if just resizing, but for init it's fine.
-    // However, if we are mid-scroll, this might jump. 
-    // Ideally we rely on the timeline reconstruction below.
-    
-    // camera.position.set(config.hero.pos.x, config.hero.pos.y, config.hero.pos.z);
-    // camera.lookAt(config.hero.look.x, config.hero.look.y, config.hero.look.z);
-    // camTarget.current = { ...config.hero.look };
-
 
     // 2. Kill old ScrollTriggers
     ScrollTrigger.getAll().forEach(t => t.kill());
 
     // 3. Create Timeline with Snap
-    // Total Duration: 4 (1 unit per transition)
-    // Mapping:
-    // 0 -> 1: Hero -> Intro (0% -> 25%)
-    // 1 -> 2: Intro -> Chassis (25% -> 50%)
-    // 2 -> 3: Chassis -> Electronics (50% -> 75%)
-    // 3 -> 4: Electronics -> Exploded (75% -> 100%)
     const tl = gsap.timeline({
       defaults: { ease: "power2.inOut" },
       scrollTrigger: {
@@ -157,36 +143,29 @@ const Experience: React.FC = () => {
     // --- ANIMATION SEQUENCE ---
 
     // 1. Hero -> Intro (0 -> 1)
-    // Move slightly for Intro view
     tl.fromTo(camera.position, 
         { x: config.hero.pos.x, y: config.hero.pos.y, z: config.hero.pos.z },
         { x: config.intro.pos.x, y: config.intro.pos.y, z: config.intro.pos.z, duration: 1 }, 0)
       .fromTo(camTarget.current,
         { x: config.hero.look.x, y: config.hero.look.y, z: config.hero.look.z },
         { x: config.intro.look.x, y: config.intro.look.y, z: config.intro.look.z, duration: 1 }, 0)
-      .to(modelRef.current.rotation, { y: -Math.PI / 2, duration: 1 }, 0); // Rotation is common? Or should we adjust? Keeping common for now.
+      .to(modelRef.current.rotation, { y: -Math.PI / 2, duration: 1 }, 0); 
 
     // 2. Intro -> Chassis (1 -> 2)
-    // Move to Side View / Body focus
     tl.to(camera.position, { x: config.chassis.pos.x, y: config.chassis.pos.y, z: config.chassis.pos.z, duration: 1 }, 1)
       .to(modelRef.current.rotation, { x: 0, duration: 1 }, 1)
       .to(camTarget.current, { x: config.chassis.look.x, y: config.chassis.look.y, z: config.chassis.look.z, duration: 1 }, 1);
 
     // 3. Chassis -> Electronics (2 -> 3)
-    // Move to Internal View AND Fade Body
-    // Trigger X-Ray HERE (start at 2, end at 3)
     tl.to(camera.position, { x: config.electronics.pos.x, y: config.electronics.pos.y, z: config.electronics.pos.z, duration: 1 }, 2)
       .to(modelRef.current.rotation, { x: 0, y: -Math.PI / 2, duration: 1 }, 2)
       .to(camTarget.current, { x: config.electronics.look.x, y: config.electronics.look.y, z: config.electronics.look.z, duration: 1 }, 2)
-      // Hide Body / Fade Skeleton
       .to(bodyParts, { opacity: 0, duration: 1 }, 2)
       .to(skeletonParts, { opacity: 0.05, duration: 1 }, 2);
 
     // 4. Electronics -> Exploded (3 -> 4)
-    // Move to Top View and Restore Opacity
     tl.to(camera.position, { x: config.exploded.pos.x, y: config.exploded.pos.y, z: config.exploded.pos.z, duration: 1 }, 3)
       .to(camTarget.current, { x: config.exploded.look.x, y: config.exploded.look.y, z: config.exploded.look.z, duration: 1 }, 3)
-      // Restore Visibility for Exploded View
       .to(bodyParts, { opacity: 1, duration: 1 }, 3)
       .to(skeletonParts, { opacity: 1, duration: 1 }, 3);
 
@@ -194,7 +173,9 @@ const Experience: React.FC = () => {
         if (timeline.current) timeline.current.kill();
         ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, [camera, scene, device]); // Re-run if camera or scene changes or device changes
+  }, [camera, scene, device]);
+
+  const isMobile = device === 'mobile';
 
   return (
     <>
@@ -202,17 +183,29 @@ const Experience: React.FC = () => {
         <primitive object={scene} scale={1} />
         
         {/* Accent Red Glow (Internal) */}
-        <pointLight 
-            position={[0, 0.5, 0]} 
-            intensity={10} 
-            color="purple" 
-            distance={10} 
+        {!isMobile && (
+          <pointLight
+            position={[0, 0.5, 0]}
+            intensity={10}
+            color="purple"
+            distance={10}
             decay={1}
-        />
+          />
+        )}
       </group>
 
       {/* Lighting Setup */}
-      <spotLight position={[0, 10, 10]} angle={0.5} penumbra={1} intensity={100} color="white" castShadow />
+      {/* On mobile, use simpler lighting or lower intensity if needed. 
+          Here we disable shadows on mobile to save performance. */}
+      <spotLight
+        position={[0, 10, 10]}
+        angle={0.5}
+        penumbra={1}
+        intensity={100}
+        color="white"
+        castShadow={!isMobile}
+      />
+
       <spotLight position={[5, 2, -5]} angle={0.5} penumbra={0.5} intensity={300} color="#00ffff" />
       <spotLight position={[-5, 2, -5]} angle={0.5} penumbra={0.5} intensity={300} color="#ff00ff" />
       
@@ -221,9 +214,9 @@ const Experience: React.FC = () => {
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           mirror={0}
-          blur={[300, 100]}
-          resolution={1024}
-          mixBlur={1}
+          blur={[isMobile ? 0 : 300, isMobile ? 0 : 100]} // Disable blur on mobile for perf
+          resolution={isMobile ? 256 : 1024} // Lower resolution on mobile
+          mixBlur={isMobile ? 0 : 1}
           mixStrength={10}
           roughness={1}
           depthScale={1.2}
