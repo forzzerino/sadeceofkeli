@@ -151,7 +151,11 @@ function GalleryScene({
 	const materials = useMemo(
 		() => Array.from({ length: images.length }, () => {
 			if (isMobile) {
-				return new THREE.MeshBasicMaterial({ transparent: true });
+				// Tint slightly grey to reduce "too bright" glare, and use BasicMaterial
+				return new THREE.MeshBasicMaterial({
+					transparent: true,
+					color: new THREE.Color(0.85, 0.85, 0.85)
+				});
 			}
 			return createClothMaterial();
 		}),
@@ -204,8 +208,8 @@ function GalleryScene({
         // Move group based on scrollProgress
         if(groupRef.current){
              const targetZ = scrollProgress.current * totalDistance;
-			// Simple lerp for smoothness
-			groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, 0.1);
+			// Simple lerp for smoothness - 0.075 is smoother/heavier than 0.1
+			groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, 0.075);
         }
 
 	});
