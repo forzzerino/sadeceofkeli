@@ -32,7 +32,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
 
       <div className="mt-4 text-xs font-mono font-bold text-mono-400 tracking-widest uppercase flex items-center gap-2">
          <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-         {progress < 100 ? `SYSTEM INITIALIZING... ${Math.round(progress)}%` : "SYSTEM READY"}
+        {progress < 100 ? `SİSTEM HAZIRLANIYOR... ${Math.round(progress)}%` : "SİSTEM HAZIR"}
       </div>
 
       {progress === 100 && (
@@ -42,7 +42,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
             transition-all duration-500 cursor-pointer pointer-events-auto uppercase"
             onClick={onStarted}
           >
-            [ Start Engine ]
+          [ PROJEYİ KEŞFET ]
           </button>
       )}
     </div>

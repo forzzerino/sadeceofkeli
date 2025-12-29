@@ -38,9 +38,9 @@ export function FooterSection() {
           </div>
           <div className='flex flex-col items-end'>
             <a href="https://github.com/forzzerino" target="_blank" rel="noopener noreferrer" >
-              site made by this guy: 🙋🏻‍♂️
+              siteyi bu cocuk yaptı: 🙋🏻‍♂️
             </a>
-            <p className='text-[10px] tracking-widest'>project made by 8</p>
+            <p className='text-[10px] tracking-widest'>projeyi 8 KİŞİ</p>
           </div>
         </div>
       </div>
