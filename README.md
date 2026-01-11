@@ -1,7 +1,5 @@
 # SADECE ÖFKELİ
 
-
-
 ## 1. GİRİŞ
 **SADECE ÖFKELİ**, elektronik ve yazılım disiplinlerinin kesişim noktasında duran deneysel bir otonom sürüş projesidir. Bu proje, bir RC aracın kendi kendine karar verebilen bir varlığa dönüşüm sürecini ve bu sürecin dijital ikizini temsil eder.
 
@@ -77,5 +75,86 @@ cd sadece-ofkeli
 npm install
 
 # 4. Geliştirme sunucusunu başlatın
+npm run dev
+```
+
+----
+
+
+## 1. INTRODUCTION
+**SADECE ÖFKELİ** is an experimental autonomous driving project positioned at the intersection of electronics and software disciplines. This project represents the transformation process of an RC vehicle into a self-deciding entity and its digital twin.
+
+The web platform is not just a showcase site for the vehicle, but an interactive dashboard displaying live telemetry data, manufacturing processes, and decision-making algorithms.
+
+---
+
+## 2. PROJECT SCOPE
+The project is built on modifying a physical vehicle to gain autonomous features and visualizing this data in a web environment.
+
+*   **Hybrid Manufacturing**: Integration of 3D-printed parts (PLA-CF, TPU, ABS) with industrial components.
+*   **Autonomous Driving**: Lane tracking, traffic light detection, and obstacle avoidance.
+*   **Digital Twin**: Simulation of the vehicle's exact 3D model and sensor data on the website.
+
+---
+
+## 3. HARDWARE
+The vehicle's nervous system is built on a distributed architecture. High-level decisions are made in a central processor, while motor control and sensor readings are managed by microcontrollers.
+
+| Component | Model | Role |
+| :--- | :--- | :--- |
+| **Main Brain** | `Raspberry Pi 4` | Image processing, running AI models, and high-level logic. |
+| **Controller** | `Arduino Nano` | PWM signal generation, motor driver control, and sensor data collection. |
+| **Motor Driver** | `L298N` | Power distribution and direction control for DC motors. |
+| **Power Unit** | `11.1V LiPo Battery` | Main power source providing high current to the entire system. |
+| **Vision** | `Pi Camera Module` | Real-time video stream for lane and object detection. |
+| **Distance Sensor** | `HC-SR04` | Obstacle distance measurement via ultrasonic waves. |
+| **Actuators** | `Brushed DC Motor` & `Servo` | Propulsion and steering mechanisms. |
+
+---
+
+## 4. VEHICLE SOFTWARE
+The "mind" of the vehicle is a combination of deep learning models and classical computer vision techniques.
+
+### Lane Tracking (Regression CNN)
+*   **Model**: Regression CNN optimized based on NVIDIA's autonomous driving architecture.
+*   **Task**: Produces a continuous steering angle (float) instead of classification (Left/Right).
+*   **Dataset**: 5,780 labeled images (60% Straight, 40% Turn).
+*   **Performance**: 0.05 Mean Absolute Error (MAE).
+
+### Traffic Light Detection (Object Detection)
+*   **Model**: Faster R-CNN.
+*   **Task**: Detects traffic lights in the image and classifies their status (Red, Yellow, Green).
+*   **Accuracy**: 94.5% Accuracy rate.
+
+---
+
+## 5. WebSTACK
+The web interface is built with modern web technologies.
+
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Core** | `React 18` | High-performance, type-safe component architecture and fast build process. |
+| **Render** | `Three.js`, `Drei` | WebGL-based 3D engine. |
+| **Animation** | `GSAP` | Scroll-driven cinematic timelines. |
+| **Interaction** | `Lenis` | Smooth scrolling feel synchronized with WebGL. |
+
+---
+
+## 6. DEPLOYMENT
+
+### Development Environment (Local)
+To run the project on your local machine:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/yourusername/sadece-ofkeli.git
+
+# 2. Enter project directory
+cd sadece-ofkeli
+
+# 3. Install dependencies
+npm install
+
+# 4. Start development server
 npm run dev
 ```
