@@ -44,6 +44,12 @@ export function CarPartsSection() {
             // Distancer
             tl.to({}, { duration: 1 });
 
+            // Force refresh to ensure start/end positions are correct after render
+            // This fixes the issue where tabs behave erratically in production builds
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
+
         }, containerRef);
 
         return () => ctx.revert();
