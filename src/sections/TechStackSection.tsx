@@ -60,7 +60,7 @@ export function TechStackSection() {
           <TechCard
             title="Beyin"
             description="Raspberry Pi 4"
-            image="/tech/raspberry-pi.png" 
+            image="/tech/raspberry-pi.webp" 
             specs={[
               'Yüksek Seviye Mantık',
               'Bilgisayarlı Görü',
@@ -73,7 +73,7 @@ export function TechStackSection() {
           <TechCard
             title="Kontrol"
             description="Arduino Nano"
-            image="/tech/arduino-nano.png"
+            image="/tech/arduino-nano.webp"
             specs={['Motor Stabilitesi', 'Gerçek Zamanlı Kontrol', 'Düşük Gecikme']}
             className="col-span-1 lg:col-span-1"
           />
@@ -82,7 +82,7 @@ export function TechStackSection() {
           <TechCard
             title="Yönlendirme"
             description="DSS-M15S SERVO"
-            image="/tech/servo-motor.png"
+            image="/tech/servo-motor.webp"
             specs={['Yüksek Tork', 'Hassas Açı Kontrolü', 'Metal Dişli']}
             className="col-span-1 lg:col-span-1"
           />
@@ -91,7 +91,7 @@ export function TechStackSection() {
           <TechCard
             title="Güç"
             description="11.1V LiPo Batarya"
-            image="/tech/lipo-battery.png"
+            image="/tech/lipo-battery.webp"
             specs={['3S Konfigürasyonu', '2200mAh Kapasite', 'Hot Swap Hazır']}
             className="col-span-1 lg:col-span-1"
           />
@@ -100,7 +100,7 @@ export function TechStackSection() {
           <TechCard
             title="Motor"
             description="FJGB37-3530"
-            image="/tech/dc-motor.png"
+            image="/tech/dc-motor.webp"
             specs={['Yüksek RPM', 'Güçlü Çekiş', 'Dayanıklı Yapı']}
             className="col-span-1 lg:col-span-1 min-h-[220px] md:min-h-[300px]"
           />
@@ -109,7 +109,7 @@ export function TechStackSection() {
            <TechCard
             title="Sürücü"
             description="L298N"
-            image="/tech/motor-driver.png"
+            image="/tech/motor-driver.webp"
             specs={['Çift H-Köprüsü', '2A Akım Kapasitesi', 'PWM Kontrol']}
             className="col-span-1 lg:col-span-1"
           />
@@ -118,7 +118,7 @@ export function TechStackSection() {
            <TechCard
             title="Görüntü"
             description="OV5647 5MP"
-            image="/tech/kamera.png"
+            image="/tech/kamera.webp"
             specs={['1080p Video', 'Gerçek Zamanlı Akış', ' Sensör']}
             className="col-span-1 lg:col-span-1"
           />
@@ -127,7 +127,7 @@ export function TechStackSection() {
            <TechCard
             title="Sensör"
             description="HC-SR04"
-            image="/tech/sensor.png"
+            image="/tech/sensor.webp"
             specs={['Mesafe Ölçümü', 'Engel Algılama', 'Ultrasonik']}
             className="col-span-1 lg:col-span-1"
           />

@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <section className="h-screen w-full flex flex-col justify-start lg:justify-center pt-36 lg:pt-0 items-center lg:items-start text-center lg:text-left px-6 lg:px-0 lg:pl-24">
       <img
-        src="/logo.png" 
+        src="/logo.webp" 
         alt="SADECE OFKELI" 
         className="w-full max-w-[600px] lg:max-w-4xl object-contain drop-shadow-2xl opacity-90"
       />

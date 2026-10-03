@@ -11,7 +11,7 @@ const teamMembers = [
     name: "BERKAY LEVENT",
     department: "ELEKTRİK MÜHENDİSLİĞİ",
     bio: "Projenin ilk haftasında Takım Kaptanı ve Elektromekanik Sorumlusu olarak, aracın otonomisi için gerekli motor ve güç gereksinimlerini belirledim. 1/10 ölçekli araçta tork-hız dengesini sağlamak adına 37mm redüktörlü motor seçimini yaptım. Mekanik ve elektronik entegrasyonu sırasında teori ile pratiğin farkını deneyimlerken; disiplinlerarası ekibi organize etmek bana mühendisliğin yanı sıra liderlik ve kriz yönetimi yetkinliği kazandırdı.",
-    image: "/team/berkay.jpg",
+    image: "/team/berkay.webp",
     linkedin: "https://www.linkedin.com/in/berkay-levent-aba024254/",
     // github: "#",
   },
@@ -20,7 +20,7 @@ const teamMembers = [
      name: "BORA AVŞAR",
      department: "ELEKTRİK MÜHENDİSLİĞİ",
     bio: "Projenin 2. haftasında liderliği üstlenerek donanım seçimi ve güç mimarisi süreçlerini yönettim. LiPo batarya ve sürücülerin akım analizlerini yaparak, hassas işlemcileri gerilim dalgalanmalarından koruyacak güvenlik prosedürlerini oluşturdum. Donanım güvenliğindeki titizliğimin süreçleri yavaşlattığını fark edip risk yönetiminde esneklik kazanırken; teorik güç elektroniği bilgilerimi yazılım ekibiyle koordine şekilde sahaya yansıttım.",
-    image: "/team/bora.jpg",
+    image: "/team/bora.webp",
     // linkedin: "#",
     // github: "#",
   },
@@ -29,7 +29,7 @@ const teamMembers = [
     name: "FATİH HANAYLI",
     department: "ELEKTRİK MÜHENDİSLİĞİ",
     bio: "Projenin 3. haftasında liderliği devralarak elektriksel bağlantı mimarisini ve kablolama standartlarını oluşturdum. Sinyal parazitlerini önlemek adına, ortak toprak hattı (common ground) ve hat izolasyonu gibi kritik detayları içeren şemalarla ekibe rehberlik ettim. Kağıt üzerindeki düzenin dar şasi montajındaki zorluklarını tecrübe ederken; iyi bir tasarımın sadece işlevsel değil, aynı zamanda anlaşılır ve bakımı yapılabilir olması gerektiğini öğrendim.",
-    image: "/team/fatih.jpg",
+    image: "/team/fatih.webp",
     // linkedin: "#",
     // github: "#",
   },
@@ -38,7 +38,7 @@ const teamMembers = [
     name: "AKIN KAÇAR",
     department: "ELEKTRİK MÜHENDİSLİĞİ",
     bio: "Projenin 4. haftasında Proje Yöneticisi ve Denetim Sorumlusu olarak; L298N sürücü, batarya ve motorların teknik uyumluluğunu denetleyerek sistemin kalite kontrolünü sağladım. Montaj öncesi yaptığım risk analizleriyle olası donanım arızalarını engellerken; denetimin bir yavaşlama değil, kritik bir gereklilik olduğunu gördüm. Bu süreçle, mühendislikte güvenin değil, doğrulamanın (verification) esas olduğunu tecrübe ettim.",
-    image: "/team/akin.jpg",
+    image: "/team/akin.webp",
     // linkedin: "#",
     // github: "#",
   },
@@ -47,7 +47,7 @@ const teamMembers = [
     name: "MEVLÜT HAN AŞCI",
     department: "YAZILIM MÜHENDİSLİĞİ",
     bio: "Projenin 5. haftasında liderliği üstlenerek otonom sürüş algoritmalarını ve şerit takibi için gerekli CNN mimarisini kurguladım. Teorik modelleri Raspberry Pi’nin işlemci ve bellek kısıtlarına göre optimize ederken, algoritmik kararların donanım gecikmeleriyle (latency) olan kritik ilişkisini yönettim. Süreç sırasında yaşadığım donanım kaybı (ana kart arızası), bana gömülü sistemlerde donanım güvenliği ve dikkatli çalışma konusunda pahalı ama kalıcı bir tecrübe kazandırdı.",
-    image: "/team/mevlut.jpg",
+    image: "/team/mevlut.webp",
     linkedin: "https://www.linkedin.com/in/mevlut-han-asci/",
     github: "https://github.com/mevlutasci",
   },
@@ -56,7 +56,7 @@ const teamMembers = [
     name: "ERTUĞRUL YÜKSEL",
     department: "YAZILIM MÜHENDİSLİĞİ",
     bio: "Projenin 6. haftasında liderliği üstlenerek, yazılım kökenime rağmen mekanik montaj ve şasi entegrasyonu süreçlerini bizzat yürüttüm. 3D parçaların birleştirilmesi ve sensör konumlandırmasıyla ilgilenirken; kusursuz bir yazılımın bile milimetrik mekanik hatalarla işlevsiz kalabileceğini deneyimledim. Bu süreç bana disiplinler arası bir bakış açısı kazandırarak, mühendislikte 'sadece kendi alanım' yaklaşımının geçerli olmadığını gösterdi.",
-    image: "/team/ertu.jpg",
+    image: "/team/ertu.webp",
     linkedin: "https://www.linkedin.com/in/ertugrul-yuksel/",
     github: "https://github.com/ertuyuksell",
   },
@@ -65,7 +65,7 @@ const teamMembers = [
      name: "CAN ÖZTÜRK",
      department: "YAZILIM MÜHENDİSLİĞİ",
     bio: "Projenin 7. haftasında liderliği üstlenerek web arayüzü geliştirme ve 3D tasarım revizyonlarını yönettim. Düşük gecikmeli kontrol paneli ve sunum materyallerini hazırlarken; teknik mükemmelliğin ancak doğru bir sunumla değer kazandığını deneyimledim. Bu süreç, backend yetkinliklerimi geliştirmenin yanı sıra pazarlama ve sunumun mühendisliğin ayrılmaz bir parçası olduğunu anlamamı sağladı.",
-    image: "/team/can.jpg",
+    image: "/team/can.webp",
     linkedin: "https://www.linkedin.com/in/cnztrk/",
     github: "https://github.com/forzzerino",
   },
@@ -74,7 +74,7 @@ const teamMembers = [
     name: "BÜŞRA YARAR",
     department: "YAZILIM MÜHENDİSLİĞİ",
     bio: "Projenin final haftasında liderliği üstlenerek, tüm teknik verileri ve ekip çalışmalarını kapsayan nihai raporu hazırladım. Yazılım ve Elektrik ekiplerinin farklı çıktılarını ortak bir teknik dilde birleştirirken; iyi dokümantasyonun projenin sürdürülebilirliği için şart olduğunu deneyimledim. Bu süreç, teknik detaylara hakimken aynı zamanda büyük resmi görebilme yeteneğimi geliştirdi.",
-    image: "/team/busra.jpg",
+    image: "/team/busra.webp",
     linkedin: "https://www.linkedin.com/in/busra-yarar",
     github: "https://github.com/busrayarar",
   },
@@ -136,6 +136,8 @@ export function TeamSection() {
                      <img
                        src={member.image}
                        alt={member.name}
+                       loading="lazy"
+                       decoding="async"
                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300 absolute inset-0"
                      />
                   </div>
@@ -193,6 +195,8 @@ export function TeamSection() {
                     <img
                       src={member.image}
                       alt={member.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover grayscale"
                     />
                   </div>

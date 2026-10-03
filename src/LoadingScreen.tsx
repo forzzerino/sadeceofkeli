@@ -14,7 +14,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
     >
       <div className="relative w-full max-w-2xl px-8 mb-12">
         <img 
-            src="/logo.png" 
+            src="/logo.webp" 
             alt="SADECE OFKELI" 
             className="w-full object-contain grayscale opacity-80"
             // React 18 doesn't know the camelCase prop and warns; pass the raw attribute

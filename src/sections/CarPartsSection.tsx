@@ -143,7 +143,7 @@ export function CarPartsSection() {
 
                           {/* 1. Material (Start & End) - Only visible when activeStage is 'material' */}
                           <img
-                              src="/parts/meterial.png"
+                              src="/parts/meterial.webp"
                               className={clsx(
                                   "absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out z-10",
                                   {
@@ -159,7 +159,7 @@ export function CarPartsSection() {
                           {/* Visible as ghost (opacity-20) when 'body', 'rim', or 'tire' is active. */}
                           {/* Hidden when 'material' is active (start/end). */}
                           <img
-                              src="/parts/complete.png"
+                              src="/parts/complete.webp"
                               className={clsx(
                                   "absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out",
                                   {
@@ -171,9 +171,9 @@ export function CarPartsSection() {
                               alt="Complete Assembly"
                           />
 
-                          {renderLayer('body', '/parts/body.png', 30)}
-                          {renderLayer('rim', '/parts/rim.png', 30)}
-                          {renderLayer('tire', '/parts/tire.png', 30)}
+                          {renderLayer('body', '/parts/body.webp', 30)}
+                          {renderLayer('rim', '/parts/rim.webp', 30)}
+                          {renderLayer('tire', '/parts/tire.webp', 30)}
                 </div>
                       {/* Base Wireframe / Grid */}
                       <div
