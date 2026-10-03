@@ -66,10 +66,10 @@ Projeyi yerel makinenizde çalıştırmak için:
 
 ```bash
 # 1. Depoyu klonlayın
-git clone https://github.com/kullaniciadiniz/sadece-ofkeli.git
+git clone https://github.com/forzzerino/sadeceofkeli.git
 
 # 2. Proje dizinine girin
-cd sadece-ofkeli
+cd sadeceofkeli
 
 # 3. Bağımlılıkları yükleyin
 npm install
@@ -147,10 +147,10 @@ To run the project on your local machine:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/sadece-ofkeli.git
+git clone https://github.com/forzzerino/sadeceofkeli.git
 
 # 2. Enter project directory
-cd sadece-ofkeli
+cd sadeceofkeli
 
 # 3. Install dependencies
 npm install

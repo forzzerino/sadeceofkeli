@@ -121,7 +121,7 @@ export function AIPerformanceSection() {
                   </p>
                   <p>
                     <strong className="text-mono-0 block mb-1">MİMARİ:</strong>
-                    Sınıflandırma yerine sürekli açı değeri üreten <strong>Regresyon CNN</strong>. NVIDIA mimarisi temel alınmış, ELU aktivasyonu ve MSE kaybı ile optimize edilmiştir.
+                    Sınıflandırma yerine sürekli açı değeri üreten <strong>Regresyon CNN</strong>. NVIDIA mimarisi temel alınmış, ReLU aktivasyonu ve MSE kaybı ile optimize edilmiştir.
                   </p>
               </div>
             </div>
