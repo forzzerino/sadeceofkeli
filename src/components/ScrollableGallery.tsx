@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useRef, useMemo, useState, useEffect } from 'react';
+import { useRef, useMemo, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
@@ -96,11 +96,9 @@ function GalleryScene({
 
 	const textures = useTexture(normalizedImages.map((img) => img.src));
 
-	// Detect mobile for material optimization
-	const [isMobile, setIsMobile] = useState(false);
-	useEffect(() => {
-		setIsMobile(window.innerWidth < 768);
-	}, []);
+	// Detect mobile for material optimization (read once up front so the
+	// desktop materials aren't created and then immediately replaced)
+	const [isMobile] = useState(() => window.innerWidth < 768);
 
 	const materials = useMemo(
 		() => Array.from({ length: images.length }, () => {
@@ -115,6 +113,8 @@ function GalleryScene({
 		}),
 		[images.length, isMobile]
 	);
+
+	useEffect(() => () => materials.forEach((m) => m.dispose()), [materials]);
 
     const groupRef = useRef<THREE.Group>(null);
 
@@ -194,21 +194,40 @@ export default function ScrollableGallery({
 	style,
 	zSpacing = 4,
 }: ScrollableGalleryProps) {
-    
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [inView, setInView] = useState(false);
+
+	// Only render frames while the gallery is (nearly) on screen
+	useEffect(() => {
+		const el = containerRef.current;
+		if (!el) return;
+		const observer = new IntersectionObserver(
+			([entry]) => setInView(entry.isIntersecting),
+			{ rootMargin: '200px 0px' }
+		);
+		observer.observe(el);
+		return () => observer.disconnect();
+	}, []);
+
 	return (
-		<div className={className} style={style}>
+		<div ref={containerRef} className={className} style={style}>
 			<Canvas
 				camera={{ position: [0, 0, 5], fov: 55 }} // Camera at +5 looking at 0
 				gl={{ antialias: true, alpha: true }}
 				dpr={[1, 1.5]} // Limit pixel ratio for performance
+				frameloop={inView ? 'always' : 'never'}
 			>
                 {/* Fog to hide the pop-in at the back? */}
-                <fog attach="fog" args={['#000', 5, 25]} /> 
-				<GalleryScene
-					images={images}
-                    scrollProgress={scrollProgress}
-					zSpacing={zSpacing}
-				/>
+                <fog attach="fog" args={['#000', 5, 25]} />
+				{/* Local boundary: without it, loading textures suspends the
+				    parent Suspense in App and blanks every section */}
+				<Suspense fallback={null}>
+					<GalleryScene
+						images={images}
+						scrollProgress={scrollProgress}
+						zSpacing={zSpacing}
+					/>
+				</Suspense>
 			</Canvas>
 		</div>
 	);

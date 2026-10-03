@@ -29,6 +29,21 @@ export default function App() {
   const [start, setStart] = useState(false);
   const [lowQuality, setLowQuality] = useState(false); // Optimization state
   const lenisRef = useRef<ElementRef<typeof ReactLenis>>(null);
+  const tunnelRef = useRef<HTMLDivElement>(null);
+  const [tunnelInView, setTunnelInView] = useState(true);
+
+  // Stop rendering the 3D scene (main + reflector + shadow passes) once the
+  // tunnel is scrolled out of view
+  useEffect(() => {
+    const el = tunnelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setTunnelInView(entry.isIntersecting),
+      { rootMargin: '200px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Scroll Lock & Visibility Logic
   useEffect(() => {
@@ -85,7 +100,7 @@ export default function App() {
         >
 
           {/* === PART 1: THE 3D TUNNEL (550vh) === */}
-          <div id="scroll-tunnel" className="relative h-[500vh] w-full bg-black z-40">
+          <div id="scroll-tunnel" ref={tunnelRef} className="relative h-[500vh] w-full bg-black z-40">
 
             <div className="sticky top-0 h-screen w-full overflow-hidden">
 
@@ -97,6 +112,7 @@ export default function App() {
                   camera={{ fov: 12 }}
                   gl={{ antialias: false, stencil: false, depth: true }}
                   dpr={[1, 1.5]}
+                  frameloop={tunnelInView ? 'always' : 'never'}
                 >
                   <PerformanceMonitor onDecline={() => setLowQuality(true)} />
                   <AdaptiveDpr pixelated />
