@@ -1,8 +1,4 @@
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import React from "react";
 
 // --- TİP TANIMLARI ---
 type NodeType = "input" | "process-blue" | "process-red" | "output";
@@ -27,7 +23,7 @@ const Node: React.FC<NodeProps> = ({ title, subtitle, type, icon }) => {
   };
 
   return (
-    <div className={`diagram-node relative flex flex-col items-center justify-center p-4 border ${getColors()} backdrop-blur-sm transition-all duration-300 z-10 w-full`}
+    <div className={`relative flex flex-col items-center justify-center p-4 border ${getColors()} backdrop-blur-sm transition-all duration-300 z-10 w-full`}
         >
       {/* Dekoratif Köşe Çizgileri */}
       <div className="absolute top-0 right-0 w-2 h-2 border-r-2 border-t-2 border-current opacity-50"></div>
@@ -48,20 +44,9 @@ const ConnectorVertical = ({ height = "h-8" }) => (
 );
 
 const SystemArchitecture: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div ref={containerRef} className="w-full bg-mono-900 py-16 px-4 relative overflow-hidden">
-        {/* Arka plan grid REMOVED to avoid double grid (parent already has one) */}
-        
+    <div className="w-full bg-mono-900 py-16 px-4 relative overflow-hidden">
         <div className="max-w-5xl mx-auto flex flex-col items-center">
-            
-            {/* ... Rest of the component structure remains static ... */}
-            {/* The tool requires me to provide the full content or chunks. I'll simply remove the specific blocks via chunks if possible, but the previous edit was large. I'll provide the start and end of what effectively changes: the ConnectorVertical and the Component body start. */}
-
-            {/* Wait, multi_replace is better here or I need to be careful with chunks. 
-               I'll use a large chunk to replace the top part of the component logic. 
-            */}
             
             {/* --- LEVEL 1: INPUT --- */}
             <div className="w-48">
@@ -70,8 +55,8 @@ const SystemArchitecture: React.FC = () => {
             
             {/* SPLITTER (T-JUNCTION) */}
             <div className="relative w-full max-w-3xl h-12 flex justify-center">
-                <div className="absolute top-0 w-0.5 h-6 bg-mono-700 connector-line"></div> {/* Dikey inen */}
-                <div className="absolute top-6 w-1/2 h-6 border-t-2 border-mono-700 flex justify-between connector-line"> {/* Yatay T */}
+                <div className="absolute top-0 w-0.5 h-6 bg-mono-700"></div> {/* Dikey inen */}
+                <div className="absolute top-6 w-1/2 h-6 border-t-2 border-mono-700 flex justify-between"> {/* Yatay T */}
                     <div className="w-0.5 h-full bg-mono-700 relative"></div> {/* Sol inen */}
                     <div className="w-0.5 h-full bg-mono-700 relative"></div> {/* Sağ inen */}
                 </div>
@@ -128,11 +113,11 @@ const SystemArchitecture: React.FC = () => {
 
             {/* --- CONVERGENCE (MERGE) --- */}
             <div className="relative w-full max-w-3xl h-12 flex justify-center mt-2">
-                <div className="absolute top-0 w-1/2 md:w-2/3 h-6 border-b-2 border-mono-700 flex justify-between connector-line"> {/* Yatay U */}
+                <div className="absolute top-0 w-1/2 md:w-2/3 h-6 border-b-2 border-mono-700 flex justify-between"> {/* Yatay U */}
                     <div className="w-0.5 h-full bg-mono-700"></div> {/* Sol inen */}
                     <div className="w-0.5 h-full bg-mono-700"></div> {/* Sağ inen */}
                 </div>
-                <div className="absolute top-6 w-0.5 h-6 bg-mono-700 connector-line"></div> {/* Dikey birleşen */}
+                <div className="absolute top-6 w-0.5 h-6 bg-mono-700"></div> {/* Dikey birleşen */}
             </div>
 
             {/* --- LEVEL 3: FINAL OUTPUT --- */}

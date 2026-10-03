@@ -38,9 +38,7 @@ export function Navigation() {
     }
   });
 
-  const handleTabChange = (index: number | null) => {
-    if (index === null) return;
-
+  const handleTabChange = (index: number) => {
     // Optimistic update
     setActiveTab(index);
     

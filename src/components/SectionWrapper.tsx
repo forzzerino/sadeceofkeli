@@ -16,7 +16,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({ align, title, highlight
   const textColor = color === 'blue' ? 'text-blue-500' : 'text-red-600';
 
   return (
-    <section id={id} className={`section-panel h-screen w-full flex flex-col justify-start lg:justify-center pt-16 lg:pt-0 p-6 md:pt-24 ${isRight ? 'items-end text-right' : 'items-start text-left'}`}>
+    <section id={id} className={`h-screen w-full flex flex-col justify-start lg:justify-center pt-16 lg:pt-0 p-6 md:pt-24 ${isRight ? 'items-end text-right' : 'items-start text-left'}`}>
       <div className="max-w-4xl relative">
         
         {/* Modern Header matching TechStackSection style 

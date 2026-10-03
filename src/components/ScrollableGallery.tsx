@@ -1,5 +1,3 @@
-'use client';
-
 import type React from 'react';
 import { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -22,55 +20,27 @@ interface ScrollableGalleryProps {
 const MAX_HORIZONTAL_OFFSET = 8;
 const MAX_VERTICAL_OFFSET = 8;
 
-// Optimized shader material: No wave, conditional blur
+// Unlit texture shader (no tone mapping, so photos keep their original colors)
 const createClothMaterial = () => {
 	return new THREE.ShaderMaterial({
 		transparent: true,
 		uniforms: {
 			map: { value: null },
-			opacity: { value: 1.0 },
-			blurAmount: { value: 0.0 }, // 0.0 means disabled
-			isHovered: { value: 0.0 },
 		},
 		vertexShader: `
       varying vec2 vUv;
-      varying vec3 vNormal;
-      
+
       void main() {
         vUv = uv;
-        vNormal = normal;
-        vec3 pos = position;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
     `,
 		fragmentShader: `
       uniform sampler2D map;
-      uniform float opacity;
-      uniform float blurAmount;
       varying vec2 vUv;
-      
-      void main() {
-        vec4 color = texture2D(map, vUv);
-        
-        // Blur only if enabled (blurAmount > 0.0)
-        if (blurAmount > 0.01) {
-          vec2 texelSize = 1.0 / vec2(textureSize(map, 0));
-          vec4 blurred = vec4(0.0);
-          float total = 0.0;
-          
-          // Reduced blur loop for better performance if enabled
-          for (float x = -1.0; x <= 1.0; x += 1.0) {
-            for (float y = -1.0; y <= 1.0; y += 1.0) {
-              vec2 offset = vec2(x, y) * texelSize * blurAmount;
-              float weight = 1.0 / (1.0 + length(vec2(x, y)));
-              blurred += texture2D(map, vUv + offset) * weight;
-              total += weight;
-            }
-          }
-          color = blurred / total;
-        }
 
-        gl_FragColor = vec4(color.rgb, color.a * opacity);
+      void main() {
+        gl_FragColor = texture2D(map, vUv);
       }
     `,
 	});
@@ -87,9 +57,6 @@ function ImagePlane({
 	scale: [number, number, number];
 		material: THREE.Material;
 }) {
-	const meshRef = useRef<THREE.Mesh>(null);
-	const [isHovered, setIsHovered] = useState(false);
-
 	useEffect(() => {
 		if (material && texture) {
 			// Handle both ShaderMaterial (uniforms.map) and BasicMaterial (map)
@@ -102,21 +69,8 @@ function ImagePlane({
 		}
 	}, [material, texture]);
 
-	useEffect(() => {
-		if (material && 'uniforms' in material) {
-			(material as THREE.ShaderMaterial).uniforms.isHovered.value = isHovered ? 1.0 : 0.0;
-		}
-	}, [material, isHovered]);
-
 	return (
-		<mesh
-			ref={meshRef}
-			position={position}
-			scale={scale}
-			material={material}
-			onPointerEnter={() => setIsHovered(true)}
-			onPointerLeave={() => setIsHovered(false)}
-		>
+		<mesh position={position} scale={scale} material={material}>
 			{/* Reduced geometry segments to 1x1 since wave is removed */}
 			<planeGeometry args={[1, 1, 1, 1]} /> 
 		</mesh>
@@ -192,19 +146,6 @@ function GalleryScene({
     const totalDistance = Math.abs(planesData[planesData.length - 1].z) + 5; 
     
 	useFrame(() => {
-	// Update uniforms if needed (e.g. blur on fast scroll, disabled on mobile)
-	// Since we removed wave, we don't need velocity for that.
-	// We can still use velocity for blur if we want, but DISABLE it on mobile.
-
-		materials.forEach((material) => {
-			if (material && 'uniforms' in material) {
-				// Completely disable blur on mobile for perf
-				// On desktop, can set to 0.0 or calculated velocity. 
-				// For now, let's keep it simple and crisp (0.0) or minimal.
-				(material as THREE.ShaderMaterial).uniforms.blurAmount.value = 0.0; 
-			}
-		});
-
         // Move group based on scrollProgress
         if(groupRef.current){
              const targetZ = scrollProgress.current * totalDistance;

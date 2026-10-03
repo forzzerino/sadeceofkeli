@@ -12,7 +12,6 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
       flex flex-col items-center justify-center bg-black
       ${started ? "opacity-0" : "opacity-100"}`}
     >
-      {/* Replaced Text with Logo for stability */}
       <div className="relative w-full max-w-2xl px-8 mb-12">
         <img 
             src="/logo.png" 
@@ -21,7 +20,6 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ started, onStarted
             // React 18 doesn't know the camelCase prop and warns; pass the raw attribute
             {...{ fetchpriority: "high" }}
         />
-        {/* Simple Progress Overlay on Logo (Optional or just keep bar below) */}
       </div>
       
       {/* Progress Bar Container */}

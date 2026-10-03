@@ -63,7 +63,7 @@ const phases: TimelinePhase[] = [
   },
 ];
 
-function TimelineNode({ title, duration, items }: TimelinePhase & { index: number }) {
+function TimelineNode({ title, duration, items }: TimelinePhase) {
   return (
     <div className="w-full group h-full">
       <div className="h-full info-box shadow-xl hover:border-red-600 transition-colors duration-300 p-3 md:p-6">
@@ -74,7 +74,7 @@ function TimelineNode({ title, duration, items }: TimelinePhase & { index: numbe
         </div>
 
         {/* Title */}
-        <h4 className="box-title text-sm md:text-base mb-4 group-hover:text-accent-cyan transition-colors duration-300">
+        <h4 className="box-title text-sm md:text-base mb-4">
           {title}
         </h4>
 
@@ -104,11 +104,7 @@ export function Timeline() {
     <div className="w-full mb-4">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {phases.map((phase, idx) => (
-          <TimelineNode
-            key={idx}
-            {...phase}
-            index={idx}
-          />
+          <TimelineNode key={idx} {...phase} />
         ))}
       </div>
     </div>

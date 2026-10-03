@@ -1,35 +1,6 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 export function FooterSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const elements = document.querySelectorAll('.footer-animate');
-      elements.forEach((el, idx) => {
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-          delay: idx * 0.05,
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <footer ref={sectionRef} className="relative w-full bg-transparent section-padding px-0 pb-8">
+    <footer className="relative w-full bg-transparent section-padding px-0 pb-8">
       <div className="border-t border-mono-400 pt-8">
         <div className="font-mono text-[10px] md:text-sm uppercase text-mono-300 tracking-tighter flex flex-row justify-around">
           <div className='px-2 flex flex-col md:flex-row items-start '>

@@ -226,6 +226,4 @@ const Experience: React.FC<{ lowQuality?: boolean }> = ({ lowQuality = false }) 
   );
 };
 
-// useGLTF.preload('/araba.glb'); // Removed to defer loading and save initial bandwidth/LCP
-
 export default Experience;

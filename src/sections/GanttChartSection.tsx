@@ -39,7 +39,7 @@ export function GanttChartSection() {
         <Timeline />
 
             {/* Chart Scroll Container */}
-              <div className="w-full overflow-x-auto  custom-scrollbar border-2 border-mono-700">
+              <div className="w-full overflow-x-auto border-2 border-mono-700">
                   <div className="min-w-[600px] md:min-w-[900px] w-full bg-mono-900 border-mono-700 relative">
                     
                     {/* Background Grid (Stripes + Gaps) */}

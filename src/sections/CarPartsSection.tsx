@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect, useState } from 'react';
 import { Layers } from 'lucide-react';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from '@studio-freight/react-lenis';
@@ -88,7 +88,7 @@ export function CarPartsSection() {
     const renderLayer = (layer: LayerType, imgSrc: string, zIndex: number) => (
         <img
             src={imgSrc}
-            className={classNames(
+            className={clsx(
                 "absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out",
                 `z-${zIndex}`,
                 { "opacity-100": activeStage === layer, "opacity-0": activeStage !== layer }
@@ -98,7 +98,7 @@ export function CarPartsSection() {
     );
 
     // Helper for active card highlighting
-    const getCardClass = (layer: LayerType) => classNames(
+    const getCardClass = (layer: LayerType) => clsx(
         "info-box backdrop-blur-sm border p-6 group transition-all duration-500 cursor-pointer hover:opacity-100 hover:border-red-600/50 text-[10px] md:text-xs lg:text-sm",
         {
             "border-red-600 shadow-[0_0_20px_rgba(220,38,38,0.1)]": activeStage === layer,
@@ -144,7 +144,7 @@ export function CarPartsSection() {
                           {/* 1. Material (Start & End) - Only visible when activeStage is 'material' */}
                           <img
                               src="/parts/meterial.png"
-                              className={classNames(
+                              className={clsx(
                                   "absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out z-10",
                                   {
                                       "opacity-100": activeStage === 'material',
@@ -160,7 +160,7 @@ export function CarPartsSection() {
                           {/* Hidden when 'material' is active (start/end). */}
                           <img
                               src="/parts/complete.png"
-                              className={classNames(
+                              className={clsx(
                                   "absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out",
                                   {
                                       "z-20 opacity-100": activeStage === 'complete',
@@ -190,7 +190,7 @@ export function CarPartsSection() {
                 
                 {/* CARD 1: SYSTEM OVERVIEW */}
                       <div
-                          className={classNames(
+                          className={clsx(
                               getCardClass('complete'), 
                               "flex flex-col justify-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
@@ -202,7 +202,7 @@ export function CarPartsSection() {
                       >
                     <div className="flex justify-between items-start mb-3">
                         <div className="flex items-center gap-3">
-                                  <div className={classNames("p-1 lg:p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
+                                  <div className={clsx("p-1 lg:p-2 transition-colors duration-300", activeStage === 'complete' ? "bg-red-600 text-black" : "bg-mono-800 text-white")}>
                                       <Layers className="w-4 h-4 lg:w-5 lg:h-5" />
                             </div>
                                   <h3 className="box-title text-base md:text-xl lg:text-2xl text-white tracking-wide">KATMANLI İMALAT</h3>
@@ -216,7 +216,7 @@ export function CarPartsSection() {
 
                       {/* CARD 2: ABS */}
                       <div
-                          className={classNames(
+                          className={clsx(
                               getCardClass('body'),
                               "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
@@ -227,18 +227,18 @@ export function CarPartsSection() {
                           onClick={() => handleCardClick('body')}
                       >
                           <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-sm md:text-lg font-bold font-display text-white">ABS</span>
+                              <span className="text-sm md:text-lg font-bold text-white">ABS</span>
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">GÖVDE</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
+                              <h4 className={clsx("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'body' ? "text-red-600" : "text-white")}>DARBE & ISI DİRENCİ</h4>
                               <p className="text-[10px] md:text-base font-mono text-mono-400">Rijit yapı ile elektronik bileşen koruması. Sürüş titreşimlerine karşı yüksek mukavemet.</p>
                           </div>
                       </div>
 
                       {/* CARD 3: PLA-CF */}
                       <div
-                          className={classNames(
+                          className={clsx(
                               getCardClass('rim'), 
                               "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
@@ -249,18 +249,18 @@ export function CarPartsSection() {
                           onClick={() => handleCardClick('rim')}
                       >
                           <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-sm md:text-lg font-bold font-display text-white">CF</span>
+                              <span className="text-sm md:text-lg font-bold text-white">CF</span>
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">JANT</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
+                              <h4 className={clsx("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'rim' ? "text-red-600" : "text-white")}>KARBON FİBER KATKILI</h4>
                               <p className="text-[10px] md:text-base font-mono text-mono-400">PLA-CF ile yüksek sertlik ve hafiflik. Form bozulmadan maksimum yük taşıma kapasitesi.</p>
                           </div>
                       </div>
 
                       {/* CARD 4: TPU */}
                       <div
-                          className={classNames(
+                          className={clsx(
                               getCardClass('tire'), 
                               "flex gap-4 items-center absolute lg:relative inset-0 w-full h-full lg:h-auto transition-all duration-300",
                               {
@@ -271,11 +271,11 @@ export function CarPartsSection() {
                           onClick={() => handleCardClick('tire')}
                       >
                           <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 border-2 border-mono-700 flex flex-col items-center justify-center bg-black/50">
-                              <span className="text-sm md:text-lg font-bold font-display text-white">TPU</span>
+                              <span className="text-sm md:text-lg font-bold text-white">TPU</span>
                               <span className="text-[8px] md:text-[9px] text-mono-400 font-mono">LASTİK</span>
                           </div>
                           <div>
-                              <h4 className={classNames("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
+                              <h4 className={clsx("box-title text-base md:text-xl lg:text-2xl mb-1 transition-colors", activeStage === 'tire' ? "text-red-600" : "text-white")}>MAKSİMUM YOL TUTUŞ</h4>
                               <p className="text-[10px] md:text-base font-mono text-mono-400">Süspansiyon yükünü azaltan esnek yapı. Zemin bozukluklarını sönümleyen termoplastik.</p>
                           </div>
                       </div>

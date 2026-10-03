@@ -1,67 +1,31 @@
-"use client";
-
-import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOnClickOutside, useMediaQuery } from "usehooks-ts";
+import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
 interface Tab {
   title: string;
   icon: LucideIcon;
-  type?: never;
 }
-
-interface Separator {
-  type: "separator";
-  title?: never;
-  icon?: never;
-}
-
-type TabItem = Tab | Separator;
 
 interface ExpandableTabsProps {
-  tabs: TabItem[];
+  tabs: Tab[];
+  activeTabIndex: number | null;
+  onChange: (index: number) => void;
   className?: string;
   activeColor?: string;
-  onChange?: (index: number | null) => void;
-  activeTabIndex?: number | null;
 }
 
 export function ExpandableTabs({
   tabs,
-  className,
-  activeColor = "text-primary",
-  onChange,
   activeTabIndex,
+  onChange,
+  className,
+  activeColor,
 }: ExpandableTabsProps) {
-  const [internalSelected, setInternalSelected] = React.useState<number | null>(null);
-  const outsideClickRef = React.useRef(null);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const isControlled = activeTabIndex !== undefined;
-  const selected = isControlled ? activeTabIndex : internalSelected;
-
-  useOnClickOutside(outsideClickRef, () => {
-    if (!isControlled) {
-      setInternalSelected(null);
-    }
-    onChange?.(null);
-  });
-
-  const handleSelect = (index: number) => {
-    if (!isControlled) {
-      setInternalSelected(index);
-    }
-    onChange?.(index);
-  };
-
   const buttonVariants = {
-    initial: {
-      gap: 0,
-      paddingLeft: isMobile ? ".25rem" : ".5rem",
-      paddingRight: isMobile ? ".25rem" : ".5rem",
-    },
     animate: (isSelected: boolean) => ({
       gap: isSelected ? (isMobile ? ".25rem" : ".5rem") : 0,
       paddingLeft: isSelected ? (isMobile ? ".75rem" : "1rem") : (isMobile ? ".25rem" : ".5rem"),
@@ -77,43 +41,33 @@ export function ExpandableTabs({
 
   const transition = { delay: 0.1, type: "spring" as const, bounce: 0, duration: 0.6 };
 
-  const Separator = () => (
-    <div className="mx-1 h-[24px] w-[1.2px] bg-border" aria-hidden="true" />
-  );
-
   return (
     <div
-      ref={outsideClickRef}
       className={cn(
-        "flex flex-wrap items-center gap-1 md:gap-2 rounded-xl md:rounded-2xl border bg-background p-1 shadow-sm",
+        "flex flex-wrap items-center gap-1 md:gap-2 rounded-xl md:rounded-2xl border p-1 shadow-sm",
         className
       )}
     >
       {tabs.map((tab, index) => {
-        if (tab.type === "separator") {
-          return <Separator key={`separator-${index}`} />;
-        }
-
         const Icon = tab.icon;
+        const isSelected = activeTabIndex === index;
         return (
           <motion.button
             key={tab.title}
             variants={buttonVariants}
             initial={false}
             animate="animate"
-            custom={selected === index}
-            onClick={() => handleSelect(index)}
+            custom={isSelected}
+            onClick={() => onChange(index)}
             transition={transition}
             className={cn(
               "relative flex items-center rounded-lg md:rounded-xl px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium transition-colors duration-300",
-              selected === index
-                ? cn("bg-muted", activeColor)
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              isSelected ? activeColor : "hover:bg-mono-700/40 hover:text-mono-0"
             )}
           >
             <Icon className="w-4 h-4 md:w-5 md:h-5" />
             <AnimatePresence initial={false}>
-              {selected === index && (
+              {isSelected && (
                 <motion.span
                   variants={spanVariants}
                   initial="initial"

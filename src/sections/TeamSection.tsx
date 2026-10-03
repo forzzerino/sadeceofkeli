@@ -134,7 +134,7 @@ export function TeamSection() {
                 <div className="w-[25%] overflow-hidden bg-mono-700 relative">
                   <div className="w-full h-full">
                      <img
-                       src={member.image || "/placeholder.svg"}
+                       src={member.image}
                        alt={member.name}
                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300 absolute inset-0"
                      />
@@ -191,7 +191,7 @@ export function TeamSection() {
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-[#111] flex-shrink-0">
                     <img
-                      src={member.image || "/placeholder.svg"}
+                      src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover grayscale"
                     />

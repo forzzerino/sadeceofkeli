@@ -7,19 +7,12 @@ import SystemArchitecture from "../components/SystemArchitecture";
 gsap.registerPlugin(ScrollTrigger);
 
 export function AIPerformanceSection() {
-  // TypeScript: Ref tiplerini HTML elementlerine göre belirliyoruz
   const containerRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  // Bir dizi elementi tutacağımız için başlangıç değeri boş dizi
-  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   useLayoutEffect(() => {
     // Context scope'u containerRef olarak belirliyoruz
     const ctx = gsap.context(() => {
-      
-
-
-      // 3. Rakamların Sayması (Counter Effect)
+      // Rakamların Sayması (Counter Effect)
       if (containerRef.current) {
         // Scoped selection to avoid conflicts
         const numbers = containerRef.current.querySelectorAll(".stat-number");
@@ -56,22 +49,12 @@ export function AIPerformanceSection() {
     return () => ctx.revert();
   }, []);
 
-  // Ref Callback fonksiyonu için tip tanımı
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
-
   return (
     <section ref={containerRef} className="bg-transparent text-mono-0 section-padding overflow-hidden relative">
-      {/* Arkaplan Deseni - Managed by Global CSS now, but kept for local overrides or removed if global matches */}
-
-
       <div className="mx-auto relative z-10">
         
         {/* HEADER SECTION */}
-        <div ref={titleRef} className="section-header-container">
+        <div className="section-header-container">
           <h2 className="section-title-large">
             YAPAY ZEKA & <span className="text-red-600">PERFORMANS</span>
           </h2>
@@ -84,7 +67,7 @@ export function AIPerformanceSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* CARD 1: LANE TRACKING */}
-          <div ref={addToRefs} className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-red-600/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
+          <div className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-red-600/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
             <div className="absolute top-0 right-0 w-24 h-1 bg-red-600"></div>
             
             <div className="w-full">
@@ -145,7 +128,7 @@ export function AIPerformanceSection() {
           </div>
 
           {/* CARD 2: OBJECT DETECTION */}
-          <div ref={addToRefs} className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-blue-500/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
+          <div className="bg-mono-900 border border-mono-700 p-8 relative group overflow-hidden transition-all hover:border-blue-500/50 hover:shadow-2xl duration-300 h-full flex flex-col justify-between">
              <div className="absolute top-0 right-0 w-24 h-1 bg-blue-500"></div>
 
              <div className="w-full">

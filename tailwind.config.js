@@ -4,15 +4,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: [
-    'text-nitro-blue',
-    'text-race-red',
-    'bg-nitro-blue',
-    'bg-race-red',
-    'border-nitro-blue',
-    'border-race-red',
-    'via-nitro-blue',
-  ],
   theme: {
     extend: {
       colors: {
@@ -34,29 +25,11 @@ export default {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
         'mono': ['"Roboto Mono"', 'ui-monospace', 'monospace'],
-      }, fontSize: {
-        'hero': ['5rem', '1.1'],
-        'h1': ['3rem', '1.2'],
-        'h2': ['2rem', '1.3'],
-        'h3': ['1.5rem', '1.4'],
-        'body': ['1rem', '1.6'],
+      },
+      fontSize: {
         'small': ['0.875rem', '1.5'],
         'xs': ['0.75rem', '1.4'],
       },
-      keyframes: {
-        bounce: {
-          '0%, 100%': { transform: 'translateY(-25%)', animationTimingFunction: 'cubic-bezier(0.8,0,1,1)' },
-          '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0,0,0.2,1)' },
-        },
-        pulse: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '.5' },
-        }
-      },
-      animation: {
-        bounce: 'bounce 1s infinite',
-        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      }
     },
   },
   plugins: [],
