@@ -221,7 +221,7 @@ export function AIPerformanceSection() {
       </div>
     </section>
   );
-};
+}
 
 
 // Donut Chart Component

@@ -3,6 +3,7 @@ import { Layers } from 'lucide-react';
 import classNames from 'classnames';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLenis } from '@studio-freight/react-lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,8 +14,10 @@ export function CarPartsSection() {
     const progressBarRef = useRef<HTMLDivElement>(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const [activeStage, setActiveStage] = useState<LayerType>('material');
+    const lenis = useLenis();
 
     useLayoutEffect(() => {
+        let refreshTimer: ReturnType<typeof setTimeout> | undefined;
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -46,35 +49,39 @@ export function CarPartsSection() {
 
             // Force refresh to ensure start/end positions are correct after render
             // This fixes the issue where tabs behave erratically in production builds
-            setTimeout(() => {
+            refreshTimer = setTimeout(() => {
                 ScrollTrigger.refresh();
             }, 100);
 
         }, containerRef);
 
-        return () => ctx.revert();
+        return () => {
+            clearTimeout(refreshTimer);
+            ctx.revert();
+        };
     }, []);
 
     const handleCardClick = (targetStage: LayerType) => {
         if (!timelineRef.current || !timelineRef.current.scrollTrigger) return;
 
-        // Calculate target progress based on stage centers
+        // Target the center of each stage's band in onUpdate (0.2 wide each)
         let targetProgress = 0;
         switch (targetStage) {
-            case 'complete': targetProgress = 0.25; break; // Center of 16.6-33.3
-            case 'body': targetProgress = 0.416; break; // Center of 33.3-50
-            case 'rim': targetProgress = 0.583; break; // Center of 50-66.6
-            case 'tire': targetProgress = 0.75; break; // Center of 66.6-83.3
+            case 'complete': targetProgress = 0.3; break; // 0.2-0.4
+            case 'body': targetProgress = 0.5; break; // 0.4-0.6
+            case 'rim': targetProgress = 0.7; break; // 0.6-0.8
+            case 'tire': targetProgress = 0.9; break; // 0.8-1.0
             default: return;
         }
 
         const st = timelineRef.current.scrollTrigger;
         const targetScroll = st.start + (st.end - st.start) * targetProgress;
 
-        window.scrollTo({
-            top: targetScroll,
-            behavior: 'smooth'
-        });
+        if (lenis) {
+            lenis.scrollTo(targetScroll, { duration: 1.2 });
+        } else {
+            window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        }
     };
 
     // Helper to render image layer (standard active/inactive)

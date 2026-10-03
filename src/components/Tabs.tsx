@@ -8,6 +8,17 @@ import { AnimatePresence, motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Define tabs with corresponding section IDs
+const navItems = [
+  { title: "Giriş", icon: Home, id: "scroll-tunnel" },
+  { title: "Teknoloji", icon: Cpu, id: "tech-stack" },
+  { title: "Parçalar", icon: Puzzle, id: "car-parts" },
+  { title: "AI", icon: Brain, id: "ai-performance" },
+  { title: "Süreç", icon: GitGraph, id: "gantt-chart" },
+  { title: "Ekip", icon: Users, id: "team" },
+  { title: "Galeri", icon: Image, id: "gallery" },
+];
+
 export function Navigation() {
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -16,7 +27,7 @@ export function Navigation() {
   const lenisInstance = useLenis();
 
   // Subscription for visibility - runs on scroll
-  useLenis((lenis: any) => {
+  useLenis((lenis) => {
     // Hide if at top (< 200px) OR at bottom (within 100px of limit)
     const isAtBottom = lenis.scroll > (lenis.limit - 100);
 
@@ -27,20 +38,9 @@ export function Navigation() {
     }
   });
 
-  // Define tabs with corresponding section IDs
-  const navItems = [
-    { title: "Giriş", icon: Home, id: "scroll-tunnel" },
-    { title: "Teknoloji", icon: Cpu, id: "tech-stack" },
-    { title: "Parçalar", icon: Puzzle, id: "car-parts" },
-    { title: "AI", icon: Brain, id: "ai-performance" },
-    { title: "Süreç", icon: GitGraph, id: "gantt-chart" },
-    { title: "Ekip", icon: Users, id: "team" },
-    { title: "Galeri", icon: Image, id: "gallery" },
-  ];
-
   const handleTabChange = (index: number | null) => {
     if (index === null) return;
-    
+
     // Optimistic update
     setActiveTab(index);
     
@@ -62,6 +62,7 @@ export function Navigation() {
   useEffect(() => {
     // Determine active section based on scroll position using GSAP ScrollTrigger
     const triggers: ScrollTrigger[] = [];
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     const initTriggers = () => {
       ScrollTrigger.refresh();
@@ -92,22 +93,32 @@ export function Navigation() {
 
       // Retry if some elements are missing (lazy loading)
       if (missingCount > 0) {
-        setTimeout(initTriggers, 500);
+        timer = setTimeout(initTriggers, 500);
       }
     };
 
     // Initial init
-    const timer = setTimeout(initTriggers, 500);
+    timer = setTimeout(initTriggers, 500);
 
-    // Safety check loop for layout shifts
-    const checkInterval = setInterval(() => {
-      ScrollTrigger.refresh();
-    }, 2000);
+    // Refresh only when the page height actually changes (lazy sections,
+    // images loading). A blind refresh every 2s re-measured all pins mid-scroll
+    // and caused visible jumps.
+    let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+    let lastHeight = document.body.scrollHeight;
+    const resizeObserver = new ResizeObserver(() => {
+      const height = document.body.scrollHeight;
+      if (height === lastHeight) return;
+      lastHeight = height;
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    resizeObserver.observe(document.body);
 
     // Cleanup
     return () => {
       clearTimeout(timer);
-      clearInterval(checkInterval);
+      clearTimeout(refreshTimer);
+      resizeObserver.disconnect();
       triggers.forEach(t => t.kill());
     };
   }, []);

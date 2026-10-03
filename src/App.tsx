@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, Suspense, lazy } from 'react';
+import { useEffect, useRef, useState, Suspense, lazy, type ComponentType, type ElementRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Canvas } from '@react-three/fiber';
@@ -19,8 +19,8 @@ const CarPartsSection = lazy(() => import('./sections/CarPartsSection').then(tra
 const GallerySection = lazy(() => import('./sections/GallerySection')); // Default export
 
 // Helper for named exports
-function transformNamed(name: string) {
-  return (module: any) => ({ default: module[name] });
+function transformNamed<K extends string>(name: K) {
+  return (module: Record<K, ComponentType>) => ({ default: module[name] });
 }
 
 gsap.registerPlugin(ScrollTrigger);
@@ -28,7 +28,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [start, setStart] = useState(false);
   const [lowQuality, setLowQuality] = useState(false); // Optimization state
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<ElementRef<typeof ReactLenis>>(null);
 
   // Scroll Lock & Visibility Logic
   useEffect(() => {
@@ -58,11 +58,11 @@ export default function App() {
 
   // Force refresh for scroll triggers
   useEffect(() => {
-    if (start) {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 500);
-     }
+    if (!start) return;
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+    return () => clearTimeout(timer);
   }, [start]);
 
   return (
@@ -96,7 +96,7 @@ export default function App() {
                   className="bg-black"
                   camera={{ fov: 12 }}
                   gl={{ antialias: false, stencil: false, depth: true }}
-                  dpr={[1, 1.5]} 
+                  dpr={[1, 1.5]}
                 >
                   <PerformanceMonitor onDecline={() => setLowQuality(true)} />
                   <AdaptiveDpr pixelated />

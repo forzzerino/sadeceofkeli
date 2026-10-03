@@ -1,5 +1,5 @@
 import { useGLTF, MeshReflectorMaterial } from '@react-three/drei';
-import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import React, { useLayoutEffect, useRef, useState, useEffect, useMemo } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -60,65 +60,60 @@ const Experience: React.FC<{ lowQuality?: boolean }> = ({ lowQuality = false }) 
     camera.lookAt(camTarget.current.x, camTarget.current.y, camTarget.current.z);
   });
   
-  // Create a timeline reference to kill it on unmount
-  const timeline = useRef<gsap.core.Timeline | null>(null);
+  // --- MATERIAL SETUP (X-Ray) ---
+  // Runs once per scene. Re-running would clone already-cloned materials and
+  // capture their current (possibly faded) opacity as the new baseline.
+  const { bodyParts, skeletonParts } = useMemo(() => {
+    const bodyParts: Material[] = [];     // For Opacity Control (X-Ray)
+    const skeletonParts: Material[] = []; // For Opacity Control (X-Ray)
+
+    scene.traverse((child: Object3D) => {
+      const mesh = child as Mesh;
+      if (!mesh.isMesh || Array.isArray(mesh.material)) return;
+
+      const n = mesh.name.toLowerCase();
+      const p = mesh.parent ? mesh.parent.name.toLowerCase() : "";
+      const checkName = n + " " + p;
+
+      // 1. External Body (To Hide in S3, opacity -> 0)
+      if (checkName.includes('govde') || checkName.includes('bumper') || checkName.includes('sase_kanat')) {
+        mesh.material = mesh.material.clone();
+        mesh.material.transparent = true;
+        bodyParts.push(mesh.material);
+      }
+      // 2. Skeleton / Chassis / Wheels (To Fade in S3, opacity -> 0.05)
+      else if (checkName.includes('iskelet') || checkName.includes('aks') || checkName.includes('tekerlek')) {
+        mesh.material = mesh.material.clone();
+        mesh.material.transparent = true;
+        skeletonParts.push(mesh.material);
+      }
+      // 3. Electronics stay at opacity 1
+    });
+
+    return { bodyParts, skeletonParts };
+  }, [scene]);
+
+  // Shadows depend on quality only; keep them out of the scroll timeline so a
+  // PerformanceMonitor decline doesn't rebuild the timeline mid-scroll.
+  useEffect(() => {
+    const enableShadows = device !== 'mobile' && !lowQuality;
+    scene.traverse((child: Object3D) => {
+      if ((child as Mesh).isMesh) {
+        child.castShadow = enableShadows;
+        child.receiveShadow = enableShadows;
+      }
+    });
+  }, [scene, device, lowQuality]);
 
   useLayoutEffect(() => {
     if (!modelRef.current) return;
 
-    (window as any).modelScene = scene; // Expose for debugging
-
-    // --- MATERIAL & MESH SETUP ---
-    const bodyParts: Material[] = [];     // For Opacity Control (X-Ray)
-    const skeletonParts: Material[] = []; // For Opacity Control (X-Ray)
-    const electronicsMeshes: Object3D[] = []; 
-
-    scene.traverse((child: Object3D) => {
-      if ((child as Mesh).isMesh) {
-        const mesh = child as Mesh;
-        const n = mesh.name.toLowerCase(); 
-        const p = mesh.parent ? mesh.parent.name.toLowerCase() : "";
-        const checkName = n + " " + p; 
-
-        // Use standard shadow properties if not mobile and not lowQuality
-        const enableShadows = device !== 'mobile' && !lowQuality;
-        mesh.castShadow = enableShadows;
-        mesh.receiveShadow = enableShadows;
-
-        // --- CATEGORIZE FOR X-RAY ---
-        // 1. External Body (To Hide in S3, opacity -> 0)
-        if (checkName.includes('govde') || checkName.includes('bumper') || checkName.includes('sase_kanat')) {
-          if (!Array.isArray(mesh.material)) {
-             mesh.material = mesh.material.clone();
-             mesh.material.transparent = true;
-             bodyParts.push(mesh.material);
-          }
-        }
-        // 2. Skeleton / Chassis / Wheels (To Fade in S3, opacity -> 0.05)
-        else if (checkName.includes('iskelet') || checkName.includes('aks') || checkName.includes('tekerlek')) {
-          if (!Array.isArray(mesh.material)) {
-             mesh.material = mesh.material.clone();
-             mesh.material.transparent = true;
-             skeletonParts.push(mesh.material);
-          }
-        }
-        // 3. Electronics (Stay Opacity 1 in S3)
-        else {
-             if (!Array.isArray(mesh.material)) {
-                 mesh.material = mesh.material.clone();
-                 electronicsMeshes.push(mesh);
-             }
-        }
-      }
-    });
-
     // 1. Initial Camera Setup (Hero State)
     const config = CAMERA_CONFIG[device];
 
-    // 2. Kill old ScrollTriggers
-    ScrollTrigger.getAll().forEach(t => t.kill());
-
-    // 3. Create Timeline with Snap
+    // 2. Create Timeline with Snap
+    // Every tween uses explicit start values so the timeline is correct even
+    // when rebuilt while scrolled (e.g. on a breakpoint change).
     const tl = gsap.timeline({
       defaults: { ease: "power2.inOut" },
       scrollTrigger: {
@@ -136,18 +131,16 @@ const Experience: React.FC<{ lowQuality?: boolean }> = ({ lowQuality = false }) 
       }
     });
 
-    timeline.current = tl;
-
     // --- ANIMATION SEQUENCE ---
 
     // 1. Hero -> Intro (0 -> 1)
-    tl.fromTo(camera.position, 
+    tl.fromTo(camera.position,
         { x: config.hero.pos.x, y: config.hero.pos.y, z: config.hero.pos.z },
         { x: config.intro.pos.x, y: config.intro.pos.y, z: config.intro.pos.z, duration: 1 }, 0)
       .fromTo(camTarget.current,
         { x: config.hero.look.x, y: config.hero.look.y, z: config.hero.look.z },
         { x: config.intro.look.x, y: config.intro.look.y, z: config.intro.look.z, duration: 1 }, 0)
-      .to(modelRef.current.rotation, { y: -Math.PI / 2, duration: 1 }, 0); 
+      .fromTo(modelRef.current.rotation, { y: 0 }, { y: -Math.PI / 2, duration: 1 }, 0);
 
     // 2. Intro -> Chassis (1 -> 2)
     tl.to(camera.position, { x: config.chassis.pos.x, y: config.chassis.pos.y, z: config.chassis.pos.z, duration: 1 }, 1)
@@ -158,20 +151,22 @@ const Experience: React.FC<{ lowQuality?: boolean }> = ({ lowQuality = false }) 
     tl.to(camera.position, { x: config.electronics.pos.x, y: config.electronics.pos.y, z: config.electronics.pos.z, duration: 1 }, 2)
       .to(modelRef.current.rotation, { x: 0, y: -Math.PI / 2, duration: 1 }, 2)
       .to(camTarget.current, { x: config.electronics.look.x, y: config.electronics.look.y, z: config.electronics.look.z, duration: 1 }, 2)
-      .to(bodyParts, { opacity: 0, duration: 1 }, 2)
-      .to(skeletonParts, { opacity: 0.05, duration: 1 }, 2);
+      .fromTo(bodyParts, { opacity: 1 }, { opacity: 0, duration: 1, immediateRender: false }, 2)
+      .fromTo(skeletonParts, { opacity: 1 }, { opacity: 0.05, duration: 1, immediateRender: false }, 2);
 
     // 4. Electronics -> Exploded (3 -> 4)
     tl.to(camera.position, { x: config.exploded.pos.x, y: config.exploded.pos.y, z: config.exploded.pos.z, duration: 1 }, 3)
       .to(camTarget.current, { x: config.exploded.look.x, y: config.exploded.look.y, z: config.exploded.look.z, duration: 1 }, 3)
-      .to(bodyParts, { opacity: 1, duration: 1 }, 3)
-      .to(skeletonParts, { opacity: 1, duration: 1 }, 3);
+      .fromTo(bodyParts, { opacity: 0 }, { opacity: 1, duration: 1, immediateRender: false }, 3)
+      .fromTo(skeletonParts, { opacity: 0.05 }, { opacity: 1, duration: 1, immediateRender: false }, 3);
 
     return () => {
-        if (timeline.current) timeline.current.kill();
-        ScrollTrigger.getAll().forEach(t => t.kill());
+        // Only kill this component's own trigger. Killing every ScrollTrigger
+        // here also destroyed the pins/animations of the sections below.
+        tl.scrollTrigger?.kill();
+        tl.kill();
     };
-  }, [camera, scene, device, lowQuality]); // Re-run if quality changes (to update shadows)
+  }, [camera, device, bodyParts, skeletonParts]);
 
   const isMobile = device === 'mobile';
 

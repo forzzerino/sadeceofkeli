@@ -3,10 +3,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+/* Lenis recommended styles. Native `scroll-behavior: smooth` must stay off:
+   Lenis writes scrollTop every frame and the browser would animate each write. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
@@ -98,6 +115,6 @@ body {
   }
 
   .box-subtitle {
-    @apply text-[px] md:text-sm font-mono text-mono-400 mb-4 tracking-wider uppercase;
+    @apply md:text-sm font-mono text-mono-400 mb-4 tracking-wider uppercase;
   }
 }
